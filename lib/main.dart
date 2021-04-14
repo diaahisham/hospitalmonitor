@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
-import 'package:hospitalmonitor/ui/views/widgets/home_view.dart';
+import 'package:hospitalmonitor/ui/views/home_view.dart';
 import 'package:hospitalmonitor/services/router.dart' as router;
 
 Future<void> main() async {
