@@ -30,15 +30,15 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      userName: json["UserName"] as String,
-      password: json["Password"] as String,
-      mobileNumber: json["MobileNumber"] as String,
-      address: json["Address"] as String,
-      type: UserType.values[json["Type"] as int],
+      userName: json["UserName"] ?? "",
+      password: json["Password"] ?? "",
+      mobileNumber: json["MobileNumber"] ?? "",
+      address: json["Address"] ?? "",
+      type: UserType.values[json["Type"] ?? 0],
     );
   }
   @override
   String toString() {
-    return '{"UserName":"${this.userName}","Password":"${this.password}"}';
+    return '{"UserName":"${this.userName}","Password":"${this.password}","MobileNumber":"${this.mobileNumber}","Address":"${this.address}","Type":${this.type.index}}';
   }
 }

@@ -7,7 +7,7 @@ import 'package:hospitalmonitor/buisness_logic/utils/route_paths.dart'
 
 class HomeViewModel {
   void goToLoginPage(UserType user) {
-    serviceLocator<CurrentSessionService>().loggedUser.type = user;
+    serviceLocator<CurrentSessionService>().loggedUser = UserModel(type: user);
     serviceLocator<NavigationService>().navigateTo(routes.LoginRoute);
   }
 }
