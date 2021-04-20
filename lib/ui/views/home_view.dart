@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospitalmonitor/buisness_logic/models/user_model.dart';
-import 'package:hospitalmonitor/buisness_logic/view_models/home_viewModel.dart';
+import 'package:hospitalmonitor/business_logic/models/user_model.dart';
+import 'package:hospitalmonitor/business_logic/view_models/home_viewModel.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hospitalmonitor/buisness_logic/view_models/login_viewModel.dart';
+import 'package:hospitalmonitor/business_logic/view_models/login_viewModel.dart';
 import 'package:provider/provider.dart';
 
 class LoginView extends StatelessWidget {
@@ -61,7 +61,6 @@ class LoginView extends StatelessWidget {
                             autofocus: true,
                             onChanged: (value) => model.user.userName = value,
                             decoration: InputDecoration(
-                              //hintText: 'User name',
                               labelText: 'username: ',
                               border: InputBorder.none,
                             ),
@@ -90,10 +89,10 @@ class LoginView extends StatelessWidget {
                               }
                               return null;
                             },
-                            keyboardType: TextInputType.visiblePassword,
-                            onChanged: (value) => model.user.userName = value,
+                            keyboardType: TextInputType.text,
+                            obscureText: true,
+                            onChanged: (value) => model.user.password = value,
                             decoration: InputDecoration(
-                              //hintText: 'User name',
                               labelText: 'password: ',
                               border: InputBorder.none,
                             ),
@@ -124,6 +123,21 @@ class LoginView extends StatelessWidget {
                                   color: Colors.white,
                                   fontSize: 18,
                                 ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          child: Center(
+                            child: ValueListenableBuilder(
+                              valueListenable: model.wrongCredentialsText,
+                              builder: (context, value, child) => Text(
+                                model.wrongCredentialsText.value,
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
