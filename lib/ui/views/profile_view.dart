@@ -252,13 +252,13 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: HtmlElementView(
-                    viewType:
-                        '<img src="https://craftassets-prod.s3.amazonaws.com/Blog/_thumbnail/Know-About-Becoming-a-Doctor.png" alt="Italian Trulli">',
-                  ),
-                )
+                // Expanded(
+                //   flex: 1,
+                //   child: HtmlElementView(
+                //     viewType:
+                //         '<img src="https://craftassets-prod.s3.amazonaws.com/Blog/_thumbnail/Know-About-Becoming-a-Doctor.png" alt="Italian Trulli">',
+                //   ),
+                // )
               ],
             ),
           ),
