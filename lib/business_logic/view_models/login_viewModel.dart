@@ -14,7 +14,7 @@ class LoginViewModel {
   ValueNotifier<String> wrongCredentialsText = ValueNotifier<String>('');
   String title = '';
   LoginViewModel() {
-    user.type = serviceLocator<CurrentSessionService>().loggedUserType.type;
+    user.type = serviceLocator<CurrentSessionService>().loggedUser.type;
     this.title = this.user.type.toString().replaceAll('UserType.', '');
     title = title.replaceFirst(title[0], title[0].toUpperCase());
     wrongCredentialsText.value = '';
@@ -23,7 +23,7 @@ class LoginViewModel {
   void submitLogin() {
     try {
       serviceLocator<LoginService>().login(this.user);
-      serviceLocator<NavigationService>().navigateTo(routes.ProfileRoute);
+      serviceLocator<NavigationService>().popAndNavigateTo(routes.ProfileRoute);
     } on Exception catch (e) {
       wrongCredentialsText.value = e.toString().substring(11);
     }

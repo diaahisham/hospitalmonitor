@@ -12,14 +12,12 @@ class CurrentSessionService {
   CurrentSessionService() {
     if (!window.sessionStorage.containsKey(this.sessionKey)) {
       String encryptedUserData = serviceLocator<EncryptionService>()
-          .encryptDataString(
-              message:
-                  '{"Type":${this._loggedUser.type.index},"Token":"${this._loggedUser.token}"}');
+          .encryptDataString(message: _loggedUser.toString());
       window.sessionStorage[this.sessionKey] = encryptedUserData;
     }
   }
 
-  UserModel get loggedUserType {
+  UserModel get loggedUser {
     String? user = window.sessionStorage[this.sessionKey];
     if (user != null) {
       user = serviceLocator<EncryptionService>()
@@ -29,14 +27,17 @@ class CurrentSessionService {
       return _loggedUser;
   }
 
-  set loggedUserType(UserModel user) {
+  set loggedUser(UserModel user) {
     this._loggedUser = user;
     String encryptedUserData = serviceLocator<EncryptionService>()
-        .encryptDataString(
-            message:
-                '{"Type":${this._loggedUser.type.index},"Token":"${this._loggedUser.token}"}');
+        .encryptDataString(message: this._loggedUser.toString());
     window.sessionStorage[this.sessionKey] = encryptedUserData;
   }
 
-  UserModel get loggedUserData => this._loggedUser;
+  void logout() {
+    if (!window.sessionStorage.containsKey(this.sessionKey)) {
+      window.sessionStorage[this.sessionKey] = '';
+      _loggedUser = UserModel();
+    }
+  }
 }

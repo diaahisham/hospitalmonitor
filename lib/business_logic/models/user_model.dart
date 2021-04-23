@@ -8,6 +8,7 @@ class UserModel {
   String email;
   UserType type;
   String token;
+  String photo;
 
   UserModel({
     this.userName = '',
@@ -17,6 +18,7 @@ class UserModel {
     this.email = '',
     this.type = UserType.notDefined,
     this.token = '',
+    this.photo = '',
   });
 
   Map<String, dynamic> toJson() {
@@ -28,6 +30,7 @@ class UserModel {
       '"Address"': this.address,
       '"Type"': this.type.index,
       '"Token"': this.token,
+      '"Photo"': this.photo,
     };
   }
 
@@ -36,13 +39,15 @@ class UserModel {
       userName: json["UserName"] ?? "",
       password: json["Password"] ?? "",
       mobileNumber: json["MobileNumber"] ?? "",
+      email: json["Email"] ?? "",
       address: json["Address"] ?? "",
+      photo: json["Photo"] ?? "",
       type: UserType.values[json["Type"] ?? 0],
       token: json["Token"] ?? '',
     );
   }
   @override
   String toString() {
-    return '{"UserName":"${this.userName}","Password":"${this.password}","MobileNumber":"${this.mobileNumber}","Address":"${this.address}","Type":${this.type.index},"Token":"${this.token}"}';
+    return '{"UserName":"${this.userName}","Password":"${this.password}","Email":"${this.email}","MobileNumber":"${this.mobileNumber}","Address":"${this.address}","Type":${this.type.index},"Token":"${this.token}","Photo":"${this.photo}"}';
   }
 }

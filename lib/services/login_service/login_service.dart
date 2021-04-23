@@ -11,6 +11,8 @@ class LoginService {
     mobileNumber: '0111',
     type: UserType.doctor,
     token: '',
+    photo:
+        'https://craftassets-prod.s3.amazonaws.com/Blog/_thumbnail/Know-About-Becoming-a-Doctor.png',
   );
 
   UserModel _patient = UserModel(
@@ -21,6 +23,8 @@ class LoginService {
     mobileNumber: '0112',
     type: UserType.patient,
     token: '',
+    photo:
+        'https://st2.depositphotos.com/1009634/7235/v/600/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg',
   );
 
   UserModel _analysit = UserModel(
@@ -31,6 +35,8 @@ class LoginService {
     mobileNumber: '0122',
     type: UserType.analysit,
     token: '',
+    photo:
+        'https://epi-rsc.rsc-cdn.org/globalassets/05-journals-books-databases/our-journals/00-cover-images/4932_an143010_ofc_publicity_f2c-900.jpg?version=63dab0c9&width=1120&format=jpg&quality=60',
   );
 
   UserModel _radiologist = UserModel(
@@ -41,6 +47,8 @@ class LoginService {
     mobileNumber: '0222',
     type: UserType.radiologist,
     token: '',
+    photo:
+        'https://cmescience.com/new/wp-content/uploads/2017/12/a-day-in-the-life-of-a-radiologist.jpg',
   );
 
   UserModel login(UserModel userRequest) {
@@ -62,7 +70,7 @@ class LoginService {
     if ((fromData.userName == userRequest.userName) &&
         (fromData.password == userRequest.password)) {
       // save the token to be used in further requests
-      serviceLocator<CurrentSessionService>().loggedUserType = fromData;
+      serviceLocator<CurrentSessionService>().loggedUser = fromData;
       return fromData;
     } else
       throw Exception('Wrong username or wrong password');
