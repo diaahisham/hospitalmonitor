@@ -22,7 +22,8 @@ class LoginViewModel {
 
   void submitLogin() {
     try {
-      serviceLocator<LoginService>().login(this.user);
+      UserModel loggedUser = serviceLocator<LoginService>().login(this.user);
+      serviceLocator<CurrentSessionService>().loggedUser = loggedUser;
       serviceLocator<NavigationService>().popAndNavigateTo(routes.ProfileRoute);
     } on Exception catch (e) {
       wrongCredentialsText.value = e.toString().substring(11);
