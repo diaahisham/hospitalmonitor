@@ -98,8 +98,8 @@ class LoginView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () => model.submitLogin(),
+                        TextButton(
+                          onPressed: () => model.submitLogin(),
                           child: Container(
                             height: 50,
                             width: 250,

@@ -10,8 +10,8 @@ class HomeView extends StatelessWidget {
     buttonText =
         buttonText.replaceFirst(buttonText[0], buttonText[0].toUpperCase());
 
-    return GestureDetector(
-      onTap: () => model.goToLoginPage(userType),
+    return TextButton(
+      onPressed: () => model.goToLoginPage(userType),
       child: Container(
         height: 50,
         width: 130,
@@ -30,7 +30,8 @@ class HomeView extends StatelessWidget {
         child: Center(
           child: Text(
             buttonText,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
       ),

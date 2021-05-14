@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
-import 'package:hospitalmonitor/services/login_service/login_service.dart';
+import 'package:hospitalmonitor/services/edit_user_service/edit_user_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
@@ -10,24 +10,25 @@ import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
 class ProfileViewModel {
   final formKey = GlobalKey<FormState>();
   UserModel currentUser = UserModel();
-  UserModel newUser = UserModel();
   ValueNotifier<bool> edittingMode = ValueNotifier<bool>(false);
-  String oldPassword = '';
 
   ProfileViewModel() {
     this.currentUser = serviceLocator<CurrentSessionService>().loggedUser;
   }
 
   void cancelEditting() {
+    this.currentUser = serviceLocator<CurrentSessionService>().loggedUser;
     edittingMode.value = false;
-    newUser = UserModel();
   }
 
-  void submitEditting() {}
-
-  void logout() {
-    serviceLocator<CurrentSessionService>().logout();
-    serviceLocator<NavigationService>().popAndNavigateTo(routes.HomeRoute);
+  Future<void> submitEditting() async {
+    if (edittingMode.value) {
+      EditUserService editUserService = EditUserService();
+      await editUserService.editUser(currentUser);
+      edittingMode.value = false;
+    } else {
+      edittingMode.value = true;
+    }
   }
 
   String getUserTypeAsString() {
@@ -37,7 +38,8 @@ class ProfileViewModel {
   }
 
   Future<void> changePicture() async {
-    await serviceLocator<LoginService>().changePicture();
+    EditUserService editUserService = EditUserService();
+    await editUserService.changePicture();
     serviceLocator<NavigationService>().popAndNavigateTo(routes.ProfileRoute);
   }
 }

@@ -5,7 +5,7 @@ import 'package:hospitalmonitor/business_logic/utils/profileImages.dart'
 List<UserModel> doctors = [
   UserModel(
     userID: "0",
-    userName: 'doctor',
+    userName: 'Ahmed',
     password: 'doctor',
     address: '5 Doctor Street',
     email: 'doctor@gmail.com',
@@ -16,7 +16,7 @@ List<UserModel> doctors = [
   ),
   UserModel(
     userID: "1",
-    userName: 'doctor1',
+    userName: 'Ahmed1',
     password: 'doctor1',
     address: '5 Doctor_1 Street',
     email: 'doctor1@gmail.com',
@@ -27,7 +27,7 @@ List<UserModel> doctors = [
   ),
   UserModel(
     userID: "2",
-    userName: 'doctor2',
+    userName: 'Ahmed2',
     password: 'doctor2',
     address: '5 Doctor_2 Street',
     email: 'doctor2@gmail.com',

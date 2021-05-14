@@ -1,17 +1,10 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/business_logic/utils/analysts.dart';
 import 'package:hospitalmonitor/business_logic/utils/doctors.dart';
 import 'package:hospitalmonitor/business_logic/utils/patients.dart';
 import 'package:hospitalmonitor/business_logic/utils/radiologists.dart';
-import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
-import 'package:hospitalmonitor/services/service_locator.dart';
+
 //import 'package:http/http.dart' as http;
-import 'package:image_picker_web/image_picker_web.dart';
-import 'package:hospitalmonitor/business_logic/utils/profileImages.dart'
-    as profileImages;
 
 class LoginService {
   UserModel login(UserModel userRequest) {
@@ -44,14 +37,5 @@ class LoginService {
       throw Exception('Wrong username or wrong password');
 
     return testModel;
-  }
-
-  Future<void> changePicture() async {
-    var fromPicker = await ImagePickerWeb.getImage(outputType: ImageType.bytes);
-    var buffer = fromPicker.buffer;
-    var m = base64.encode(Uint8List.view(buffer));
-    var user = serviceLocator<CurrentSessionService>().loggedUser;
-    user.photo = m;
-    serviceLocator<CurrentSessionService>().loggedUser = user;
   }
 }

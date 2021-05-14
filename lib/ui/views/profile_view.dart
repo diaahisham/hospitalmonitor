@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hospitalmonitor/business_logic/view_models/profile_viewModel.dart';
+import 'package:hospitalmonitor/ui/widgets/user_app_bar.dart';
+import 'package:hospitalmonitor/ui/widgets/user_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 class ProfileView extends StatelessWidget {
@@ -52,44 +54,8 @@ class ProfileView extends StatelessWidget {
         create: (BuildContext context) => ProfileViewModel(),
         child: Consumer<ProfileViewModel>(
           builder: (context, model, child) => Scaffold(
-            appBar: AppBar(
-              title: Text('User profile data'),
-              actions: [
-                GestureDetector(
-                  onTap: () => model.logout(),
-                  child: Container(
-                    height: 50,
-                    width: 100,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xffEA5B0C),
-                      borderRadius: BorderRadius.circular(50),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 6.0,
-                          spreadRadius: 0.0,
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Logout',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            bottomNavigationBar: Container(
-              color: Colors.blue,
-              height: 70,
-            ),
+            appBar: UserAppbar('Profile'),
+            bottomNavigationBar: UserNavigationBar(),
             backgroundColor: Colors.blue[100],
             body: Container(
               width: screenWidth,
@@ -109,6 +75,7 @@ class ProfileView extends StatelessWidget {
                             (model.edittingMode.value)
                                 ? _dataField(
                                     child: TextFormField(
+                                      initialValue: model.currentUser.userName,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Please enter user name';
@@ -118,7 +85,7 @@ class ProfileView extends StatelessWidget {
                                       keyboardType: TextInputType.name,
                                       autofocus: true,
                                       onChanged: (value) =>
-                                          model.newUser.userName = value,
+                                          model.currentUser.userName = value,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                       ),
@@ -135,10 +102,35 @@ class ProfileView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                            //password
+                            if (model.edittingMode.value)
+                              _labelWidget('Password'),
+                            if (model.edittingMode.value)
+                              _dataField(
+                                child: TextFormField(
+                                  initialValue: model.currentUser.password,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter password';
+                                    }
+                                    return null;
+                                  },
+                                  obscureText: true,
+                                  keyboardType: TextInputType.name,
+                                  autofocus: true,
+                                  onChanged: (value) =>
+                                      model.currentUser.password = value,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
                             _labelWidget('MobileNumber'),
                             (model.edittingMode.value)
                                 ? _dataField(
                                     child: TextFormField(
+                                      initialValue:
+                                          model.currentUser.mobileNumber,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Please enter mobile number';
@@ -146,8 +138,8 @@ class ProfileView extends StatelessWidget {
                                         return null;
                                       },
                                       keyboardType: TextInputType.number,
-                                      onChanged: (value) =>
-                                          model.newUser.mobileNumber = value,
+                                      onChanged: (value) => model
+                                          .currentUser.mobileNumber = value,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                       ),
@@ -168,6 +160,7 @@ class ProfileView extends StatelessWidget {
                             (model.edittingMode.value)
                                 ? _dataField(
                                     child: TextFormField(
+                                      initialValue: model.currentUser.email,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Please enter valid email';
@@ -176,7 +169,7 @@ class ProfileView extends StatelessWidget {
                                       },
                                       keyboardType: TextInputType.name,
                                       onChanged: (value) =>
-                                          model.newUser.email = value,
+                                          model.currentUser.email = value,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                       ),
@@ -197,6 +190,7 @@ class ProfileView extends StatelessWidget {
                             (model.edittingMode.value)
                                 ? _dataField(
                                     child: TextFormField(
+                                      initialValue: model.currentUser.address,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Please enter address';
@@ -205,7 +199,7 @@ class ProfileView extends StatelessWidget {
                                       },
                                       keyboardType: TextInputType.name,
                                       onChanged: (value) =>
-                                          model.newUser.address = value,
+                                          model.currentUser.address = value,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                       ),
@@ -223,34 +217,82 @@ class ProfileView extends StatelessWidget {
                                     ),
                                   ),
                             _labelWidget('User Type'),
-                            (model.edittingMode.value)
-                                ? _dataField(
-                                    child: TextFormField(
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter address';
-                                        }
-                                        return null;
-                                      },
-                                      keyboardType: TextInputType.name,
-                                      onChanged: (value) =>
-                                          model.newUser.address = value,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                      ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Text(
+                                model.getUserTypeAsString(),
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                TextButton(
+                                  onPressed: () => model.submitEditting(),
+                                  child: Container(
+                                    height: 50,
+                                    width: 200,
+                                    margin: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffEA5B0C),
+                                      borderRadius: BorderRadius.circular(50),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey,
+                                          offset: Offset(0.0, 1.0), //(x,y)
+                                          blurRadius: 6.0,
+                                          spreadRadius: 0.0,
+                                        ),
+                                      ],
                                     ),
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      model.getUserTypeAsString(),
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey,
+                                    child: Center(
+                                      child: Text(
+                                        (model.edittingMode.value)
+                                            ? "Done"
+                                            : "Edit",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                        ),
                                       ),
                                     ),
                                   ),
+                                ),
+                                if (model.edittingMode.value)
+                                  TextButton(
+                                    onPressed: () => model.cancelEditting(),
+                                    child: Container(
+                                      height: 50,
+                                      width: 200,
+                                      margin: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffEA5B0C),
+                                        borderRadius: BorderRadius.circular(50),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            offset: Offset(0.0, 1.0), //(x,y)
+                                            blurRadius: 6.0,
+                                            spreadRadius: 0.0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Cancel",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -267,8 +309,8 @@ class ProfileView extends StatelessWidget {
                             scale: 1,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () => model.changePicture(),
+                        TextButton(
+                          onPressed: () => model.changePicture(),
                           child: Container(
                             height: 50,
                             width: 200,
