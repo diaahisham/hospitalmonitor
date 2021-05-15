@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:hospitalmonitor/services/analyzes_control_service/analyzes_control_service.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/encryption_service/encryption_service.dart';
 import 'package:hospitalmonitor/services/login_service/login_service.dart';
@@ -18,4 +19,6 @@ void setupServiceLocator() {
       .registerSingleton<RadiosControlService>(RadiosControlService());
   serviceLocator
       .registerSingleton<PatientControlService>(PatientControlService());
+  serviceLocator
+      .registerSingleton<AnalyzesControlService>(AnalyzesControlService());
 }

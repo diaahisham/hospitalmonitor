@@ -1,12 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
-    as routes;
+import 'package:hospitalmonitor/services/analyzes_control_service/analyzes_control_service.dart';
+import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
 import 'package:hospitalmonitor/services/radios_control_service/radios_control_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
+import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
+    as routes;
 
-class RadiologistNavigationBar extends StatelessWidget {
+class PatientNavigationBar extends StatelessWidget {
   static int selectedIndex = 0;
   Future<void> _onItemTapped(int index) async {
     selectedIndex = index;
@@ -16,8 +17,15 @@ class RadiologistNavigationBar extends StatelessWidget {
         break;
       case 1:
         await serviceLocator<RadiosControlService>()
-            .fetchRadioModelsByRadiologistId();
+            .fetchRadioModelsByPatientId(
+                serviceLocator<CurrentSessionService>().loggedUser.userID);
         serviceLocator<NavigationService>().navigateTo(routes.RadiosRoute);
+        break;
+      case 1:
+        await serviceLocator<AnalyzesControlService>()
+            .fetchAnalysesModelsByPatientId(
+                serviceLocator<CurrentSessionService>().loggedUser.userID);
+        serviceLocator<NavigationService>().navigateTo(routes.AnalysisRoute);
         break;
 
       default:
@@ -35,6 +43,10 @@ class RadiologistNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.assessment),
           label: 'Radios',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.assessment),
+          label: 'Analyzes',
         ),
       ],
       currentIndex: selectedIndex,

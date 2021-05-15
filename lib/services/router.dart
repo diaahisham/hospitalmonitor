@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;
+import 'package:hospitalmonitor/ui/views/add_edit_analysis_view.dart';
 import 'package:hospitalmonitor/ui/views/add_edit_radio_view.dart';
+import 'package:hospitalmonitor/ui/views/analyzes_view.dart';
 import 'package:hospitalmonitor/ui/views/home_view.dart';
 import 'package:hospitalmonitor/ui/views/login_view.dart';
 import 'package:hospitalmonitor/ui/views/profile_view.dart';
@@ -26,6 +28,12 @@ class Router {
       case routes.AddEditRadioRoute:
         return MaterialPageRoute(
             builder: (_) => AddEditRadioView(), settings: settings);
+      case routes.AnalysisRoute:
+        return MaterialPageRoute(
+            builder: (_) => AnalyzesView(), settings: settings);
+      case routes.AddEditAnalysisRoute:
+        return MaterialPageRoute(
+            builder: (_) => AddEditAnalysisView(), settings: settings);
       default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(

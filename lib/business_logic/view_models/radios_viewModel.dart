@@ -26,16 +26,19 @@ class RadiosviewModel {
   Future<void> deleteRadio(RadioModel radioModel) async {
     radioModels.removeWhere((element) => element.radioID == radioModel.radioID);
     radiosLength.value = radioModels.length;
+    sortRadios();
   }
 
   void addRadio() {
     serviceLocator<RadiosControlService>().currentEdittingRadio = RadioModel();
     serviceLocator<NavigationService>().navigateTo(routes.AddEditRadioRoute);
+    sortRadios();
   }
 
   void editRadio(RadioModel radioModel) {
     serviceLocator<RadiosControlService>().currentEdittingRadio = radioModel;
     serviceLocator<NavigationService>().navigateTo(routes.AddEditRadioRoute);
+    sortRadios();
   }
 
   Future<void> launchInBrowser(String url) async {
@@ -49,5 +52,13 @@ class RadiosviewModel {
     } else {
       dialogeService.showErrorDialoge('Could not launch $url');
     }
+  }
+
+  void sortRadios() {
+    if (this.userIsRadiologist)
+      radioModels.sort((a, b) => a.patientName.compareTo(b.patientName));
+    else
+      radioModels
+          .sort((a, b) => a.radiologistName.compareTo(b.radiologistName));
   }
 }

@@ -4,6 +4,8 @@ import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;
+import 'package:hospitalmonitor/ui/widgets/analyst_navigation_bar.dart';
+import 'package:hospitalmonitor/ui/widgets/radiologist_navigation_bar.dart';
 
 class UserAppbar extends AppBar {
   UserAppbar(String title)
@@ -27,6 +29,8 @@ class UserAppbar extends AppBar {
               style: ButtonStyle(),
               clipBehavior: Clip.none,
               onPressed: () {
+                RadiologistNavigationBar.selectedIndex = 0;
+                AnalystNavigationBar.selectedIndex = 0;
                 serviceLocator<CurrentSessionService>().logout();
                 serviceLocator<NavigationService>()
                     .popAndNavigateTo(routes.HomeRoute);

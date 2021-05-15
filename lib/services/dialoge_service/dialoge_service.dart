@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
@@ -7,6 +6,7 @@ import 'package:hospitalmonitor/services/patient_control_service/patient_control
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospitalmonitor/ui/widgets/analyst_navigation_bar.dart';
 import 'package:hospitalmonitor/ui/widgets/radiologist_navigation_bar.dart';
 
 class DialogeService {
@@ -15,9 +15,12 @@ class DialogeService {
       context:
           (serviceLocator<NavigationService>().navigatorKey.currentContext)!,
       builder: (context) => AlertDialog(
-        title: Expanded(
-            child: Container(
-                color: Colors.red, child: Center(child: Text("Error")))),
+        title: Container(
+          width: 200,
+          height: 50,
+          color: Colors.red,
+          child: Center(child: Text("Error")),
+        ),
         content: Container(
           width: 200,
           height: 100,
@@ -36,9 +39,12 @@ class DialogeService {
       context:
           (serviceLocator<NavigationService>().navigatorKey.currentContext)!,
       builder: (context) => AlertDialog(
-        title: Expanded(
-            child: Container(
-                color: Colors.blueGrey, child: Center(child: Text("Confirm")))),
+        title: Container(
+          width: 200,
+          height: 50,
+          color: Colors.blueGrey,
+          child: Center(child: Text("Confirm")),
+        ),
         content: Container(
           width: 200,
           height: 100,
@@ -123,9 +129,12 @@ class DialogeService {
       context:
           (serviceLocator<NavigationService>().navigatorKey.currentContext)!,
       builder: (context) => AlertDialog(
-        title: Expanded(
-            child: Container(
-                color: Colors.blue, child: Center(child: Text("Info")))),
+        title: Container(
+          width: 200,
+          height: 50,
+          color: Colors.blue,
+          child: Center(child: Text("Info")),
+        ),
         content: Container(
           width: 200,
           height: 100,
@@ -148,9 +157,12 @@ class DialogeService {
       context:
           (serviceLocator<NavigationService>().navigatorKey.currentContext)!,
       builder: (context) => AlertDialog(
-        title: Expanded(
-            child: Container(
-                color: Colors.green, child: Center(child: Text("Patients")))),
+        title: Container(
+          width: 350,
+          height: 50,
+          color: Colors.green,
+          child: Center(child: Text("Patients")),
+        ),
         content: Container(
           width: 350,
           height: 500,
@@ -175,6 +187,7 @@ class DialogeService {
                           onPressed: () {
                             result = allPatients[i];
                             RadiologistNavigationBar.selectedIndex = 1;
+                            AnalystNavigationBar.selectedIndex = 1;
                             serviceLocator<NavigationService>().goBack();
                           },
                           child: Center(
