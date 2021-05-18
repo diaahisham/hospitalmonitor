@@ -13,6 +13,8 @@ List<UserModel> radiologists = [
     type: UserType.radiologist,
     token: '',
     photo: profileImages.radio,
+    age: 56,
+    nationalID: '0123456789012345',
   ),
   UserModel(
     userID: "1",
@@ -24,6 +26,8 @@ List<UserModel> radiologists = [
     type: UserType.radiologist,
     token: '',
     photo: profileImages.radio,
+    age: 24,
+    nationalID: '0123456789012345',
   ),
   UserModel(
     userID: "2",
@@ -35,5 +39,7 @@ List<UserModel> radiologists = [
     type: UserType.radiologist,
     token: '',
     photo: profileImages.radio,
+    age: 38,
+    nationalID: '0123456789012345',
   ),
 ];

@@ -5,3 +5,7 @@ const String RadiosRoute = 'RadiosRoute';
 const String AddEditRadioRoute = 'AddEditRadioRoute';
 const String AnalysisRoute = 'AnalysisRoute';
 const String AddEditAnalysisRoute = 'AddEditAnalysisRoute';
+const String ExaminationViewRoute = 'ExaminationViewRoute';
+const String AddEditExamRoute = 'AddEditExamRoute';
+const String HealthReportRoute = 'HealthReportRoute';
+const String AllPatientsRoute = 'AllPatientsRoute';

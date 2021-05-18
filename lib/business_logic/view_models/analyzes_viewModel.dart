@@ -17,6 +17,9 @@ class AnalyzesViewModel {
   ValueNotifier<int> analysesLength = ValueNotifier<int>(0);
   DialogeService dialogeService = DialogeService();
 
+  UserType get loggedUserType =>
+      serviceLocator<CurrentSessionService>().loggedUser.type;
+
   AnalyzesViewModel() {
     userIsAnalysit = (serviceLocator<CurrentSessionService>().loggedUser.type ==
         UserType.analysit);

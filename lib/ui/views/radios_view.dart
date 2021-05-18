@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/business_logic/view_models/radios_viewModel.dart';
 import 'package:hospitalmonitor/ui/widgets/user_app_bar.dart';
 import 'package:hospitalmonitor/ui/widgets/user_navigation_bar.dart';
@@ -12,8 +13,12 @@ class RadiosView extends StatelessWidget {
       create: (context) => RadiosviewModel(),
       child: Consumer<RadiosviewModel>(
         builder: (context, model, child) => Scaffold(
-          appBar: UserAppbar('Radios'),
-          bottomNavigationBar: UserNavigationBar(),
+          appBar: (model.loggedUserType != UserType.doctor)
+              ? UserAppbar('Radios')
+              : null,
+          bottomNavigationBar: (model.loggedUserType != UserType.doctor)
+              ? UserNavigationBar()
+              : null,
           backgroundColor: Colors.blue[100],
           body: Container(
             padding: EdgeInsets.all(20),

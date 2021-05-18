@@ -17,6 +17,9 @@ class RadiosviewModel {
   ValueNotifier<int> radiosLength = ValueNotifier<int>(0);
   DialogeService dialogeService = DialogeService();
 
+  UserType get loggedUserType =>
+      serviceLocator<CurrentSessionService>().loggedUser.type;
+
   RadiosviewModel() {
     userIsRadiologist =
         (serviceLocator<CurrentSessionService>().loggedUser.type ==

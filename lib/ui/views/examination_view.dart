@@ -1,20 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
-import 'package:hospitalmonitor/business_logic/view_models/analyzes_viewModel.dart';
+import 'package:hospitalmonitor/business_logic/view_models/examination_viewModel.dart';
 import 'package:hospitalmonitor/ui/widgets/user_app_bar.dart';
 import 'package:hospitalmonitor/ui/widgets/user_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
-class AnalyzesView extends StatelessWidget {
+class ExaminationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider<AnalyzesViewModel>(
-      create: (context) => AnalyzesViewModel(),
-      child: Consumer<AnalyzesViewModel>(
+    return Provider<ExaminationViewModel>(
+      create: (context) => ExaminationViewModel(),
+      child: Consumer<ExaminationViewModel>(
         builder: (context, model, child) => Scaffold(
           appBar: (model.loggedUserType != UserType.doctor)
-              ? UserAppbar('Analyzes')
+              ? UserAppbar('Examinations')
               : null,
           bottomNavigationBar: (model.loggedUserType != UserType.doctor)
               ? UserNavigationBar()
@@ -27,7 +27,7 @@ class AnalyzesView extends StatelessWidget {
               scrollDirection: Axis.vertical,
               children: [
                 ValueListenableBuilder(
-                  valueListenable: model.analysesLength,
+                  valueListenable: model.examssLength,
                   builder: (context, value, child) => Table(
                     border: TableBorder.all(
                       color: Colors.black,
@@ -38,10 +38,10 @@ class AnalyzesView extends StatelessWidget {
                       TableRow(
                           decoration: BoxDecoration(color: Colors.blueAccent),
                           children: [
-                            if (!model.userIsAnalysit)
+                            if (!model.userIsDoctor)
                               Center(
                                   child: Text(
-                                "Analyst name",
+                                "Doctor name",
                                 textScaleFactor: 1.5,
                                 style: TextStyle(color: Colors.white),
                               )),
@@ -59,7 +59,13 @@ class AnalyzesView extends StatelessWidget {
                             )),
                             Center(
                                 child: Text(
-                              "Lab name",
+                              "Symptoms",
+                              textScaleFactor: 1.5,
+                              style: TextStyle(color: Colors.white),
+                            )),
+                            Center(
+                                child: Text(
+                              "ExaminationResult",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
@@ -69,20 +75,14 @@ class AnalyzesView extends StatelessWidget {
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
-                            Center(
-                                child: Text(
-                              "Url",
-                              textScaleFactor: 1.5,
-                              style: TextStyle(color: Colors.white),
-                            )),
-                            if (model.userIsAnalysit)
+                            if (model.userIsDoctor)
                               Center(
                                   child: Text(
                                 "Edit",
                                 textScaleFactor: 1.5,
                                 style: TextStyle(color: Colors.white),
                               )),
-                            if (model.userIsAnalysit)
+                            if (model.userIsDoctor)
                               Center(
                                   child: Text(
                                 "Delete",
@@ -90,46 +90,37 @@ class AnalyzesView extends StatelessWidget {
                                 style: TextStyle(color: Colors.white),
                               )),
                           ]),
-                      for (int i = 0; i < model.analysisModels.length; i++)
+                      for (int i = 0; i < model.examModels.length; i++)
                         TableRow(
                           decoration: BoxDecoration(
                               color: (i % 2 == 1)
                                   ? Colors.grey[350]
                                   : Colors.white),
                           children: [
-                            if (!model.userIsAnalysit)
+                            if (!model.userIsDoctor)
                               Center(
-                                  child: Text(
-                                      model.analysisModels[i].analystName,
+                                  child: Text(model.examModels[i].doctorName,
                                       textScaleFactor: 1.5)),
                             Center(
-                                child: Text(model.analysisModels[i].patientName,
+                                child: Text(model.examModels[i].patientName,
                                     textScaleFactor: 1.5)),
                             Center(
-                                child: Text(model.analysisModels[i].date,
+                                child: Text(model.examModels[i].date,
                                     textScaleFactor: 1.5)),
                             Center(
-                                child: Text(model.analysisModels[i].labName,
+                                child: Text(model.examModels[i].symptoms,
                                     textScaleFactor: 1.5)),
                             Center(
-                                child: Text(model.analysisModels[i].notes,
+                                child: Text(
+                                    model.examModels[i].examinationResult,
                                     textScaleFactor: 1.5)),
-                            TextButton(
-                              onPressed: () => model.launchInBrowser(
-                                  model.analysisModels[i].analysisUrl),
-                              child: Center(
-                                  child: Text(
-                                      model.analysisModels[i].analysisUrl,
-                                      style: TextStyle(
-                                        color: Colors.blue[900],
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                      textScaleFactor: 1.5)),
-                            ),
-                            if (model.userIsAnalysit)
+                            Center(
+                                child: Text(model.examModels[i].notes,
+                                    textScaleFactor: 1.5)),
+                            if (model.userIsDoctor)
                               TextButton(
                                 onPressed: () =>
-                                    model.editAnalysis(model.analysisModels[i]),
+                                    model.editExam(model.examModels[i]),
                                 child: Center(
                                     child: Text("Edit",
                                         style: TextStyle(
@@ -138,10 +129,10 @@ class AnalyzesView extends StatelessWidget {
                                         ),
                                         textScaleFactor: 1.5)),
                               ),
-                            if (model.userIsAnalysit)
+                            if (model.userIsDoctor)
                               TextButton(
-                                onPressed: () => model
-                                    .deleteAnalysis(model.analysisModels[i]),
+                                onPressed: () =>
+                                    model.deleteExam(model.examModels[i]),
                                 child: Center(
                                     child: Text("Delete",
                                         style: TextStyle(
@@ -155,9 +146,9 @@ class AnalyzesView extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (model.userIsAnalysit)
+                if (model.userIsDoctor)
                   TextButton(
-                    onPressed: () => model.addAnalysis(),
+                    onPressed: () => model.addExam(),
                     child: Container(
                       height: 50,
                       width: 200,
