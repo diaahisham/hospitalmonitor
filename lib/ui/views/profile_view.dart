@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:hospitalmonitor/business_logic/view_models/profile_viewModel.dart';
@@ -11,7 +12,7 @@ class ProfileView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10),
       child: Text(
-        label + ' :',
+        label + ': ',
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -60,6 +61,7 @@ class ProfileView extends StatelessWidget {
             body: Container(
               width: screenWidth,
               height: screenHeight,
+              padding: EdgeInsets.only(left: 10),
               child: Row(
                 children: [
                   Expanded(
@@ -109,6 +111,65 @@ class ProfileView extends StatelessWidget {
                                           ),
                                         ),
                                       ),
+                                //
+                                _labelWidget('Gender'),
+                                (model.edittingMode.value)
+                                    ? Container(
+                                        padding: EdgeInsets.all(10),
+                                        width: 250,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey,
+                                              offset: Offset(0.0, 1.0), //(x,y)
+                                              blurRadius: 6.0,
+                                              spreadRadius: 0.0,
+                                            ),
+                                          ],
+                                        ),
+                                        child: ValueListenableBuilder(
+                                          valueListenable:
+                                              model.genderTypeIndex,
+                                          builder: (context, value, child) =>
+                                              DropdownButton<GenderTypesList>(
+                                            hint: Text('Please choose gender'),
+                                            isExpanded: true,
+                                            value: model.currentGenderType,
+                                            onChanged: (value) => (value !=
+                                                    null)
+                                                ? model
+                                                    .changeGender(value.index)
+                                                : model.changeGender(1),
+                                            items: model.genderTypes
+                                                .map<
+                                                        DropdownMenuItem<
+                                                            GenderTypesList>>(
+                                                    (e) => DropdownMenuItem(
+                                                          child: Text(e.type),
+                                                          value: e,
+                                                        ))
+                                                .toList(),
+                                          ),
+                                        ),
+                                      )
+                                    : Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20.0),
+                                        child: Text(
+                                          model.currentUser.genderType
+                                              .toString()
+                                              .substring(11),
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ),
                                 //password
                                 if (model.edittingMode.value)
                                   _labelWidget('Password'),
@@ -133,8 +194,7 @@ class ProfileView extends StatelessWidget {
                                     ),
                                   ),
                                 // Age
-
-                                _labelWidget('Age:'),
+                                _labelWidget('Age'),
                                 (model.edittingMode.value)
                                     ? _dataField(
                                         child: TextFormField(
@@ -160,6 +220,42 @@ class ProfileView extends StatelessWidget {
                                             const EdgeInsets.only(left: 20.0),
                                         child: Text(
                                           model.currentUser.age.toString(),
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ),
+                                //
+
+                                // National ID
+                                _labelWidget('National ID'),
+                                (model.edittingMode.value)
+                                    ? _dataField(
+                                        child: TextFormField(
+                                          initialValue:
+                                              model.currentUser.nationalID,
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please enter national id';
+                                            }
+                                            return null;
+                                          },
+                                          keyboardType: TextInputType.number,
+                                          onChanged: (value) => model
+                                              .currentUser.nationalID = value,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                          ),
+                                        ),
+                                      )
+                                    : Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20.0),
+                                        child: Text(
+                                          model.currentUser.nationalID,
                                           style: TextStyle(
                                             fontSize: 30,
                                             fontWeight: FontWeight.bold,

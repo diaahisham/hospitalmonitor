@@ -118,29 +118,37 @@ class ExaminationView extends StatelessWidget {
                                 child: Text(model.examModels[i].notes,
                                     textScaleFactor: 1.5)),
                             if (model.userIsDoctor)
-                              TextButton(
-                                onPressed: () =>
-                                    model.editExam(model.examModels[i]),
-                                child: Center(
-                                    child: Text("Edit",
-                                        style: TextStyle(
-                                          color: Colors.blue[900],
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                        textScaleFactor: 1.5)),
-                              ),
+                              (model.user.userID ==
+                                      model.examModels[i].doctorID)
+                                  ? TextButton(
+                                      onPressed: () =>
+                                          model.editExam(model.examModels[i]),
+                                      child: Center(
+                                          child: Text("Edit",
+                                              style: TextStyle(
+                                                color: Colors.blue[900],
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                              textScaleFactor: 1.5)),
+                                    )
+                                  : Text(''),
                             if (model.userIsDoctor)
-                              TextButton(
-                                onPressed: () =>
-                                    model.deleteExam(model.examModels[i]),
-                                child: Center(
-                                    child: Text("Delete",
-                                        style: TextStyle(
-                                          color: Colors.blue[900],
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                        textScaleFactor: 1.5)),
-                              ),
+                              (model.user.userID ==
+                                      model.examModels[i].doctorID)
+                                  ? TextButton(
+                                      onPressed: () =>
+                                          model.deleteExam(model.examModels[i]),
+                                      child: Center(
+                                          child: Text("Delete",
+                                              style: TextStyle(
+                                                color: Colors.blue[900],
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                              textScaleFactor: 1.5)),
+                                    )
+                                  : Text(''),
                           ],
                         )
                     ],

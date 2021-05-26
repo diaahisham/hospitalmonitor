@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hospitalmonitor/business_logic/models/analysis_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/services/analyzes_control_service/analyzes_control_service.dart';
+import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/dialoge_service/dialoge_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
@@ -21,11 +22,11 @@ class AddEditAnalysisViewModel {
 
   Future<void> submit() async {
     await serviceLocator<AnalyzesControlService>().addEditAnalysis();
-    serviceLocator<NavigationService>().popAndNavigateTo(routes.AnalysisRoute);
+    _navigate();
   }
 
   void cancel() {
-    serviceLocator<NavigationService>().popAndNavigateTo(routes.AnalysisRoute);
+    _navigate();
   }
 
   Future<void> choosePatient() async {
@@ -35,5 +36,15 @@ class AddEditAnalysisViewModel {
       currentEdittingAnalysis.patientName = choosedPatient.userName;
       patientName.value = choosedPatient.userName;
     }
+  }
+
+  void _navigate() {
+    if (serviceLocator<CurrentSessionService>().loggedUser.type ==
+        UserType.doctor)
+      serviceLocator<NavigationService>()
+          .popAndNavigateTo(routes.HealthReportRoute);
+    else
+      serviceLocator<NavigationService>()
+          .popAndNavigateTo(routes.AnalysisRoute);
   }
 }

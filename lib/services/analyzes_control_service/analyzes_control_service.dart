@@ -24,6 +24,7 @@ class AnalyzesControlService {
     analysisModels.clear();
     List<AnalysisModel> result =
         analyzes.where((element) => element.patientID == patientID).toList();
+    analysisModels.clear();
     analysisModels.addAll(result);
   }
 

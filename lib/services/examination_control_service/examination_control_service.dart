@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:hospitalmonitor/business_logic/models/examination_model.dart';
 import 'package:hospitalmonitor/business_logic/utils/examinations.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
+import 'package:hospitalmonitor/services/patient_control_service/patient_control_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 
 class ExaminationControlService {
@@ -24,6 +25,7 @@ class ExaminationControlService {
     List<ExaminationModel> result = examinations
         .where((element) => element.patientID == patientID)
         .toList();
+    examModels.clear();
     examModels.addAll(result);
   }
 
@@ -40,6 +42,7 @@ class ExaminationControlService {
           element.examinationID == currentEdittingExam.examinationID);
     }
     examinations.add(currentEdittingExam);
-    await fetchExamModelsByDoctorId();
+    await fetchExamModelsByPatientId(
+        serviceLocator<PatientControlService>().currentPatient.userID);
   }
 }

@@ -6,7 +6,7 @@ List<ExaminationModel> examinations = [
     doctorID: '0',
     doctorName: 'doctor',
     patientID: '0',
-    patientName: 'patient',
+    patientName: 'Samy',
     date: '1/1/2001',
     symptoms: 'nothing',
     examinationResult: 'nothing',

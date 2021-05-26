@@ -4,6 +4,7 @@ import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;
 import 'package:hospitalmonitor/ui/views/add_edit_analysis_view.dart';
 import 'package:hospitalmonitor/ui/views/add_edit_radio_view.dart';
+import 'package:hospitalmonitor/ui/views/all_patients_view.dart';
 import 'package:hospitalmonitor/ui/views/analyzes_view.dart';
 import 'package:hospitalmonitor/ui/views/examination_view.dart';
 import 'package:hospitalmonitor/ui/views/home_view.dart';
@@ -46,6 +47,9 @@ class Router {
       case routes.HealthReportRoute:
         return MaterialPageRoute(
             builder: (_) => ReportView(), settings: settings);
+      case routes.AllPatientsRoute:
+        return MaterialPageRoute(
+            builder: (_) => AllPatientsView(), settings: settings);
       default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(

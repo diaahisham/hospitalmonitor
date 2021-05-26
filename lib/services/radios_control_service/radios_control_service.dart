@@ -24,6 +24,7 @@ class RadiosControlService {
     radioModels.clear();
     List<RadioModel> result =
         radios.where((element) => element.patientID == patientID).toList();
+    radioModels.clear();
     radioModels.addAll(result);
   }
 

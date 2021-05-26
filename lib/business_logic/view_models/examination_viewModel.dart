@@ -20,6 +20,8 @@ class ExaminationViewModel {
   UserType get loggedUserType =>
       serviceLocator<CurrentSessionService>().loggedUser.type;
 
+  UserModel user = serviceLocator<CurrentSessionService>().loggedUser;
+
   ExaminationViewModel() {
     userIsDoctor = (serviceLocator<CurrentSessionService>().loggedUser.type ==
         UserType.doctor);

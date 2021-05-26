@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hospitalmonitor/business_logic/models/radio_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
+import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/dialoge_service/dialoge_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
 import 'package:hospitalmonitor/services/radios_control_service/radios_control_service.dart';
@@ -20,11 +21,11 @@ class AddEditRadioViewModel {
 
   Future<void> submit() async {
     await serviceLocator<RadiosControlService>().addEditRadio();
-    serviceLocator<NavigationService>().popAndNavigateTo(routes.RadiosRoute);
+    _navigate();
   }
 
   void cancel() {
-    serviceLocator<NavigationService>().popAndNavigateTo(routes.RadiosRoute);
+    _navigate();
   }
 
   Future<void> choosePatient() async {
@@ -34,5 +35,14 @@ class AddEditRadioViewModel {
       currentEdittingRadio.patientName = choosedPatient.userName;
       patientName.value = choosedPatient.userName;
     }
+  }
+
+  void _navigate() {
+    if (serviceLocator<CurrentSessionService>().loggedUser.type ==
+        UserType.doctor)
+      serviceLocator<NavigationService>()
+          .popAndNavigateTo(routes.HealthReportRoute);
+    else
+      serviceLocator<NavigationService>().popAndNavigateTo(routes.RadiosRoute);
   }
 }

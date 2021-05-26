@@ -14,10 +14,19 @@ import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;
 
 class ReportViewModel {
-  HealthReportModel get reportModel =>
+  HealthReportModel reportModel =
       serviceLocator<ReportControlService>().reportModels[0];
   bool userIsDoctor = false;
   ValueNotifier<int> currentWidgetNumber = ValueNotifier<int>(0);
+  ValueNotifier<int> chronicDiseasesLength = ValueNotifier<int>(0);
+  ValueNotifier<int> dangerDiseasesLength = ValueNotifier<int>(0);
+  ValueNotifier<int> senstivitiesLength = ValueNotifier<int>(0);
+  ValueNotifier<int> vaccinationsLength = ValueNotifier<int>(0);
+
+  String newChronicDisease = '';
+  String newDangerDisease = '';
+  String newSensetivity = '';
+  String newVaccination = '';
 
   set widgetNO(int no) => currentWidgetNumber.value = no;
 
@@ -28,6 +37,54 @@ class ReportViewModel {
 
   UserModel get currentPatient =>
       serviceLocator<PatientControlService>().currentPatient;
+
+  void addChronicDisease(String disease) {
+    if (disease != '') {
+      reportModel.chronicDiseases.add(disease);
+      chronicDiseasesLength.value = reportModel.chronicDiseases.length;
+    }
+  }
+
+  void removeChronicDisease(int index) {
+    reportModel.chronicDiseases.removeAt(index);
+    chronicDiseasesLength.value = reportModel.chronicDiseases.length;
+  }
+
+  void addDangerDisease(String disease) {
+    if (disease != '') {
+      reportModel.dangerDiseases.add(disease);
+      dangerDiseasesLength.value = reportModel.dangerDiseases.length;
+    }
+  }
+
+  void removeDangerDisease(int index) {
+    reportModel.dangerDiseases.removeAt(index);
+    dangerDiseasesLength.value = reportModel.dangerDiseases.length;
+  }
+
+  void addSenstivity(String disease) {
+    if (disease != '') {
+      reportModel.sensitivities.add(disease);
+      senstivitiesLength.value = reportModel.sensitivities.length;
+    }
+  }
+
+  void removeSenstivity(int index) {
+    reportModel.sensitivities.removeAt(index);
+    senstivitiesLength.value = reportModel.sensitivities.length;
+  }
+
+  void addvaccination(String disease) {
+    if (disease != '') {
+      reportModel.vaccinations.add(disease);
+      vaccinationsLength.value = reportModel.vaccinations.length;
+    }
+  }
+
+  void removevaccinations(int index) {
+    reportModel.vaccinations.removeAt(index);
+    vaccinationsLength.value = reportModel.vaccinations.length;
+  }
 
   Widget? viewWidget() {
     switch (widgetNo) {
@@ -52,11 +109,18 @@ class ReportViewModel {
 
   Future<void> submitEditting() async {
     if (edittingMode.value) {
+      serviceLocator<ReportControlService>().currentEdittingReport =
+          reportModel;
       await serviceLocator<ReportControlService>().addEditReport();
       edittingMode.value = false;
     } else {
       edittingMode.value = true;
     }
+  }
+
+  void cancelEditting() {
+    reportModel = serviceLocator<ReportControlService>().reportModels[0];
+    edittingMode.value = false;
   }
 
   void goToAllPatients() {

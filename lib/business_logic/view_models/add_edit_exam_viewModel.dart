@@ -3,6 +3,7 @@ import 'package:hospitalmonitor/business_logic/models/examination_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;
+import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/dialoge_service/dialoge_service.dart';
 import 'package:hospitalmonitor/services/examination_control_service/examination_control_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
@@ -21,13 +22,11 @@ class AddEditExamViewModel {
 
   Future<void> submit() async {
     await serviceLocator<ExaminationControlService>().addEditExamination();
-    serviceLocator<NavigationService>()
-        .popAndNavigateTo(routes.ExaminationViewRoute);
+    _navigate();
   }
 
   void cancel() {
-    serviceLocator<NavigationService>()
-        .popAndNavigateTo(routes.ExaminationViewRoute);
+    _navigate();
   }
 
   Future<void> choosePatient() async {
@@ -37,5 +36,15 @@ class AddEditExamViewModel {
       currentEdittingExamination.patientName = choosedPatient.userName;
       patientName.value = choosedPatient.userName;
     }
+  }
+
+  void _navigate() {
+    if (serviceLocator<CurrentSessionService>().loggedUser.type ==
+        UserType.doctor)
+      serviceLocator<NavigationService>()
+          .popAndNavigateTo(routes.HealthReportRoute);
+    else
+      serviceLocator<NavigationService>()
+          .popAndNavigateTo(routes.ExaminationViewRoute);
   }
 }
