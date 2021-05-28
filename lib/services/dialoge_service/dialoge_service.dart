@@ -147,11 +147,57 @@ class DialogeService {
     );
   }
 
+  Widget _dataField({required Widget child}) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      width: 200,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            offset: Offset(0.0, 1.0), //(x,y)
+            blurRadius: 6.0,
+            spreadRadius: 0.0,
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+
   Future<UserModel> choosePatientDialoge() async {
     serviceLocator<PatientControlService>().fetchAllPatients();
     List<UserModel> allPatients =
         serviceLocator<PatientControlService>().allPatients;
     UserModel result = UserModel();
+
+    ValueNotifier<String> searchValue = ValueNotifier<String>('');
+    int rowNumber = -1;
+
+    bool isRowVisible(String name) {
+      if (searchValue.value == '') return true;
+
+      if (name.length < searchValue.value.length) return false;
+
+      return (searchValue.value.toLowerCase() ==
+          name.substring(0, searchValue.value.length).toLowerCase());
+    }
+
+    void searchValueChange(String search) {
+      rowNumber = -1;
+      searchValue.value = search;
+    }
+
+    Color? rowColor() {
+      rowNumber += 1;
+      if (rowNumber % 2 == 1)
+        return Colors.grey[350];
+      else
+        return Colors.white;
+    }
 
     await showDialog(
       context:
@@ -170,34 +216,54 @@ class DialogeService {
             controller: ScrollController(),
             scrollDirection: Axis.vertical,
             children: [
-              Table(
-                border: TableBorder.all(
-                  color: Colors.black,
-                  width: 2.0,
-                  style: BorderStyle.solid,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  for (int i = 0; i < allPatients.length; i++)
-                    TableRow(
-                      decoration: BoxDecoration(
-                          color:
-                              (i % 2 == 1) ? Colors.grey[350] : Colors.white),
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            result = allPatients[i];
-                            RadiologistNavigationBar.selectedIndex = 1;
-                            AnalystNavigationBar.selectedIndex = 1;
-                            serviceLocator<NavigationService>().goBack();
-                          },
-                          child: Center(
-                            child: Text(allPatients[i].userName,
-                                textScaleFactor: 1.5),
-                          ),
-                        )
-                      ],
+                  _dataField(
+                    child: TextFormField(
+                      initialValue: '',
+                      keyboardType: TextInputType.name,
+                      onChanged: (value) => searchValueChange(value),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Search',
+                      ),
                     ),
+                  )
                 ],
+              ),
+              ValueListenableBuilder(
+                valueListenable: searchValue,
+                builder: (context, value, child) => Table(
+                  border: TableBorder.all(
+                    color: Colors.black,
+                    width: 2.0,
+                    style: BorderStyle.solid,
+                  ),
+                  children: [
+                    for (int i = 0; i < allPatients.length; i++)
+                      if (isRowVisible(allPatients[i].userName))
+                        TableRow(
+                          decoration: BoxDecoration(
+                            color: rowColor(),
+                          ),
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                result = allPatients[i];
+                                RadiologistNavigationBar.selectedIndex = 1;
+                                AnalystNavigationBar.selectedIndex = 1;
+                                serviceLocator<NavigationService>().goBack();
+                              },
+                              child: Center(
+                                child: Text(allPatients[i].userName,
+                                    textScaleFactor: 1.5),
+                              ),
+                            )
+                          ],
+                        ),
+                  ],
+                ),
               ),
             ],
           ),

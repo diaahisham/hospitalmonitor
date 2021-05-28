@@ -45,7 +45,7 @@ class UserModel {
       '"Type"': this.type.index,
       '"Token"': this.token,
       '"Photo"': this.photo,
-      '"NationalID': this.nationalID,
+      '"NationalID"': this.nationalID,
       '"Age"': this.age,
       '"GenterType"': this.genderType.index,
       '"MaritalStatus"': this.maritalStatus.index,

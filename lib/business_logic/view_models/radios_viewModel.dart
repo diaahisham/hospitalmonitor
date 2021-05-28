@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hospitalmonitor/business_logic/models/radio_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
@@ -24,6 +25,35 @@ class RadiosviewModel {
     userIsRadiologist =
         (serviceLocator<CurrentSessionService>().loggedUser.type ==
             UserType.radiologist);
+  }
+
+  String searchValue = '';
+  int rowNumber = -1;
+
+  bool isRowVisible(RadioModel radio) {
+    String name =
+        (!userIsRadiologist) ? radio.radiologistName : radio.patientName;
+
+    if (searchValue == '') return true;
+
+    if (name.length < searchValue.length) return false;
+
+    return (searchValue.toLowerCase() ==
+        name.substring(0, searchValue.length).toLowerCase());
+  }
+
+  void searchValueChange(String search) {
+    rowNumber = -1;
+    searchValue = search;
+    radiosLength.value += 1;
+  }
+
+  Color? rowColor() {
+    rowNumber += 1;
+    if (rowNumber % 2 == 1)
+      return Colors.grey[350];
+    else
+      return Colors.white;
   }
 
   Future<void> deleteRadio(RadioModel radioModel) async {

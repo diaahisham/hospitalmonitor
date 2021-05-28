@@ -4,7 +4,7 @@ List<ExaminationModel> examinations = [
   ExaminationModel(
     examinationID: '10',
     doctorID: '0',
-    doctorName: 'doctor',
+    doctorName: 'Ahmed',
     patientID: '0',
     patientName: 'Samy',
     date: '1/1/2001',
@@ -15,7 +15,7 @@ List<ExaminationModel> examinations = [
   ExaminationModel(
     examinationID: '20',
     doctorID: '1',
-    doctorName: 'doctor1',
+    doctorName: 'Ahmed1',
     patientID: '0',
     patientName: 'Samy',
     date: '1/1/2001',
@@ -26,18 +26,18 @@ List<ExaminationModel> examinations = [
   ExaminationModel(
     examinationID: '30',
     doctorID: '2',
-    doctorName: 'doctor2',
+    doctorName: 'Ahmed2',
     patientID: '1',
-    patientName: 'Samy1',
+    patientName: 'Yehia',
     date: '1/1/2005',
-    symptoms: '????',
+    symptoms: 'bone break',
     examinationResult: '3yan',
     notes: 'should visit a doctor!',
   ),
   ExaminationModel(
     examinationID: '40',
     doctorID: '2',
-    doctorName: 'doctor2',
+    doctorName: 'Ahmed2',
     patientID: '2',
     patientName: 'Samy2',
     date: '1/1/2008',
@@ -48,7 +48,7 @@ List<ExaminationModel> examinations = [
   ExaminationModel(
     examinationID: '50',
     doctorID: '1',
-    doctorName: 'doctor1',
+    doctorName: 'Ahmed1',
     patientID: '0',
     patientName: 'Samy',
     date: '1/1/2002',
@@ -59,9 +59,9 @@ List<ExaminationModel> examinations = [
   ExaminationModel(
     examinationID: '60',
     doctorID: '0',
-    doctorName: 'doctor',
+    doctorName: 'Ahmed',
     patientID: '1',
-    patientName: 'Samy1',
+    patientName: 'Yehia',
     date: '1/1/2025',
     symptoms: 'nothing',
     examinationResult: 'nothing',
@@ -70,7 +70,7 @@ List<ExaminationModel> examinations = [
   ExaminationModel(
     examinationID: '70',
     doctorID: '1',
-    doctorName: 'doctor1',
+    doctorName: 'Ahmed1',
     patientID: '0',
     patientName: 'Samy',
     date: '1/1/2001',
@@ -81,7 +81,7 @@ List<ExaminationModel> examinations = [
   ExaminationModel(
     examinationID: '80',
     doctorID: '2',
-    doctorName: 'doctor2',
+    doctorName: 'Ahmed2',
     patientID: '2',
     patientName: 'Samy2',
     date: '1/1/2001',
@@ -92,7 +92,7 @@ List<ExaminationModel> examinations = [
   ExaminationModel(
     examinationID: '900',
     doctorID: '1',
-    doctorName: 'doctor',
+    doctorName: 'Ahmed',
     patientID: '2',
     patientName: 'Samy2',
     date: '1/1/2012',

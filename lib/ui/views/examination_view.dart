@@ -7,6 +7,27 @@ import 'package:hospitalmonitor/ui/widgets/user_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 class ExaminationView extends StatelessWidget {
+  Widget _dataField({required Widget child}) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      width: 200,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            offset: Offset(0.0, 1.0), //(x,y)
+            blurRadius: 6.0,
+            spreadRadius: 0.0,
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Provider<ExaminationViewModel>(
@@ -26,8 +47,24 @@ class ExaminationView extends StatelessWidget {
               controller: ScrollController(),
               scrollDirection: Axis.vertical,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _dataField(
+                      child: TextFormField(
+                        initialValue: '',
+                        keyboardType: TextInputType.name,
+                        onChanged: (value) => model.searchValueChange(value),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Search',
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 ValueListenableBuilder(
-                  valueListenable: model.examssLength,
+                  valueListenable: model.examsLength,
                   builder: (context, value, child) => Table(
                     border: TableBorder.all(
                       color: Colors.black,
@@ -38,16 +75,9 @@ class ExaminationView extends StatelessWidget {
                       TableRow(
                           decoration: BoxDecoration(color: Colors.blueAccent),
                           children: [
-                            if (!model.userIsDoctor)
-                              Center(
-                                  child: Text(
-                                "Doctor name",
-                                textScaleFactor: 1.5,
-                                style: TextStyle(color: Colors.white),
-                              )),
                             Center(
                                 child: Text(
-                              "Patient name",
+                              "Doctor name",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
@@ -65,7 +95,7 @@ class ExaminationView extends StatelessWidget {
                             )),
                             Center(
                                 child: Text(
-                              "ExaminationResult",
+                              "Examination Result",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
@@ -91,66 +121,62 @@ class ExaminationView extends StatelessWidget {
                               )),
                           ]),
                       for (int i = 0; i < model.examModels.length; i++)
-                        TableRow(
-                          decoration: BoxDecoration(
-                              color: (i % 2 == 1)
-                                  ? Colors.grey[350]
-                                  : Colors.white),
-                          children: [
-                            if (!model.userIsDoctor)
+                        if (model.isRowVisible(model.examModels[i].doctorName))
+                          TableRow(
+                            decoration: BoxDecoration(
+                              color: model.rowColor(),
+                            ),
+                            children: [
                               Center(
                                   child: Text(model.examModels[i].doctorName,
                                       textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.examModels[i].patientName,
-                                    textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.examModels[i].date,
-                                    textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.examModels[i].symptoms,
-                                    textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(
-                                    model.examModels[i].examinationResult,
-                                    textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.examModels[i].notes,
-                                    textScaleFactor: 1.5)),
-                            if (model.userIsDoctor)
-                              (model.user.userID ==
-                                      model.examModels[i].doctorID)
-                                  ? TextButton(
-                                      onPressed: () =>
-                                          model.editExam(model.examModels[i]),
-                                      child: Center(
-                                          child: Text("Edit",
-                                              style: TextStyle(
-                                                color: Colors.blue[900],
-                                                decoration:
-                                                    TextDecoration.underline,
-                                              ),
-                                              textScaleFactor: 1.5)),
-                                    )
-                                  : Text(''),
-                            if (model.userIsDoctor)
-                              (model.user.userID ==
-                                      model.examModels[i].doctorID)
-                                  ? TextButton(
-                                      onPressed: () =>
-                                          model.deleteExam(model.examModels[i]),
-                                      child: Center(
-                                          child: Text("Delete",
-                                              style: TextStyle(
-                                                color: Colors.blue[900],
-                                                decoration:
-                                                    TextDecoration.underline,
-                                              ),
-                                              textScaleFactor: 1.5)),
-                                    )
-                                  : Text(''),
-                          ],
-                        )
+                              Center(
+                                  child: Text(model.examModels[i].date,
+                                      textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(model.examModels[i].symptoms,
+                                      textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(
+                                      model.examModels[i].examinationResult,
+                                      textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(model.examModels[i].notes,
+                                      textScaleFactor: 1.5)),
+                              if (model.userIsDoctor)
+                                (model.user.userID ==
+                                        model.examModels[i].doctorID)
+                                    ? TextButton(
+                                        onPressed: () =>
+                                            model.editExam(model.examModels[i]),
+                                        child: Center(
+                                            child: Text("Edit",
+                                                style: TextStyle(
+                                                  color: Colors.blue[900],
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                                textScaleFactor: 1.5)),
+                                      )
+                                    : Text(''),
+                              if (model.userIsDoctor)
+                                (model.user.userID ==
+                                        model.examModels[i].doctorID)
+                                    ? TextButton(
+                                        onPressed: () => model
+                                            .deleteExam(model.examModels[i]),
+                                        child: Center(
+                                            child: Text("Delete",
+                                                style: TextStyle(
+                                                  color: Colors.blue[900],
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                                textScaleFactor: 1.5)),
+                                      )
+                                    : Text(''),
+                            ],
+                          )
                     ],
                   ),
                 ),

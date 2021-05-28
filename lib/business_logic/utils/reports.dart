@@ -18,7 +18,7 @@ List<HealthReportModel> healthReports = [
   HealthReportModel(
     reportID: '10',
     patientID: '1',
-    patientName: 'Samy1',
+    patientName: 'Yehia',
     bloodPressure: '200',
     bloodType: '200',
     pulseRate: '200/100',

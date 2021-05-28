@@ -7,6 +7,27 @@ import 'package:hospitalmonitor/ui/widgets/user_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 class RadiosView extends StatelessWidget {
+  Widget _dataField({required Widget child}) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      width: 200,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            offset: Offset(0.0, 1.0), //(x,y)
+            blurRadius: 6.0,
+            spreadRadius: 0.0,
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Provider<RadiosviewModel>(
@@ -26,6 +47,22 @@ class RadiosView extends StatelessWidget {
               controller: ScrollController(),
               scrollDirection: Axis.vertical,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _dataField(
+                      child: TextFormField(
+                        initialValue: '',
+                        keyboardType: TextInputType.name,
+                        onChanged: (value) => model.searchValueChange(value),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Search',
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 ValueListenableBuilder(
                   valueListenable: model.radiosLength,
                   builder: (context, value, child) => Table(
@@ -45,12 +82,13 @@ class RadiosView extends StatelessWidget {
                                 textScaleFactor: 1.5,
                                 style: TextStyle(color: Colors.white),
                               )),
-                            Center(
-                                child: Text(
-                              "Patient name",
-                              textScaleFactor: 1.5,
-                              style: TextStyle(color: Colors.white),
-                            )),
+                            if (model.userIsRadiologist)
+                              Center(
+                                  child: Text(
+                                "Patient name",
+                                textScaleFactor: 1.5,
+                                style: TextStyle(color: Colors.white),
+                              )),
                             Center(
                                 child: Text(
                               "Date",
@@ -91,66 +129,70 @@ class RadiosView extends StatelessWidget {
                               )),
                           ]),
                       for (int i = 0; i < model.radioModels.length; i++)
-                        TableRow(
-                          decoration: BoxDecoration(
-                              color: (i % 2 == 1)
-                                  ? Colors.grey[350]
-                                  : Colors.white),
-                          children: [
-                            if (!model.userIsRadiologist)
-                              Center(
-                                  child: Text(
-                                      model.radioModels[i].radiologistName,
-                                      textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.radioModels[i].patientName,
-                                    textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.radioModels[i].date,
-                                    textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.radioModels[i].labName,
-                                    textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.radioModels[i].notes,
-                                    textScaleFactor: 1.5)),
-                            TextButton(
-                              onPressed: () => model.launchInBrowser(
-                                  model.radioModels[i].radioUrl),
-                              child: Center(
-                                  child: Text(model.radioModels[i].radioUrl,
-                                      style: TextStyle(
-                                        color: Colors.blue[900],
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                      textScaleFactor: 1.5)),
+                        if (model.isRowVisible(model.radioModels[i]))
+                          TableRow(
+                            decoration: BoxDecoration(
+                              color: model.rowColor(),
                             ),
-                            if (model.userIsRadiologist)
+                            children: [
+                              if (!model.userIsRadiologist)
+                                Center(
+                                    child: Text(
+                                        model.radioModels[i].radiologistName,
+                                        textScaleFactor: 1.5)),
+                              if (model.userIsRadiologist)
+                                Center(
+                                    child: Text(
+                                        model.radioModels[i].patientName,
+                                        textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(model.radioModels[i].date,
+                                      textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(model.radioModels[i].labName,
+                                      textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(model.radioModels[i].notes,
+                                      textScaleFactor: 1.5)),
                               TextButton(
-                                onPressed: () =>
-                                    model.editRadio(model.radioModels[i]),
+                                onPressed: () => model.launchInBrowser(
+                                    model.radioModels[i].radioUrl),
                                 child: Center(
-                                    child: Text("Edit",
+                                    child: Text(model.radioModels[i].radioUrl,
                                         style: TextStyle(
                                           color: Colors.blue[900],
                                           decoration: TextDecoration.underline,
                                         ),
                                         textScaleFactor: 1.5)),
                               ),
-                            if (model.userIsRadiologist)
-                              TextButton(
-                                onPressed: () =>
-                                    model.deleteRadio(model.radioModels[i]),
-                                child: Center(
-                                    child: Text("Delete",
-                                        style: TextStyle(
-                                          color: Colors.blue[900],
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                        textScaleFactor: 1.5)),
-                              ),
-                          ],
-                        )
+                              if (model.userIsRadiologist)
+                                TextButton(
+                                  onPressed: () =>
+                                      model.editRadio(model.radioModels[i]),
+                                  child: Center(
+                                      child: Text("Edit",
+                                          style: TextStyle(
+                                            color: Colors.blue[900],
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                          textScaleFactor: 1.5)),
+                                ),
+                              if (model.userIsRadiologist)
+                                TextButton(
+                                  onPressed: () =>
+                                      model.deleteRadio(model.radioModels[i]),
+                                  child: Center(
+                                      child: Text("Delete",
+                                          style: TextStyle(
+                                            color: Colors.blue[900],
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                          textScaleFactor: 1.5)),
+                                ),
+                            ],
+                          )
                     ],
                   ),
                 ),

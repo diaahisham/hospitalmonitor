@@ -7,6 +7,27 @@ import 'package:hospitalmonitor/ui/widgets/user_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 class AnalyzesView extends StatelessWidget {
+  Widget _dataField({required Widget child}) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      width: 200,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            offset: Offset(0.0, 1.0), //(x,y)
+            blurRadius: 6.0,
+            spreadRadius: 0.0,
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Provider<AnalyzesViewModel>(
@@ -26,6 +47,22 @@ class AnalyzesView extends StatelessWidget {
               controller: ScrollController(),
               scrollDirection: Axis.vertical,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _dataField(
+                      child: TextFormField(
+                        initialValue: '',
+                        keyboardType: TextInputType.name,
+                        onChanged: (value) => model.searchValueChange(value),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Search',
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 ValueListenableBuilder(
                   valueListenable: model.analysesLength,
                   builder: (context, value, child) => Table(
@@ -45,12 +82,13 @@ class AnalyzesView extends StatelessWidget {
                                 textScaleFactor: 1.5,
                                 style: TextStyle(color: Colors.white),
                               )),
-                            Center(
-                                child: Text(
-                              "Patient name",
-                              textScaleFactor: 1.5,
-                              style: TextStyle(color: Colors.white),
-                            )),
+                            if (model.userIsAnalysit)
+                              Center(
+                                  child: Text(
+                                "Patient name",
+                                textScaleFactor: 1.5,
+                                style: TextStyle(color: Colors.white),
+                              )),
                             Center(
                                 child: Text(
                               "Date",
@@ -91,67 +129,71 @@ class AnalyzesView extends StatelessWidget {
                               )),
                           ]),
                       for (int i = 0; i < model.analysisModels.length; i++)
-                        TableRow(
-                          decoration: BoxDecoration(
-                              color: (i % 2 == 1)
-                                  ? Colors.grey[350]
-                                  : Colors.white),
-                          children: [
-                            if (!model.userIsAnalysit)
-                              Center(
-                                  child: Text(
-                                      model.analysisModels[i].analystName,
-                                      textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.analysisModels[i].patientName,
-                                    textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.analysisModels[i].date,
-                                    textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.analysisModels[i].labName,
-                                    textScaleFactor: 1.5)),
-                            Center(
-                                child: Text(model.analysisModels[i].notes,
-                                    textScaleFactor: 1.5)),
-                            TextButton(
-                              onPressed: () => model.launchInBrowser(
-                                  model.analysisModels[i].analysisUrl),
-                              child: Center(
-                                  child: Text(
-                                      model.analysisModels[i].analysisUrl,
-                                      style: TextStyle(
-                                        color: Colors.blue[900],
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                      textScaleFactor: 1.5)),
+                        if (model.isRowVisible(model.analysisModels[i]))
+                          TableRow(
+                            decoration: BoxDecoration(
+                              color: model.rowColor(),
                             ),
-                            if (model.userIsAnalysit)
+                            children: [
+                              if (!model.userIsAnalysit)
+                                Center(
+                                    child: Text(
+                                        model.analysisModels[i].analystName,
+                                        textScaleFactor: 1.5)),
+                              if (model.userIsAnalysit)
+                                Center(
+                                    child: Text(
+                                        model.analysisModels[i].patientName,
+                                        textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(model.analysisModels[i].date,
+                                      textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(model.analysisModels[i].labName,
+                                      textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(model.analysisModels[i].notes,
+                                      textScaleFactor: 1.5)),
                               TextButton(
-                                onPressed: () =>
-                                    model.editAnalysis(model.analysisModels[i]),
+                                onPressed: () => model.launchInBrowser(
+                                    model.analysisModels[i].analysisUrl),
                                 child: Center(
-                                    child: Text("Edit",
+                                    child: Text(
+                                        model.analysisModels[i].analysisUrl,
                                         style: TextStyle(
                                           color: Colors.blue[900],
                                           decoration: TextDecoration.underline,
                                         ),
                                         textScaleFactor: 1.5)),
                               ),
-                            if (model.userIsAnalysit)
-                              TextButton(
-                                onPressed: () => model
-                                    .deleteAnalysis(model.analysisModels[i]),
-                                child: Center(
-                                    child: Text("Delete",
-                                        style: TextStyle(
-                                          color: Colors.blue[900],
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                        textScaleFactor: 1.5)),
-                              ),
-                          ],
-                        )
+                              if (model.userIsAnalysit)
+                                TextButton(
+                                  onPressed: () => model
+                                      .editAnalysis(model.analysisModels[i]),
+                                  child: Center(
+                                      child: Text("Edit",
+                                          style: TextStyle(
+                                            color: Colors.blue[900],
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                          textScaleFactor: 1.5)),
+                                ),
+                              if (model.userIsAnalysit)
+                                TextButton(
+                                  onPressed: () => model
+                                      .deleteAnalysis(model.analysisModels[i]),
+                                  child: Center(
+                                      child: Text("Delete",
+                                          style: TextStyle(
+                                            color: Colors.blue[900],
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                          textScaleFactor: 1.5)),
+                                ),
+                            ],
+                          )
                     ],
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hospitalmonitor/business_logic/models/examination_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
@@ -14,7 +15,7 @@ class ExaminationViewModel {
   List<ExaminationModel> get examModels =>
       serviceLocator<ExaminationControlService>().examModels;
   bool userIsDoctor = false;
-  ValueNotifier<int> examssLength = ValueNotifier<int>(0);
+  ValueNotifier<int> examsLength = ValueNotifier<int>(0);
   DialogeService dialogeService = DialogeService();
 
   UserType get loggedUserType =>
@@ -27,10 +28,36 @@ class ExaminationViewModel {
         UserType.doctor);
   }
 
+  String searchValue = '';
+  int rowNumber = -1;
+
+  bool isRowVisible(String name) {
+    if (searchValue == '') return true;
+
+    if (name.length < searchValue.length) return false;
+
+    return (searchValue.toLowerCase() ==
+        name.substring(0, searchValue.length).toLowerCase());
+  }
+
+  void searchValueChange(String search) {
+    rowNumber = -1;
+    searchValue = search;
+    examsLength.value += 1;
+  }
+
+  Color? rowColor() {
+    rowNumber += 1;
+    if (rowNumber % 2 == 1)
+      return Colors.grey[350];
+    else
+      return Colors.white;
+  }
+
   Future<void> deleteExam(ExaminationModel examModel) async {
     examModels.removeWhere(
         (element) => element.examinationID == examModel.examinationID);
-    examssLength.value = examModels.length;
+    examsLength.value = examModels.length;
     sortExams();
   }
 
