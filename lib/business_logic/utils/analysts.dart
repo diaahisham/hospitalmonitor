@@ -13,6 +13,8 @@ List<UserModel> analysts = [
     type: UserType.analysit,
     token: '',
     photo: profileImages.analyst,
+    age: 40,
+    nationalID: '0123456789012345',
   ),
   UserModel(
     userID: "1",
@@ -24,6 +26,8 @@ List<UserModel> analysts = [
     type: UserType.analysit,
     token: '',
     photo: profileImages.analyst,
+    age: 50,
+    nationalID: '0123456789012345',
   ),
   UserModel(
     userID: "2",
@@ -35,5 +39,7 @@ List<UserModel> analysts = [
     type: UserType.analysit,
     token: '',
     photo: profileImages.analyst,
+    age: 46,
+    nationalID: '0123456789012345',
   ),
 ];

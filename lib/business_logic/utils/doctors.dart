@@ -13,6 +13,8 @@ List<UserModel> doctors = [
     type: UserType.doctor,
     token: '',
     photo: profileImages.doctor,
+    age: 35,
+    nationalID: '0123456789012345',
   ),
   UserModel(
     userID: "1",
@@ -24,6 +26,8 @@ List<UserModel> doctors = [
     type: UserType.doctor,
     token: '',
     photo: profileImages.doctor,
+    age: 27,
+    nationalID: '0123456789012345',
   ),
   UserModel(
     userID: "2",
@@ -35,5 +39,7 @@ List<UserModel> doctors = [
     type: UserType.doctor,
     token: '',
     photo: profileImages.doctor,
+    age: 55,
+    nationalID: '0123456789012345',
   ),
 ];

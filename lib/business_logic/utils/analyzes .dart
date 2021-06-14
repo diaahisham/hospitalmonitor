@@ -1,12 +1,12 @@
 import 'package:hospitalmonitor/business_logic/models/analysis_model.dart';
 
-List<AnalysisModel> analysises = [
+List<AnalysisModel> analyzes = [
   AnalysisModel(
     analysisID: '0',
     analystID: '0',
-    analystName: 'analyst',
+    analystName: 'Mostafa',
     patientID: '1',
-    patientName: 'patient1',
+    patientName: 'Yehia',
     date: '25/6/2006',
     labName: 'Almotehda lab',
     analysisUrl: 'mafesh URl',
@@ -15,9 +15,9 @@ List<AnalysisModel> analysises = [
   AnalysisModel(
     analysisID: '10',
     analystID: '0',
-    analystName: 'analyst',
+    analystName: 'Mostafa',
     patientID: '2',
-    patientName: 'patient2',
+    patientName: 'Samy2',
     date: '25/2/1995',
     labName: 'Almotehda lab',
     analysisUrl: 'https://english.ahram.org.eg/Portal/9/Heritage.aspx',
@@ -26,9 +26,9 @@ List<AnalysisModel> analysises = [
   AnalysisModel(
     analysisID: '20',
     analystID: '2',
-    analystName: 'analyst2',
+    analystName: 'Mostafa2',
     patientID: '0',
-    patientName: 'patient',
+    patientName: 'Samy',
     date: '25/2/2008',
     labName: 'Almotehda lab',
     analysisUrl: 'https://english.ahram.org.eg/Portal/7/Life--Style.aspx',
@@ -37,9 +37,9 @@ List<AnalysisModel> analysises = [
   AnalysisModel(
     analysisID: '30',
     analystID: '2',
-    analystName: 'analyst2',
+    analystName: 'Mostafa2',
     patientID: '1',
-    patientName: 'patient1',
+    patientName: 'Yehia',
     date: '30/8/2006',
     labName: 'Almotehda lab',
     analysisUrl: 'mafesh URl',
@@ -48,9 +48,9 @@ List<AnalysisModel> analysises = [
   AnalysisModel(
     analysisID: '40',
     analystID: '1',
-    analystName: 'analyst1',
+    analystName: 'Mostafa1',
     patientID: '0',
-    patientName: 'patient',
+    patientName: 'Samy',
     date: '25/12/2006',
     labName: 'Almotehda lab',
     analysisUrl: 'https://english.ahram.org.eg/Portal/2/World.aspx',
@@ -59,9 +59,9 @@ List<AnalysisModel> analysises = [
   AnalysisModel(
     analysisID: '50',
     analystID: '2',
-    analystName: 'analyst2',
+    analystName: 'Mostafa2',
     patientID: '1',
-    patientName: 'patient1',
+    patientName: 'Yehia',
     date: '25/6/2096',
     labName: 'Almotehda lab',
     analysisUrl: 'https://english.ahram.org.eg/Portal/3/Business.aspx',
@@ -70,9 +70,9 @@ List<AnalysisModel> analysises = [
   AnalysisModel(
     analysisID: '90',
     analystID: '2',
-    analystName: 'analyst2',
+    analystName: 'Mostafa2',
     patientID: '2',
-    patientName: 'patient2',
+    patientName: 'Samy2',
     date: '27/6/2006',
     labName: 'Almotehda lab',
     analysisUrl:
@@ -82,9 +82,9 @@ List<AnalysisModel> analysises = [
   AnalysisModel(
     analysisID: '100',
     analystID: '1',
-    analystName: 'analyst1',
+    analystName: 'Mostafa1',
     patientID: '2',
-    patientName: 'patient2',
+    patientName: 'Samy2',
     date: '25/7/2006',
     labName: 'Almotehda lab',
     analysisUrl: 'https://english.ahram.org.eg/',

@@ -12,8 +12,21 @@ class ProfileViewModel {
   UserModel currentUser = UserModel();
   ValueNotifier<bool> edittingMode = ValueNotifier<bool>(false);
 
+  List<GenderTypesList> genderTypes = [
+    GenderTypesList(0, "Female"),
+    GenderTypesList(1, "Male")
+  ];
+  ValueNotifier<int> genderTypeIndex = ValueNotifier<int>(1);
+  GenderTypesList currentGenderType = GenderTypesList(1, "Male");
+
   ProfileViewModel() {
     this.currentUser = serviceLocator<CurrentSessionService>().loggedUser;
+    currentGenderType = genderTypes[1];
+  }
+
+  void changeGender(int index) {
+    currentGenderType = genderTypes[index];
+    genderTypeIndex.value = index;
   }
 
   void cancelEditting() {
@@ -24,6 +37,7 @@ class ProfileViewModel {
   Future<void> submitEditting() async {
     if (edittingMode.value) {
       EditUserService editUserService = EditUserService();
+      currentUser.genderType = GenterType.values[genderTypeIndex.value];
       await editUserService.editUser(currentUser);
       edittingMode.value = false;
     } else {
@@ -42,4 +56,10 @@ class ProfileViewModel {
     await editUserService.changePicture();
     serviceLocator<NavigationService>().popAndNavigateTo(routes.ProfileRoute);
   }
+}
+
+class GenderTypesList {
+  int index = 1;
+  String type = '';
+  GenderTypesList(this.index, this.type);
 }

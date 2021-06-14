@@ -4,6 +4,8 @@ import 'package:hospitalmonitor/business_logic/utils/patients.dart';
 class PatientControlService {
   List<UserModel> allPatients = List<UserModel>.empty(growable: true);
 
+  UserModel currentPatient = UserModel();
+
   Future<void> fetchAllPatients() async {
     allPatients.clear();
     allPatients.addAll(patients);

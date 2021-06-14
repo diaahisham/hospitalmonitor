@@ -1,39 +1,37 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:hospitalmonitor/business_logic/models/radio_model.dart';
+import 'package:hospitalmonitor/business_logic/models/examination_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/dialoge_service/dialoge_service.dart';
+import 'package:hospitalmonitor/services/examination_control_service/examination_control_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
-import 'package:hospitalmonitor/services/radios_control_service/radios_control_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;
 
-class RadiosviewModel {
-  List<RadioModel> get radioModels =>
-      serviceLocator<RadiosControlService>().radioModels;
-  bool userIsRadiologist = false;
-  ValueNotifier<int> radiosLength = ValueNotifier<int>(0);
+class ExaminationViewModel {
+  List<ExaminationModel> get examModels =>
+      serviceLocator<ExaminationControlService>().examModels;
+  bool userIsDoctor = false;
+  ValueNotifier<int> examsLength = ValueNotifier<int>(0);
   DialogeService dialogeService = DialogeService();
 
   UserType get loggedUserType =>
       serviceLocator<CurrentSessionService>().loggedUser.type;
 
-  RadiosviewModel() {
-    userIsRadiologist =
-        (serviceLocator<CurrentSessionService>().loggedUser.type ==
-            UserType.radiologist);
+  UserModel user = serviceLocator<CurrentSessionService>().loggedUser;
+
+  ExaminationViewModel() {
+    userIsDoctor = (serviceLocator<CurrentSessionService>().loggedUser.type ==
+        UserType.doctor);
   }
 
   String searchValue = '';
   int rowNumber = -1;
 
-  bool isRowVisible(RadioModel radio) {
-    String name =
-        (!userIsRadiologist) ? radio.radiologistName : radio.patientName;
-
+  bool isRowVisible(String name) {
     if (searchValue == '') return true;
 
     if (name.length < searchValue.length) return false;
@@ -45,7 +43,7 @@ class RadiosviewModel {
   void searchValueChange(String search) {
     rowNumber = -1;
     searchValue = search;
-    radiosLength.value += 1;
+    examsLength.value += 1;
   }
 
   Color? rowColor() {
@@ -56,22 +54,24 @@ class RadiosviewModel {
       return Colors.white;
   }
 
-  Future<void> deleteRadio(RadioModel radioModel) async {
-    radioModels.removeWhere((element) => element.radioID == radioModel.radioID);
-    radiosLength.value = radioModels.length;
-    sortRadios();
+  Future<void> deleteExam(ExaminationModel examModel) async {
+    examModels.removeWhere(
+        (element) => element.examinationID == examModel.examinationID);
+    examsLength.value = examModels.length;
+    sortExams();
   }
 
-  void addRadio() {
-    serviceLocator<RadiosControlService>().currentEdittingRadio = RadioModel();
-    serviceLocator<NavigationService>().navigateTo(routes.AddEditRadioRoute);
-    sortRadios();
+  void addExam() {
+    serviceLocator<ExaminationControlService>().currentEdittingExam =
+        ExaminationModel();
+    serviceLocator<NavigationService>().navigateTo(routes.AddEditExamRoute);
+    sortExams();
   }
 
-  void editRadio(RadioModel radioModel) {
-    serviceLocator<RadiosControlService>().currentEdittingRadio = radioModel;
-    serviceLocator<NavigationService>().navigateTo(routes.AddEditRadioRoute);
-    sortRadios();
+  void editExam(ExaminationModel examModel) {
+    serviceLocator<ExaminationControlService>().currentEdittingExam = examModel;
+    serviceLocator<NavigationService>().navigateTo(routes.AddEditExamRoute);
+    sortExams();
   }
 
   Future<void> launchInBrowser(String url) async {
@@ -87,11 +87,10 @@ class RadiosviewModel {
     }
   }
 
-  void sortRadios() {
-    if (this.userIsRadiologist)
-      radioModels.sort((a, b) => a.patientName.compareTo(b.patientName));
+  void sortExams() {
+    if (this.userIsDoctor)
+      examModels.sort((a, b) => a.patientName.compareTo(b.patientName));
     else
-      radioModels
-          .sort((a, b) => a.radiologistName.compareTo(b.radiologistName));
+      examModels.sort((a, b) => a.doctorName.compareTo(b.doctorName));
   }
 }

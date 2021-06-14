@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;
+import 'package:hospitalmonitor/ui/views/add_edit_analysis_view.dart';
 import 'package:hospitalmonitor/ui/views/add_edit_radio_view.dart';
+import 'package:hospitalmonitor/ui/views/all_patients_view.dart';
+import 'package:hospitalmonitor/ui/views/analyzes_view.dart';
+import 'package:hospitalmonitor/ui/views/examination_view.dart';
 import 'package:hospitalmonitor/ui/views/home_view.dart';
 import 'package:hospitalmonitor/ui/views/login_view.dart';
 import 'package:hospitalmonitor/ui/views/profile_view.dart';
 import 'package:hospitalmonitor/ui/views/radios_view.dart';
+import 'package:hospitalmonitor/ui/views/add_edit_exam_view.dart';
+import 'package:hospitalmonitor/ui/views/report_view.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -26,6 +32,24 @@ class Router {
       case routes.AddEditRadioRoute:
         return MaterialPageRoute(
             builder: (_) => AddEditRadioView(), settings: settings);
+      case routes.AnalysisRoute:
+        return MaterialPageRoute(
+            builder: (_) => AnalyzesView(), settings: settings);
+      case routes.AddEditAnalysisRoute:
+        return MaterialPageRoute(
+            builder: (_) => AddEditAnalysisView(), settings: settings);
+      case routes.ExaminationViewRoute:
+        return MaterialPageRoute(
+            builder: (_) => ExaminationView(), settings: settings);
+      case routes.AddEditExamRoute:
+        return MaterialPageRoute(
+            builder: (_) => AddEditExamView(), settings: settings);
+      case routes.HealthReportRoute:
+        return MaterialPageRoute(
+            builder: (_) => ReportView(), settings: settings);
+      case routes.AllPatientsRoute:
+        return MaterialPageRoute(
+            builder: (_) => AllPatientsView(), settings: settings);
       default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(

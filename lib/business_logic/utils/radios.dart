@@ -4,7 +4,7 @@ List<RadioModel> radios = [
   RadioModel(
     radioID: '0',
     radiologistID: '0',
-    radiologistName: 'radiologist',
+    radiologistName: 'Ashraf',
     patientID: '0',
     patientName: 'Samy',
     date: '1/5/2880',
@@ -15,7 +15,7 @@ List<RadioModel> radios = [
   RadioModel(
     radioID: '10',
     radiologistID: '1',
-    radiologistName: 'radiologist1',
+    radiologistName: 'Ashraf1',
     patientID: '0',
     patientName: 'Samy',
     date: '1/5/280',
@@ -27,7 +27,7 @@ List<RadioModel> radios = [
   RadioModel(
     radioID: '20',
     radiologistID: '1',
-    radiologistName: 'radiologist1',
+    radiologistName: 'Ashraf1',
     patientID: '2',
     patientName: 'Samy2',
     date: '1/5/2880',
@@ -39,7 +39,7 @@ List<RadioModel> radios = [
   RadioModel(
     radioID: '30',
     radiologistID: '1',
-    radiologistName: 'radiologis1',
+    radiologistName: 'Ashraf1',
     patientID: '1',
     patientName: 'patient1',
     date: '1/5/2003',
@@ -51,7 +51,7 @@ List<RadioModel> radios = [
   RadioModel(
     radioID: '40',
     radiologistID: '2',
-    radiologistName: 'radiologist2',
+    radiologistName: 'Ashraf2',
     patientID: '2',
     patientName: 'Samy2',
     date: '1/5/2880',
@@ -62,9 +62,9 @@ List<RadioModel> radios = [
   RadioModel(
     radioID: '50',
     radiologistID: '0',
-    radiologistName: 'radiologist',
+    radiologistName: 'Ashraf',
     patientID: '1',
-    patientName: 'Samy1',
+    patientName: 'Yehia',
     date: '1/5/2880',
     labName: 'al3almy lab',
     radioUrl: 'https://akhbarelyom.com/',
@@ -73,7 +73,7 @@ List<RadioModel> radios = [
   RadioModel(
     radioID: '60',
     radiologistID: '2',
-    radiologistName: 'radiologist2',
+    radiologistName: 'Ashraf2',
     patientID: '1',
     patientName: 'Samy1',
     date: '1/5/2880',

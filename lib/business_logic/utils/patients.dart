@@ -13,10 +13,12 @@ List<UserModel> patients = [
     type: UserType.patient,
     token: '',
     photo: profileImages.patient,
+    age: 20,
+    nationalID: '0123456789012345',
   ),
   UserModel(
     userID: "1",
-    userName: 'Samy1',
+    userName: 'Yehia',
     password: 'patient1',
     address: '5 Patient_1 Street',
     email: 'patient1@gmail.com',
@@ -24,6 +26,8 @@ List<UserModel> patients = [
     type: UserType.patient,
     token: '',
     photo: profileImages.patient,
+    age: 30,
+    nationalID: '0123456789012345',
   ),
   UserModel(
     userID: "2",
@@ -35,5 +39,7 @@ List<UserModel> patients = [
     type: UserType.patient,
     token: '',
     photo: profileImages.patient,
+    age: 28,
+    nationalID: '0123456789012345',
   ),
 ];

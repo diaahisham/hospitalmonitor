@@ -4,7 +4,7 @@ List<HealthReportModel> healthReports = [
   HealthReportModel(
     reportID: '0',
     patientID: '0',
-    patientName: 'patient',
+    patientName: 'Samy',
     bloodPressure: '100',
     bloodType: '100',
     pulseRate: '100/100',
@@ -18,7 +18,7 @@ List<HealthReportModel> healthReports = [
   HealthReportModel(
     reportID: '10',
     patientID: '1',
-    patientName: 'patient1',
+    patientName: 'Yehia',
     bloodPressure: '200',
     bloodType: '200',
     pulseRate: '200/100',
@@ -32,7 +32,7 @@ List<HealthReportModel> healthReports = [
   HealthReportModel(
     reportID: '20',
     patientID: '2',
-    patientName: 'patient2',
+    patientName: 'Samy2',
     bloodPressure: '300',
     bloodType: '300',
     pulseRate: '100/300',

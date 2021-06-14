@@ -1,4 +1,6 @@
 enum UserType { notDefined, doctor, patient, radiologist, analysit }
+enum GenterType { female, male }
+enum MaritalStatus { single, married }
 
 class UserModel {
   String userID = '';
@@ -10,7 +12,11 @@ class UserModel {
   UserType type;
   String token;
   String photo;
-  String birthDate;
+
+  String nationalID;
+  int age;
+  GenterType genderType;
+  MaritalStatus maritalStatus;
 
   UserModel({
     this.userID = '',
@@ -22,7 +28,10 @@ class UserModel {
     this.type = UserType.notDefined,
     this.token = '',
     this.photo = '',
-    this.birthDate = '',
+    this.nationalID = '',
+    this.age = 0,
+    this.genderType = GenterType.male,
+    this.maritalStatus = MaritalStatus.married,
   });
 
   Map<String, dynamic> toJson() {
@@ -36,7 +45,10 @@ class UserModel {
       '"Type"': this.type.index,
       '"Token"': this.token,
       '"Photo"': this.photo,
-      '"BirthDate"': this.birthDate,
+      '"NationalID"': this.nationalID,
+      '"Age"': this.age,
+      '"GenterType"': this.genderType.index,
+      '"MaritalStatus"': this.maritalStatus.index,
     };
   }
 
@@ -51,7 +63,10 @@ class UserModel {
       photo: json["Photo"] ?? "",
       type: UserType.values[json["Type"] ?? 0],
       token: json["Token"] ?? '',
-      birthDate: json["BirthDate"] ?? '',
+      nationalID: json["NationalID"] ?? '',
+      age: int.parse(json["Age"]),
+      genderType: GenterType.values[json["GenterType"] ?? 1],
+      maritalStatus: MaritalStatus.values[json["MaritalStatus"] ?? 1],
     );
   }
   @override
@@ -74,7 +89,13 @@ class UserModel {
 
     String typeString = ',"Type":${this.type.index}';
 
-    String birthDateString = ',"BirthDate":"${this.birthDate}"';
+    String nationalIDString = ',"NationalID":"${this.nationalID}"';
+
+    String ageString = ',"Age":"${this.age}"';
+
+    String genderString = ',"GenterType":${this.genderType.index}';
+
+    String maritalString = ',"MaritalStatus":${this.maritalStatus.index}';
 
     return '{' +
         '$userIdString' +
@@ -86,7 +107,10 @@ class UserModel {
         '$photoString' +
         '$tokenString' +
         '$typeString' +
-        '$birthDateString' +
+        '$ageString' +
+        '$nationalIDString' +
+        '$genderString' +
+        '$maritalString' +
         '}';
   }
 }
