@@ -73,7 +73,7 @@ class PatientNavigationBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.assessment),
-          label: 'Report',
+          label: 'Health Report',
         ),
       ],
       currentIndex: selectedIndex,

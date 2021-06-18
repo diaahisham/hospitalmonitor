@@ -9,7 +9,7 @@ import 'package:hospitalmonitor/ui/views/analyzes_view.dart';
 import 'package:hospitalmonitor/ui/views/examination_view.dart';
 import 'package:hospitalmonitor/ui/views/home_view.dart';
 import 'package:hospitalmonitor/ui/views/login_view.dart';
-import 'package:hospitalmonitor/ui/views/profile_view.dart';
+//import 'package:hospitalmonitor/ui/views/profile_view.dart';
 import 'package:hospitalmonitor/ui/views/radios_view.dart';
 import 'package:hospitalmonitor/ui/views/add_edit_exam_view.dart';
 import 'package:hospitalmonitor/ui/views/report_view.dart';
