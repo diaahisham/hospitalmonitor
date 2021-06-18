@@ -13,6 +13,7 @@ import 'package:hospitalmonitor/ui/views/profile_view.dart';
 import 'package:hospitalmonitor/ui/views/radios_view.dart';
 import 'package:hospitalmonitor/ui/views/add_edit_exam_view.dart';
 import 'package:hospitalmonitor/ui/views/report_view.dart';
+import 'package:hospitalmonitor/ui/views/updated_profile_view.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -25,7 +26,7 @@ class Router {
             builder: (_) => LoginView(), settings: settings);
       case routes.ProfileRoute:
         return MaterialPageRoute(
-            builder: (_) => ProfileView(), settings: settings);
+            builder: (_) => UpdatedProfileView(), settings: settings);
       case routes.RadiosRoute:
         return MaterialPageRoute(
             builder: (_) => RadiosView(), settings: settings);

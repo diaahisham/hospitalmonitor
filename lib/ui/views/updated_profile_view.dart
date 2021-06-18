@@ -1,14 +1,13 @@
 import 'dart:convert';
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospitalmonitor/business_logic/view_models/profile_viewModel.dart';
 import 'package:hospitalmonitor/ui/widgets/user_app_bar.dart';
 import 'package:hospitalmonitor/ui/widgets/user_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
-class ProfileView extends StatelessWidget {
+class UpdatedProfileView extends StatelessWidget {
   Widget _labelWidget(String label) {
     return Padding(
       padding: EdgeInsets.all(10),
@@ -18,6 +17,19 @@ class ProfileView extends StatelessWidget {
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
+      ),
+    );
+  }
+
+  Widget leftSideItem(String title, int index, ProfileViewModel model) {
+    return Container(
+      height: 50,
+      width: 200,
+      margin: EdgeInsets.only(top: 10, bottom: 10),
+      color: (index == model.widgetNo) ? Colors.blue[100] : Colors.white,
+      child: TextButton(
+        onPressed: () => model.changePicture(),
+        child: Text(title),
       ),
     );
   }
@@ -47,9 +59,6 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    // String buttonText = userType.toString().replaceAll('UserType.', '');
-    // buttonText =
-    //     buttonText.replaceFirst(buttonText[0], buttonText[0].toUpperCase());
     return WillPopScope(
       onWillPop: () async => false,
       child: Provider(
@@ -58,18 +67,48 @@ class ProfileView extends StatelessWidget {
           builder: (context, model, child) => Scaffold(
             appBar: UserAppbar('Profile'),
             bottomNavigationBar: UserNavigationBar(),
-            backgroundColor: Colors.blue[100],
+            backgroundColor: Colors.white,
             body: Container(
-              width: screenWidth,
-              height: screenHeight,
-              padding: EdgeInsets.only(left: 10),
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 3,
-                    child: ValueListenableBuilder(
-                      valueListenable: model.edittingMode,
-                      builder: (context, value, child) => ListView(
+                  Container(
+                    width: 200,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Container(
+                            height: 200,
+                            width: 200,
+                            padding: EdgeInsets.all(20),
+                            child: Image.memory(
+                              base64Decode(model.currentUser.photo),
+                              scale: 1,
+                            ),
+                          ),
+                        ),
+                        leftSideItem('Change picture', 0, model),
+                      ],
+                    ),
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: model.edittingMode,
+                    builder: (context, value, child) => Container(
+                      width: screenWidth - 200,
+                      padding: EdgeInsets.all(30),
+                      decoration: BoxDecoration(
+                        color: Colors.blue[100],
+                        borderRadius: BorderRadius.circular(50),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                            spreadRadius: 0.0,
+                          ),
+                        ],
+                      ),
+                      child: ListView(
                         controller: ScrollController(),
                         scrollDirection: Axis.vertical,
                         children: [
@@ -448,49 +487,6 @@ class ProfileView extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.all(30),
-                          child: Image.memory(
-                            base64Decode(model.currentUser.photo),
-                            scale: 1,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () => model.changePicture(),
-                          child: Container(
-                            height: 50,
-                            width: 200,
-                            margin: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Color(0xffEA5B0C),
-                              borderRadius: BorderRadius.circular(50),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(0.0, 1.0), //(x,y)
-                                  blurRadius: 6.0,
-                                  spreadRadius: 0.0,
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Change picture',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ],

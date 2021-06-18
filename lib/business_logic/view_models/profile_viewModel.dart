@@ -12,6 +12,11 @@ class ProfileViewModel {
   UserModel currentUser = UserModel();
   ValueNotifier<bool> edittingMode = ValueNotifier<bool>(false);
 
+  ValueNotifier<int> currentWidgetNumber = ValueNotifier<int>(0);
+  set widgetNO(int no) => currentWidgetNumber.value = no;
+
+  int get widgetNo => currentWidgetNumber.value;
+
   List<GenderTypesList> genderTypes = [
     GenderTypesList(0, "Female"),
     GenderTypesList(1, "Male")
