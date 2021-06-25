@@ -72,6 +72,13 @@ class AllPatientsView extends StatelessWidget {
                         children: [
                           Center(
                             child: Text(
+                              "National ID",
+                              textScaleFactor: 1.5,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          Center(
+                            child: Text(
                               "Name",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
@@ -94,12 +101,19 @@ class AllPatientsView extends StatelessWidget {
                         ],
                       ),
                       for (int i = 0; i < model.patients.length; i++)
-                        if (model.isRowVisible(model.patients[i].userName))
+                        if (model.isRowVisible(model.patients[i].nationalID))
                           TableRow(
                             decoration: BoxDecoration(
                               color: model.rowColor(),
                             ),
                             children: [
+                              TextButton(
+                                onPressed: () =>
+                                    model.viewPatient(model.patients[i]),
+                                child: Center(
+                                    child: Text(model.patients[i].nationalID,
+                                        textScaleFactor: 1.5)),
+                              ),
                               TextButton(
                                 onPressed: () =>
                                     model.viewPatient(model.patients[i]),
