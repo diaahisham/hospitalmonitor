@@ -101,18 +101,11 @@ class AddEditExamView extends StatelessWidget {
                       ),
                       _formWidget(
                         initialValue:
-                            model.currentEdittingExamination.examinationResult,
+                            model.currentEdittingExamination.description,
                         validatorText: 'Please enter result',
                         labelText: 'Result: ',
-                        onChanged: (value) => model.currentEdittingExamination
-                            .examinationResult = value,
-                      ),
-                      _formWidget(
-                        initialValue: model.currentEdittingExamination.notes,
-                        validatorText: 'Please enter notes',
-                        labelText: 'Notes: ',
-                        onChanged: (value) =>
-                            model.currentEdittingExamination.notes = value,
+                        onChanged: (value) => model
+                            .currentEdittingExamination.description = value,
                       ),
                     ],
                   ),

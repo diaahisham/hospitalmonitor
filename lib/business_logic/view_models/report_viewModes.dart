@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hospitalmonitor/business_logic/models/health_report_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
@@ -89,11 +90,53 @@ class ReportViewModel {
   Widget? viewWidget() {
     switch (widgetNo) {
       case 1:
-        return AnalyzesView();
+        return Container(
+            padding: EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              color: Colors.blue[100],
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                  spreadRadius: 0.0,
+                ),
+              ],
+            ),
+            child: AnalyzesView());
       case 2:
-        return RadiosView();
+        return Container(
+            padding: EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              color: Colors.blue[100],
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                  spreadRadius: 0.0,
+                ),
+              ],
+            ),
+            child: RadiosView());
       case 3:
-        return ExaminationView();
+        return Container(
+            padding: EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              color: Colors.blue[100],
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                  spreadRadius: 0.0,
+                ),
+              ],
+            ),
+            child: ExaminationView());
       default:
         return null;
     }

@@ -9,8 +9,7 @@ List<ExaminationModel> examinations = [
     patientName: 'Samy',
     date: '1/1/2001',
     symptoms: 'nothing',
-    examinationResult: 'nothing',
-    notes: 'playful child',
+    description: 'nothing',
   ),
   ExaminationModel(
     examinationID: '20',
@@ -20,8 +19,7 @@ List<ExaminationModel> examinations = [
     patientName: 'Samy',
     date: '1/1/2001',
     symptoms: 'nothing',
-    examinationResult: 'nothing',
-    notes: 'playful child',
+    description: 'nothing',
   ),
   ExaminationModel(
     examinationID: '30',
@@ -31,8 +29,7 @@ List<ExaminationModel> examinations = [
     patientName: 'Yehia',
     date: '1/1/2005',
     symptoms: 'bone break',
-    examinationResult: '3yan',
-    notes: 'should visit a doctor!',
+    description: '3yan',
   ),
   ExaminationModel(
     examinationID: '40',
@@ -42,8 +39,7 @@ List<ExaminationModel> examinations = [
     patientName: 'Samy2',
     date: '1/1/2008',
     symptoms: 'stomach ache',
-    examinationResult: 'may be she is pregnant!',
-    notes: 'should got to the hospital!',
+    description: 'may be she is pregnant!',
   ),
   ExaminationModel(
     examinationID: '50',
@@ -53,8 +49,7 @@ List<ExaminationModel> examinations = [
     patientName: 'Samy',
     date: '1/1/2002',
     symptoms: 'teeth pain',
-    examinationResult: 'bad teeth',
-    notes: 'remove his teeth',
+    description: 'bad teeth',
   ),
   ExaminationModel(
     examinationID: '60',
@@ -64,8 +59,7 @@ List<ExaminationModel> examinations = [
     patientName: 'Yehia',
     date: '1/1/2025',
     symptoms: 'nothing',
-    examinationResult: 'nothing',
-    notes: '',
+    description: 'nothing',
   ),
   ExaminationModel(
     examinationID: '70',
@@ -75,8 +69,7 @@ List<ExaminationModel> examinations = [
     patientName: 'Samy',
     date: '1/1/2001',
     symptoms: 'nothing',
-    examinationResult: 'nothing',
-    notes: 'playful child',
+    description: 'nothing',
   ),
   ExaminationModel(
     examinationID: '80',
@@ -86,8 +79,7 @@ List<ExaminationModel> examinations = [
     patientName: 'Samy2',
     date: '1/1/2001',
     symptoms: 'nothing',
-    examinationResult: 'nothing',
-    notes: 'good girl',
+    description: 'nothing',
   ),
   ExaminationModel(
     examinationID: '900',
@@ -97,7 +89,6 @@ List<ExaminationModel> examinations = [
     patientName: 'Samy2',
     date: '1/1/2012',
     symptoms: 'nothing',
-    examinationResult: 'nothing',
-    notes: 'good boy',
+    description: 'nothing',
   ),
 ];

@@ -20,9 +20,10 @@ class LoginViewModel {
     wrongCredentialsText.value = '';
   }
 
-  void submitLogin() {
+  void submitLogin() async {
     try {
-      UserModel loggedUser = serviceLocator<LoginService>().login(this.user);
+      UserModel loggedUser =
+          await serviceLocator<LoginService>().login(this.user);
       serviceLocator<CurrentSessionService>().loggedUser = loggedUser;
       serviceLocator<NavigationService>().popAndNavigateTo(routes.ProfileRoute);
     } on Exception catch (e) {

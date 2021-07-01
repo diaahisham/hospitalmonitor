@@ -95,13 +95,7 @@ class ExaminationView extends StatelessWidget {
                             )),
                             Center(
                                 child: Text(
-                              "Examination Result",
-                              textScaleFactor: 1.5,
-                              style: TextStyle(color: Colors.white),
-                            )),
-                            Center(
-                                child: Text(
-                              "Notes",
+                              "Description",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
@@ -137,11 +131,7 @@ class ExaminationView extends StatelessWidget {
                                   child: Text(model.examModels[i].symptoms,
                                       textScaleFactor: 1.5)),
                               Center(
-                                  child: Text(
-                                      model.examModels[i].examinationResult,
-                                      textScaleFactor: 1.5)),
-                              Center(
-                                  child: Text(model.examModels[i].notes,
+                                  child: Text(model.examModels[i].description,
                                       textScaleFactor: 1.5)),
                               if (model.userIsDoctor)
                                 (model.user.userID ==

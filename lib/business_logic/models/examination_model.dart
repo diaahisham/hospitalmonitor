@@ -6,8 +6,7 @@ class ExaminationModel {
   String patientName = '';
   String date = '';
   String symptoms = '';
-  String examinationResult = '';
-  String notes = '';
+  String description = '';
 
   ExaminationModel({
     this.examinationID = '',
@@ -16,8 +15,7 @@ class ExaminationModel {
     this.patientID = '',
     this.patientName = '',
     this.date = '',
-    this.examinationResult = '',
-    this.notes = '',
+    this.description = '',
     this.symptoms = '',
   });
 
@@ -30,8 +28,7 @@ class ExaminationModel {
       '"PatientName"': this.patientName,
       '"Date"': this.date,
       '"Symptoms"': this.symptoms,
-      '"ExaminationResult"': this.examinationResult,
-      '"Notes"': this.notes,
+      '"Description"': this.description,
     };
   }
 
@@ -44,8 +41,7 @@ class ExaminationModel {
       patientName: json["PatientName"] ?? '',
       date: json["Date"] ?? '',
       symptoms: json["Symptoms"] ?? '',
-      examinationResult: json["ExaminationResult"] ?? '',
-      notes: json["Notes"] ?? '',
+      description: json["Description"] ?? '',
     );
   }
 }
