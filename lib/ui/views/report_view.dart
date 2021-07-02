@@ -99,9 +99,6 @@ class ReportView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // marital row
-            infoColOne("Marital status:  ",
-                model.currentPatient.maritalStatus.toString().substring(14)),
             // national ID
             infoColOne("National ID:       ", model.currentPatient.nationalID),
             // phone Row
@@ -854,40 +851,12 @@ class ReportView extends StatelessWidget {
           lineSeprator(width),
           vaccinationsDiseases(model),
           if (model.userIsDoctor)
-            Row(
-              children: [
-                TextButton(
-                  onPressed: () => model.submitEditting(),
-                  child: Container(
-                    height: 50,
-                    width: 200,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xffEA5B0C),
-                      borderRadius: BorderRadius.circular(50),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 6.0,
-                          spreadRadius: 0.0,
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        (model.edittingMode.value) ? "Done" : "Edit",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                if (model.edittingMode.value)
+            ValueListenableBuilder(
+              valueListenable: model.edittingMode,
+              builder: (context, value, child) => Row(
+                children: [
                   TextButton(
-                    onPressed: () => model.cancelEditting(),
+                    onPressed: () => model.submitEditting(),
                     child: Container(
                       height: 50,
                       width: 200,
@@ -906,7 +875,7 @@ class ReportView extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          "Cancel",
+                          (model.edittingMode.value) ? "Done" : "Edit",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -915,7 +884,38 @@ class ReportView extends StatelessWidget {
                       ),
                     ),
                   ),
-              ],
+                  if (model.edittingMode.value)
+                    TextButton(
+                      onPressed: () => model.cancelEditting(),
+                      child: Container(
+                        height: 50,
+                        width: 200,
+                        margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Color(0xffEA5B0C),
+                          borderRadius: BorderRadius.circular(50),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0.0, 1.0), //(x,y)
+                              blurRadius: 6.0,
+                              spreadRadius: 0.0,
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
         ],
       ),

@@ -102,14 +102,7 @@ class ExaminationView extends StatelessWidget {
                             if (model.userIsDoctor)
                               Center(
                                   child: Text(
-                                "Edit",
-                                textScaleFactor: 1.5,
-                                style: TextStyle(color: Colors.white),
-                              )),
-                            if (model.userIsDoctor)
-                              Center(
-                                  child: Text(
-                                "Delete",
+                                "Edit or Delete",
                                 textScaleFactor: 1.5,
                                 style: TextStyle(color: Colors.white),
                               )),
@@ -140,23 +133,7 @@ class ExaminationView extends StatelessWidget {
                                         onPressed: () =>
                                             model.editExam(model.examModels[i]),
                                         child: Center(
-                                            child: Text("Edit",
-                                                style: TextStyle(
-                                                  color: Colors.blue[900],
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                                textScaleFactor: 1.5)),
-                                      )
-                                    : Text(''),
-                              if (model.userIsDoctor)
-                                (model.user.userID ==
-                                        model.examModels[i].doctorID)
-                                    ? TextButton(
-                                        onPressed: () => model
-                                            .deleteExam(model.examModels[i]),
-                                        child: Center(
-                                            child: Text("Delete",
+                                            child: Text("Edit or Delete",
                                                 style: TextStyle(
                                                   color: Colors.blue[900],
                                                   decoration:

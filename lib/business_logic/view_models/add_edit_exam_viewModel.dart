@@ -14,6 +14,9 @@ class AddEditExamViewModel {
   ExaminationModel get currentEdittingExamination =>
       serviceLocator<ExaminationControlService>().currentEdittingExam;
 
+  List<ExaminationModel> get examModels =>
+      serviceLocator<ExaminationControlService>().examModels;
+
   set currentEdittingExamination(ExaminationModel newRadio) =>
       serviceLocator<ExaminationControlService>().currentEdittingExam =
           newRadio;
@@ -22,6 +25,12 @@ class AddEditExamViewModel {
 
   Future<void> submit() async {
     await serviceLocator<ExaminationControlService>().addEditExamination();
+    _navigate();
+  }
+
+  Future<void> deleteExam() async {
+    examModels.removeWhere((element) =>
+        element.examinationID == currentEdittingExamination.examinationID);
     _navigate();
   }
 
