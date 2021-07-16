@@ -37,15 +37,15 @@ class PatientNavigationBar extends StatelessWidget {
         serviceLocator<NavigationService>()
             .navigateTo(routes.ExaminationViewRoute);
         break;
-      case 4:
-        await serviceLocator<ReportControlService>()
-            .fetchReportModelsByPatientId(
-                serviceLocator<CurrentSessionService>().loggedUser.userID);
-        serviceLocator<PatientControlService>().currentPatient =
-            serviceLocator<CurrentSessionService>().loggedUser;
-        serviceLocator<NavigationService>()
-            .navigateTo(routes.HealthReportRoute);
-        break;
+      // case 4:
+      //   await serviceLocator<ReportControlService>()
+      //       .fetchReportModelsByPatientId(
+      //           serviceLocator<CurrentSessionService>().loggedUser.userID);
+      //   serviceLocator<PatientControlService>().currentPatient =
+      //       serviceLocator<CurrentSessionService>().loggedUser;
+      //   serviceLocator<NavigationService>()
+      //       .navigateTo(routes.HealthReportRoute);
+      //   break;
       default:
     }
   }
@@ -70,10 +70,6 @@ class PatientNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.assessment),
           label: 'Examinations',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.assessment),
-          label: 'Health Report',
         ),
       ],
       currentIndex: selectedIndex,

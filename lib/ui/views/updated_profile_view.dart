@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/business_logic/view_models/profile_viewModel.dart';
 import 'package:hospitalmonitor/ui/widgets/user_app_bar.dart';
 import 'package:hospitalmonitor/ui/widgets/user_navigation_bar.dart';
@@ -55,6 +56,282 @@ class UpdatedProfileView extends StatelessWidget {
     );
   }
 
+  Widget _lineSeprator(double width) {
+    return Container(
+      margin: EdgeInsets.only(top: 10, bottom: 10),
+      child: Container(
+        width: width,
+        height: 1,
+        color: Colors.black,
+      ),
+    );
+  }
+
+  Widget personalInfo(ProfileViewModel model, double screenWidth) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // name row
+                infoColOne("Name:    ", model.currentUser.userName),
+                //age row
+                infoColOne("Age:        ", model.currentUser.age.toString()),
+                // Gender row
+                infoColOne("Gender:  ",
+                    model.currentUser.genderType.toString().substring(11)),
+              ],
+            ),
+            Container(
+              width: 50,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // national ID
+                infoColOne("National ID:       ", model.currentUser.nationalID),
+                // phone Row
+                infoColOne(
+                    "Mobile:               ", model.currentUser.mobileNumber),
+                TextButton(
+                    onPressed: () => model.edittingMode.value = true,
+                    child: Text("Edit"))
+              ],
+            )
+          ],
+        ),
+        _lineSeprator(screenWidth)
+      ],
+    );
+  }
+
+  Widget infoColOne(String label, String info) {
+    return Row(children: [
+      Text(
+        label,
+        style: TextStyle(color: Color(0xffEA5B0C)),
+      ),
+      Text(info)
+    ]);
+  }
+//
+
+  Widget patientVitalModifiers(ProfileViewModel model) {
+    return ValueListenableBuilder(
+      valueListenable: model.edittingMode,
+      builder: (context, value, child) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(
+              'Vital modifiers: ',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xffEA5B0C),
+              ),
+            ),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  //blood pressure
+                  _labelWidget('Blood pressure: '),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Text(
+                      model.reportModel.bloodPressure,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  //
+                  //blood Type
+                  _labelWidget('Blood type: '),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Text(
+                      model.reportModel.bloodType,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  //
+                  //diabetes Rate
+                  _labelWidget('Diabetes rate: '),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Text(
+                      model.reportModel.diabetesRate,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  //
+                ],
+              ),
+              Container(width: 50),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  // breathing Rate
+                  _labelWidget('Breathing rate: '),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Text(
+                      model.reportModel.breathingRate,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  //
+                  _labelWidget('Breathing rate: '),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Text(
+                      model.reportModel.pulseRate,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  //
+                ],
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget chronicDiseases(ProfileViewModel model) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(
+            'Chronic diseases: ',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xffEA5B0C),
+            ),
+          ),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (int i = 0; i < model.reportModel.chronicDiseases.length; i++)
+              _labelWidget(' => ' + model.reportModel.chronicDiseases[i]),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget dangerDiseases(ProfileViewModel model) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(
+            'Danger diseases & Surgiries: ',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xffEA5B0C),
+            ),
+          ),
+        ),
+        for (int i = 0; i < model.reportModel.dangerDiseases.length; i++)
+          _labelWidget(' => ' + model.reportModel.dangerDiseases[i]),
+      ],
+    );
+  }
+
+  Widget senstivitiesDiseases(ProfileViewModel model) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: Text(
+            'Senstivities: ',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xffEA5B0C),
+            ),
+          ),
+        ),
+
+        for (int i = 0; i < model.reportModel.sensitivities.length; i++)
+          _labelWidget(' => ' + model.reportModel.sensitivities[i]),
+        //
+      ],
+    );
+  }
+
+  Widget vaccinationsDiseases(ProfileViewModel model) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(
+            'Vaccination: ',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xffEA5B0C),
+            ),
+          ),
+        ),
+
+        for (int i = 0; i < model.reportModel.vaccinations.length; i++)
+          _labelWidget(' => ' + model.reportModel.vaccinations[i]),
+        //
+        // add
+      ],
+    );
+  }
+
+//
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -113,14 +390,17 @@ class UpdatedProfileView extends StatelessWidget {
                         controller: ScrollController(),
                         scrollDirection: Axis.vertical,
                         children: [
-                          Form(
-                            key: model.formKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _labelWidget('User name'),
-                                (model.edittingMode.value)
-                                    ? _dataField(
+                          personalInfo(model, screenWidth),
+                          (model.edittingMode.value)
+                              ? Form(
+                                  key: model.formKey,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      _labelWidget('User name'),
+
+                                      _dataField(
                                         child: TextFormField(
                                           initialValue:
                                               model.currentUser.userName,
@@ -141,23 +421,11 @@ class UpdatedProfileView extends StatelessWidget {
                                                 const EdgeInsets.all(0.0),
                                           ),
                                         ),
-                                      )
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20.0),
-                                        child: Text(
-                                          model.currentUser.userName,
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
                                       ),
-                                //
-                                _labelWidget('Gender'),
-                                (model.edittingMode.value)
-                                    ? Container(
+
+                                      //
+                                      _labelWidget('Gender'),
+                                      Container(
                                         padding: EdgeInsets.all(10),
                                         width: 250,
                                         height: 50,
@@ -198,50 +466,38 @@ class UpdatedProfileView extends StatelessWidget {
                                                 .toList(),
                                           ),
                                         ),
-                                      )
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20.0),
-                                        child: Text(
-                                          model.currentUser.genderType
-                                              .toString()
-                                              .substring(11),
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey,
+                                      ),
+                                      //password
+
+                                      _labelWidget('Password'),
+
+                                      _dataField(
+                                        child: TextFormField(
+                                          initialValue:
+                                              model.currentUser.password,
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please enter password';
+                                            }
+                                            return null;
+                                          },
+                                          obscureText: true,
+                                          keyboardType: TextInputType.name,
+                                          autofocus: true,
+                                          onChanged: (value) => model
+                                              .currentUser.password = value,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            contentPadding:
+                                                const EdgeInsets.all(0.0),
                                           ),
                                         ),
                                       ),
-                                //password
-                                if (model.edittingMode.value)
-                                  _labelWidget('Password'),
-                                if (model.edittingMode.value)
-                                  _dataField(
-                                    child: TextFormField(
-                                      initialValue: model.currentUser.password,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter password';
-                                        }
-                                        return null;
-                                      },
-                                      obscureText: true,
-                                      keyboardType: TextInputType.name,
-                                      autofocus: true,
-                                      onChanged: (value) =>
-                                          model.currentUser.password = value,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        contentPadding:
-                                            const EdgeInsets.all(0.0),
-                                      ),
-                                    ),
-                                  ),
-                                // Age
-                                _labelWidget('Age'),
-                                (model.edittingMode.value)
-                                    ? _dataField(
+                                      // Age
+                                      _labelWidget('Age'),
+
+                                      _dataField(
                                         child: TextFormField(
                                           initialValue:
                                               model.currentUser.age.toString(),
@@ -254,32 +510,20 @@ class UpdatedProfileView extends StatelessWidget {
                                           },
                                           keyboardType: TextInputType.number,
                                           onChanged: (value) => model
-                                              .currentUser.mobileNumber = value,
+                                              .currentUser
+                                              .age = int.parse(value),
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
                                             contentPadding:
                                                 const EdgeInsets.all(0.0),
                                           ),
                                         ),
-                                      )
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20.0),
-                                        child: Text(
-                                          model.currentUser.age.toString(),
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
                                       ),
-                                //
+                                      //
 
-                                // National ID
-                                _labelWidget('National ID'),
-                                (model.edittingMode.value)
-                                    ? _dataField(
+                                      // National ID
+                                      _labelWidget('National ID'),
+                                      _dataField(
                                         child: TextFormField(
                                           initialValue:
                                               model.currentUser.nationalID,
@@ -299,23 +543,10 @@ class UpdatedProfileView extends StatelessWidget {
                                                 const EdgeInsets.all(0.0),
                                           ),
                                         ),
-                                      )
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20.0),
-                                        child: Text(
-                                          model.currentUser.nationalID,
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
                                       ),
-                                //
-                                _labelWidget('MobileNumber'),
-                                (model.edittingMode.value)
-                                    ? _dataField(
+                                      //
+                                      _labelWidget('MobileNumber'),
+                                      _dataField(
                                         child: TextFormField(
                                           initialValue:
                                               model.currentUser.mobileNumber,
@@ -335,22 +566,9 @@ class UpdatedProfileView extends StatelessWidget {
                                                 const EdgeInsets.all(0.0),
                                           ),
                                         ),
-                                      )
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20.0),
-                                        child: Text(
-                                          model.currentUser.mobileNumber,
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
                                       ),
-                                _labelWidget('Email'),
-                                (model.edittingMode.value)
-                                    ? _dataField(
+                                      _labelWidget('Email'),
+                                      _dataField(
                                         child: TextFormField(
                                           initialValue: model.currentUser.email,
                                           validator: (value) {
@@ -369,22 +587,9 @@ class UpdatedProfileView extends StatelessWidget {
                                                 const EdgeInsets.all(0.0),
                                           ),
                                         ),
-                                      )
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20.0),
-                                        child: Text(
-                                          model.currentUser.email,
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
                                       ),
-                                _labelWidget('Address'),
-                                (model.edittingMode.value)
-                                    ? _dataField(
+                                      _labelWidget('Address'),
+                                      _dataField(
                                         child: TextFormField(
                                           initialValue:
                                               model.currentUser.address,
@@ -404,102 +609,98 @@ class UpdatedProfileView extends StatelessWidget {
                                                 const EdgeInsets.all(0.0),
                                           ),
                                         ),
-                                      )
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20.0),
-                                        child: Text(
-                                          model.currentUser.address,
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
                                       ),
-                                _labelWidget('User Type'),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Text(
-                                    model.getUserTypeAsString(),
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                    ),
+                                      Row(
+                                        children: [
+                                          TextButton(
+                                            onPressed: () =>
+                                                model.submitEditting(),
+                                            child: Container(
+                                              height: 50,
+                                              width: 200,
+                                              margin: EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffEA5B0C),
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey,
+                                                    offset: Offset(
+                                                        0.0, 1.0), //(x,y)
+                                                    blurRadius: 6.0,
+                                                    spreadRadius: 0.0,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  (model.edittingMode.value)
+                                                      ? "Done"
+                                                      : "Edit",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          if (model.edittingMode.value)
+                                            TextButton(
+                                              onPressed: () =>
+                                                  model.cancelEditting(),
+                                              child: Container(
+                                                height: 50,
+                                                width: 200,
+                                                margin: EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xffEA5B0C),
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey,
+                                                      offset: Offset(
+                                                          0.0, 1.0), //(x,y)
+                                                      blurRadius: 6.0,
+                                                      spreadRadius: 0.0,
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "Cancel",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    TextButton(
-                                      onPressed: () => model.submitEditting(),
-                                      child: Container(
-                                        height: 50,
-                                        width: 200,
-                                        margin: EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffEA5B0C),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey,
-                                              offset: Offset(0.0, 1.0), //(x,y)
-                                              blurRadius: 6.0,
-                                              spreadRadius: 0.0,
-                                            ),
-                                          ],
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            (model.edittingMode.value)
-                                                ? "Done"
-                                                : "Edit",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    if (model.edittingMode.value)
-                                      TextButton(
-                                        onPressed: () => model.cancelEditting(),
-                                        child: Container(
-                                          height: 50,
-                                          width: 200,
-                                          margin: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xffEA5B0C),
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey,
-                                                offset:
-                                                    Offset(0.0, 1.0), //(x,y)
-                                                blurRadius: 6.0,
-                                                spreadRadius: 0.0,
-                                              ),
-                                            ],
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              "Cancel",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                                )
+                              : (model.currentUser.type == UserType.patient)
+                                  ? Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        patientVitalModifiers(model),
+                                        _lineSeprator(screenWidth),
+                                        chronicDiseases(model),
+                                        _lineSeprator(screenWidth),
+                                        dangerDiseases(model),
+                                        _lineSeprator(screenWidth),
+                                        senstivitiesDiseases(model),
+                                        _lineSeprator(screenWidth),
+                                        vaccinationsDiseases(model),
+                                      ],
+                                    )
+                                  : Text(""),
                         ],
                       ),
                     ),

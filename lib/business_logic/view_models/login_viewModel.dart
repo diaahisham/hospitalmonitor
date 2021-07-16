@@ -6,6 +6,7 @@ import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/login_service/login_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
+import 'package:hospitalmonitor/services/report_controll_service/report_controll_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 
 class LoginViewModel {
@@ -25,6 +26,9 @@ class LoginViewModel {
       UserModel loggedUser =
           await serviceLocator<LoginService>().login(this.user);
       serviceLocator<CurrentSessionService>().loggedUser = loggedUser;
+      if (loggedUser.type == UserType.patient)
+        await serviceLocator<ReportControlService>()
+            .fetchReportModelsByPatientId(loggedUser.userID);
       serviceLocator<NavigationService>().popAndNavigateTo(routes.ProfileRoute);
     } on Exception catch (e) {
       wrongCredentialsText.value = e.toString().substring(11);

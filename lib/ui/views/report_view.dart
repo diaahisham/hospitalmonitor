@@ -24,7 +24,7 @@ class ReportView extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(1),
       width: 200,
-      height: 30,
+      height: 42,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -65,8 +65,8 @@ class ReportView extends StatelessWidget {
   }
 
   Widget lineSeprator(double width) {
-    return Padding(
-      padding: EdgeInsets.only(top: 20, bottom: 20),
+    return Container(
+      margin: EdgeInsets.only(top: 10, bottom: 10),
       child: Container(
         width: width,
         height: 1,

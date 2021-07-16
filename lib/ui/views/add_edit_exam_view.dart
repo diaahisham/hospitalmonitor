@@ -50,7 +50,7 @@ class AddEditExamView extends StatelessWidget {
       return Container(
         padding: EdgeInsets.all(1),
         width: 200,
-        height: 40,
+        height: 42,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
