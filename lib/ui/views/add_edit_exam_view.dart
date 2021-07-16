@@ -48,7 +48,7 @@ class AddEditExamView extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget _dataField({required Widget child}) {
       return Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(1),
         width: 200,
         height: 40,
         decoration: BoxDecoration(
@@ -179,6 +179,8 @@ class AddEditExamView extends StatelessWidget {
                                           .drugs[i] = value,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
+                                        contentPadding:
+                                            const EdgeInsets.all(0.0),
                                       ),
                                     ),
                                   ),
@@ -208,6 +210,7 @@ class AddEditExamView extends StatelessWidget {
                                     onChanged: (value) => model.newDrug = value,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
+                                      contentPadding: const EdgeInsets.all(0.0),
                                     ),
                                   ),
                                 ),

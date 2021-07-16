@@ -22,7 +22,7 @@ class ReportView extends StatelessWidget {
 
   Widget _dataField({required Widget child}) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(1),
       width: 200,
       height: 30,
       decoration: BoxDecoration(
@@ -153,6 +153,7 @@ class ReportView extends StatelessWidget {
                                 model.reportModel.bloodPressure = value,
                             decoration: InputDecoration(
                               border: InputBorder.none,
+                              contentPadding: const EdgeInsets.all(0.0),
                             ),
                           ),
                         )
@@ -186,6 +187,7 @@ class ReportView extends StatelessWidget {
                                 model.reportModel.bloodType = value,
                             decoration: InputDecoration(
                               border: InputBorder.none,
+                              contentPadding: const EdgeInsets.all(0.0),
                             ),
                           ),
                         )
@@ -219,6 +221,7 @@ class ReportView extends StatelessWidget {
                                 model.reportModel.diabetesRate = value,
                             decoration: InputDecoration(
                               border: InputBorder.none,
+                              contentPadding: const EdgeInsets.all(0.0),
                             ),
                           ),
                         )
@@ -259,6 +262,7 @@ class ReportView extends StatelessWidget {
                                 model.reportModel.breathingRate = value,
                             decoration: InputDecoration(
                               border: InputBorder.none,
+                              contentPadding: const EdgeInsets.all(0.0),
                             ),
                           ),
                         )
@@ -291,6 +295,7 @@ class ReportView extends StatelessWidget {
                                 model.reportModel.pulseRate = value,
                             decoration: InputDecoration(
                               border: InputBorder.none,
+                              contentPadding: const EdgeInsets.all(0.0),
                             ),
                           ),
                         )
@@ -363,6 +368,7 @@ class ReportView extends StatelessWidget {
                                     .reportModel.chronicDiseases[i] = value,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.all(0.0),
                                 ),
                               ),
                             ),
@@ -397,6 +403,7 @@ class ReportView extends StatelessWidget {
                           onChanged: (value) => model.newChronicDisease = value,
                           decoration: InputDecoration(
                             border: InputBorder.none,
+                            contentPadding: const EdgeInsets.all(0.0),
                           ),
                         ),
                       ),
@@ -490,6 +497,7 @@ class ReportView extends StatelessWidget {
                                     model.reportModel.dangerDiseases[i] = value,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.all(0.0),
                                 ),
                               ),
                             ),
@@ -524,6 +532,7 @@ class ReportView extends StatelessWidget {
                           onChanged: (value) => model.newDangerDisease = value,
                           decoration: InputDecoration(
                             border: InputBorder.none,
+                            contentPadding: const EdgeInsets.all(0.0),
                           ),
                         ),
                       ),
@@ -615,6 +624,7 @@ class ReportView extends StatelessWidget {
                                     model.reportModel.dangerDiseases[i] = value,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.all(0.0),
                                 ),
                               ),
                             ),
@@ -649,6 +659,7 @@ class ReportView extends StatelessWidget {
                           onChanged: (value) => model.newSensetivity = value,
                           decoration: InputDecoration(
                             border: InputBorder.none,
+                            contentPadding: const EdgeInsets.all(0.0),
                           ),
                         ),
                       ),
@@ -739,6 +750,7 @@ class ReportView extends StatelessWidget {
                                     model.reportModel.vaccinations[i] = value,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.all(0.0),
                                 ),
                               ),
                             ),
@@ -773,6 +785,7 @@ class ReportView extends StatelessWidget {
                           onChanged: (value) => model.newVaccination = value,
                           decoration: InputDecoration(
                             border: InputBorder.none,
+                            contentPadding: const EdgeInsets.all(0.0),
                           ),
                         ),
                       ),

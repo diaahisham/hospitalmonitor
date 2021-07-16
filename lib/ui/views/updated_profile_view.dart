@@ -36,9 +36,9 @@ class UpdatedProfileView extends StatelessWidget {
 
   Widget _dataField({required Widget child}) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(1),
       width: 250,
-      height: 30,
+      height: 42,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -58,7 +58,6 @@ class UpdatedProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    //double screenHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () async => false,
       child: Provider(
@@ -71,6 +70,7 @@ class UpdatedProfileView extends StatelessWidget {
             body: Container(
               child: Row(
                 children: [
+                  // image column
                   Container(
                     width: 200,
                     child: Column(
@@ -91,6 +91,7 @@ class UpdatedProfileView extends StatelessWidget {
                       ],
                     ),
                   ),
+                  // data Column
                   ValueListenableBuilder(
                     valueListenable: model.edittingMode,
                     builder: (context, value, child) => Container(
@@ -136,6 +137,8 @@ class UpdatedProfileView extends StatelessWidget {
                                               .currentUser.userName = value,
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
+                                            contentPadding:
+                                                const EdgeInsets.all(0.0),
                                           ),
                                         ),
                                       )
@@ -230,6 +233,8 @@ class UpdatedProfileView extends StatelessWidget {
                                           model.currentUser.password = value,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
+                                        contentPadding:
+                                            const EdgeInsets.all(0.0),
                                       ),
                                     ),
                                   ),
@@ -252,6 +257,8 @@ class UpdatedProfileView extends StatelessWidget {
                                               .currentUser.mobileNumber = value,
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
+                                            contentPadding:
+                                                const EdgeInsets.all(0.0),
                                           ),
                                         ),
                                       )
@@ -288,6 +295,8 @@ class UpdatedProfileView extends StatelessWidget {
                                               .currentUser.nationalID = value,
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
+                                            contentPadding:
+                                                const EdgeInsets.all(0.0),
                                           ),
                                         ),
                                       )
@@ -322,6 +331,8 @@ class UpdatedProfileView extends StatelessWidget {
                                               .currentUser.mobileNumber = value,
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
+                                            contentPadding:
+                                                const EdgeInsets.all(0.0),
                                           ),
                                         ),
                                       )
@@ -354,6 +365,8 @@ class UpdatedProfileView extends StatelessWidget {
                                               model.currentUser.email = value,
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
+                                            contentPadding:
+                                                const EdgeInsets.all(0.0),
                                           ),
                                         ),
                                       )
@@ -387,6 +400,8 @@ class UpdatedProfileView extends StatelessWidget {
                                               model.currentUser.address = value,
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
+                                            contentPadding:
+                                                const EdgeInsets.all(0.0),
                                           ),
                                         ),
                                       )

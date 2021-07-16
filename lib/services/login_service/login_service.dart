@@ -6,8 +6,6 @@ import 'package:hospitalmonitor/business_logic/utils/doctors.dart';
 import 'package:hospitalmonitor/business_logic/utils/patients.dart';
 import 'package:hospitalmonitor/business_logic/utils/radiologists.dart';
 
-import 'package:http/http.dart' as http;
-
 class LoginService {
   Future<UserModel> login(UserModel userRequest) async {
     return await _checkNameAndPasswordMock(userRequest);

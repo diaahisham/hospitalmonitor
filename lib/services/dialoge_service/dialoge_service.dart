@@ -149,7 +149,7 @@ class DialogeService {
 
   Widget _dataField({required Widget child}) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(1),
       width: 200,
       height: 50,
       decoration: BoxDecoration(
@@ -227,6 +227,7 @@ class DialogeService {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Search',
+                        contentPadding: const EdgeInsets.all(0.0),
                       ),
                     ),
                   )

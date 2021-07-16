@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class RadiosView extends StatelessWidget {
   Widget _dataField({required Widget child}) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(1),
       width: 200,
       height: 50,
       decoration: BoxDecoration(
@@ -57,6 +57,7 @@ class RadiosView extends StatelessWidget {
                         onChanged: (value) => model.searchValueChange(value),
                         decoration: InputDecoration(
                           border: InputBorder.none,
+                          contentPadding: const EdgeInsets.all(0.0),
                           hintText: 'Search',
                         ),
                       ),
