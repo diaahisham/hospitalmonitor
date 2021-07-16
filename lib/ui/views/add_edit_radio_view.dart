@@ -90,11 +90,12 @@ class AddEditRadioView extends StatelessWidget {
                         ),
                       ),
                       _formWidget(
-                        initialValue: model.currentEdittingRadio.labName,
+                        initialValue:
+                            model.currentEdittingRadio.radiologistName,
                         validatorText: 'Please enter lab name',
                         labelText: 'Lab name: ',
                         onChanged: (value) =>
-                            model.currentEdittingRadio.labName = value,
+                            model.currentEdittingRadio.radiologistName = value,
                       ),
                       _formWidget(
                         initialValue: model.currentEdittingRadio.notes,

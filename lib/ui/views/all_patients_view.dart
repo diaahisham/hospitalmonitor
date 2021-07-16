@@ -61,6 +61,12 @@ class AllPatientsView extends StatelessWidget {
                 ValueListenableBuilder(
                   valueListenable: model.searchValue,
                   builder: (context, value, child) => Table(
+                    columnWidths: {
+                      0: FlexColumnWidth(2),
+                      1: FlexColumnWidth(2),
+                      2: FlexColumnWidth(1),
+                      3: FlexColumnWidth(1),
+                    },
                     border: TableBorder.all(
                       color: Colors.black,
                       width: 2.0,

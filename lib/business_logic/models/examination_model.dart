@@ -6,17 +6,21 @@ class ExaminationModel {
   String patientName = '';
   String date = '';
   String symptoms = '';
+  String disease = '';
   String description = '';
+  List<String> drugs = List<String>.empty(growable: true);
 
   ExaminationModel({
     this.examinationID = '',
     this.doctorID = '',
     this.doctorName = '',
     this.patientID = '',
+    this.disease = '',
     this.patientName = '',
     this.date = '',
     this.description = '',
     this.symptoms = '',
+    this.drugs = const [],
   });
 
   Map<String, dynamic> toJson() {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospitalmonitor/business_logic/models/health_report_model.dart';
@@ -15,8 +17,8 @@ import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;
 
 class ReportViewModel {
-  HealthReportModel reportModel =
-      serviceLocator<ReportControlService>().reportModels[0];
+  HealthReportModel reportModel = HealthReportModel();
+  // serviceLocator<ReportControlService>().reportModels[0];
   bool userIsDoctor = false;
   ValueNotifier<int> currentWidgetNumber = ValueNotifier<int>(0);
   ValueNotifier<int> chronicDiseasesLength = ValueNotifier<int>(0);
@@ -38,6 +40,12 @@ class ReportViewModel {
 
   UserModel get currentPatient =>
       serviceLocator<PatientControlService>().currentPatient;
+
+  ReportViewModel() {
+    userIsDoctor = (serviceLocator<CurrentSessionService>().loggedUser.type ==
+        UserType.doctor);
+    reportModel.copy(serviceLocator<ReportControlService>().reportModels[0]);
+  }
 
   void addChronicDisease(String disease) {
     if (disease != '') {
@@ -145,11 +153,6 @@ class ReportViewModel {
   DialogeService dialogeService = DialogeService();
   ValueNotifier<bool> edittingMode = ValueNotifier<bool>(false);
 
-  ReportViewModel() {
-    userIsDoctor = (serviceLocator<CurrentSessionService>().loggedUser.type ==
-        UserType.doctor);
-  }
-
   Future<void> submitEditting() async {
     if (edittingMode.value) {
       serviceLocator<ReportControlService>().currentEdittingReport =
@@ -162,7 +165,7 @@ class ReportViewModel {
   }
 
   void cancelEditting() {
-    reportModel = serviceLocator<ReportControlService>().reportModels[0];
+    reportModel.copy(serviceLocator<ReportControlService>().reportModels[0]);
     edittingMode.value = false;
   }
 

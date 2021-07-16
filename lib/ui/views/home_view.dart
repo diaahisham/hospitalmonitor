@@ -60,7 +60,7 @@ class HomeView extends StatelessWidget {
               children: [
                 _userLoginButton(UserType.doctor, model),
                 _userLoginButton(UserType.patient, model),
-                _userLoginButton(UserType.analysit, model),
+                _userLoginButton(UserType.analyst, model),
                 _userLoginButton(UserType.radiologist, model),
               ],
             ),

@@ -15,7 +15,7 @@ class UserNavigationBar extends StatelessWidget {
     switch (loggedUser.type) {
       case UserType.radiologist:
         return RadiologistNavigationBar();
-      case UserType.analysit:
+      case UserType.analyst:
         return AnalystNavigationBar();
       case UserType.patient:
         return PatientNavigationBar();

@@ -23,7 +23,7 @@ class LoginService {
       case UserType.patient:
         tempSearch.addAll(patients);
         break;
-      case UserType.analysit:
+      case UserType.analyst:
         tempSearch.addAll(analysts);
         break;
       case UserType.radiologist:

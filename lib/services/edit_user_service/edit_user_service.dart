@@ -25,7 +25,7 @@ class EditUserService {
         _tempEditUser(radiologists, user);
         break;
 
-      case UserType.analysit:
+      case UserType.analyst:
         _tempEditUser(analysts, user);
         break;
 

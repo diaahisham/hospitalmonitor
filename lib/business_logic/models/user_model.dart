@@ -1,4 +1,4 @@
-enum UserType { notDefined, doctor, patient, radiologist, analysit }
+enum UserType { notDefined, doctor, patient, radiologist, analyst }
 enum GenterType { female, male }
 enum MaritalStatus { single, married }
 

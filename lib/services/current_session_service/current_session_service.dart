@@ -8,7 +8,7 @@ import 'package:hospitalmonitor/services/service_locator.dart';
 
 class CurrentSessionService {
   UserModel _loggedUser = UserModel();
-  final String sessionKey = 'UserType';
+  final String sessionKey = 'User';
   CurrentSessionService() {
     if (!window.sessionStorage.containsKey(this.sessionKey)) {
       String encryptedUserData = serviceLocator<EncryptionService>()

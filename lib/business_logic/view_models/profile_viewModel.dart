@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
@@ -25,7 +27,8 @@ class ProfileViewModel {
   GenderTypesList currentGenderType = GenderTypesList(1, "Male");
 
   ProfileViewModel() {
-    this.currentUser = serviceLocator<CurrentSessionService>().loggedUser;
+    this.currentUser = UserModel.fromJson(jsonDecode(
+        serviceLocator<CurrentSessionService>().loggedUser.toString()));
     currentGenderType = genderTypes[1];
   }
 
@@ -35,7 +38,8 @@ class ProfileViewModel {
   }
 
   void cancelEditting() {
-    this.currentUser = serviceLocator<CurrentSessionService>().loggedUser;
+    this.currentUser = UserModel.fromJson(jsonDecode(
+        serviceLocator<CurrentSessionService>().loggedUser.toString()));
     edittingMode.value = false;
   }
 

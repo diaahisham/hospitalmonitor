@@ -118,7 +118,7 @@ class ReportView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(0.0),
+            padding: const EdgeInsets.all(5.0),
             child: Text(
               'Vital modifiers: ',
               style: TextStyle(
@@ -323,7 +323,7 @@ class ReportView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(0.0),
+            padding: const EdgeInsets.all(5.0),
             child: Text(
               'Chronic diseases: ',
               style: TextStyle(
@@ -450,7 +450,7 @@ class ReportView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(0.0),
+            padding: const EdgeInsets.all(5.0),
             child: Text(
               'Danger diseases & Surgiries: ',
               style: TextStyle(
@@ -702,7 +702,7 @@ class ReportView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(0.0),
+            padding: const EdgeInsets.all(5.0),
             child: Text(
               'Vaccination: ',
               style: TextStyle(
@@ -713,7 +713,7 @@ class ReportView extends StatelessWidget {
             ),
           ),
           ValueListenableBuilder(
-            valueListenable: model.senstivitiesLength,
+            valueListenable: model.vaccinationsLength,
             builder: (context, value, child) => Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -722,7 +722,7 @@ class ReportView extends StatelessWidget {
                   (model.edittingMode.value)
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             _dataField(
                               child: TextFormField(
@@ -758,7 +758,7 @@ class ReportView extends StatelessWidget {
                 if (model.edittingMode.value)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       _dataField(
                         child: TextFormField(
@@ -929,7 +929,7 @@ class ReportView extends StatelessWidget {
       create: (context) => ReportViewModel(),
       child: Consumer<ReportViewModel>(
         builder: (context, model, child) => Scaffold(
-          appBar: UserAppbar('Health report'),
+          appBar: UserAppbar('Patient Profile'),
           bottomNavigationBar: UserNavigationBar(),
           backgroundColor: Colors.white,
           body: Container(
@@ -959,7 +959,7 @@ class ReportView extends StatelessWidget {
                           valueListenable: model.currentWidgetNumber,
                           builder: (context, value, child) => Column(
                             children: [
-                              leftSideItem('Health report', 0, model),
+                              leftSideItem('Profile', 0, model),
                               leftSideItem('Analyzes', 1, model),
                               leftSideItem('Radios', 2, model),
                               leftSideItem('Examinations', 3, model),

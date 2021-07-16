@@ -93,4 +93,69 @@ class ExaminationViewModel {
     else
       examModels.sort((a, b) => a.doctorName.compareTo(b.doctorName));
   }
+
+  void showMore(ExaminationModel model) {
+    DialogeService dialogeService = DialogeService();
+    dialogeService.showDataDialogue(
+      "More info",
+      Container(
+        width: 400,
+        height: 600,
+        color: Colors.blue[100],
+        padding: EdgeInsets.all(15),
+        child: ListView(
+          controller: ScrollController(),
+          scrollDirection: Axis.vertical,
+          children: [
+            _labelWidget("Symptomps"),
+            _dataField(text: model.symptoms),
+            _lineSeprator(10),
+            _labelWidget("Description"),
+            _dataField(text: model.description),
+            _lineSeprator(10),
+            _labelWidget("Drugs"),
+            for (String drug in model.drugs) _dataField(text: "  * " + drug),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _labelWidget(String label) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Text(
+        label + ': ',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _dataField({required String text}) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10.0),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: Colors.grey,
+        ),
+      ),
+    );
+  }
+
+  Widget _lineSeprator(double width) {
+    return Padding(
+      padding: EdgeInsets.only(top: 10, bottom: 10),
+      child: Container(
+        width: width,
+        height: 1,
+        color: Colors.black,
+      ),
+    );
+  }
 }

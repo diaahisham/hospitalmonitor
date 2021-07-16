@@ -66,6 +66,15 @@ class ExaminationView extends StatelessWidget {
                 ValueListenableBuilder(
                   valueListenable: model.examsLength,
                   builder: (context, value, child) => Table(
+                    // columnWidths: {
+                    //   0: FlexColumnWidth(1.5),
+                    //   1: FlexColumnWidth(1),
+                    //   2: FlexColumnWidth(2),
+                    //   3: FlexColumnWidth(2),
+                    //   4: FlexColumnWidth(1),
+                    //   5: FlexColumnWidth(1),
+                    //   6: FlexColumnWidth(1),
+                    // },
                     border: TableBorder.all(
                       color: Colors.black,
                       width: 2.0,
@@ -87,25 +96,44 @@ class ExaminationView extends StatelessWidget {
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
+                            // Center(
+                            //     child: Text(
+                            //   "Symptoms",
+                            //   textScaleFactor: 1.5,
+                            //   style: TextStyle(color: Colors.white),
+                            // )),
+                            // Center(
+                            //     child: Text(
+                            //   "Description",
+                            //   textScaleFactor: 1.5,
+                            //   style: TextStyle(color: Colors.white),
+                            // )),
                             Center(
                                 child: Text(
-                              "Symptoms",
-                              textScaleFactor: 1.5,
-                              style: TextStyle(color: Colors.white),
-                            )),
-                            Center(
-                                child: Text(
-                              "Description",
+                              "Disease",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
                             if (model.userIsDoctor)
                               Center(
                                   child: Text(
-                                "Edit or Delete",
+                                "Edit",
                                 textScaleFactor: 1.5,
                                 style: TextStyle(color: Colors.white),
                               )),
+                            if (model.userIsDoctor)
+                              Center(
+                                  child: Text(
+                                "Delete",
+                                textScaleFactor: 1.5,
+                                style: TextStyle(color: Colors.white),
+                              )),
+                            Center(
+                                child: Text(
+                              "More info",
+                              textScaleFactor: 1.5,
+                              style: TextStyle(color: Colors.white),
+                            )),
                           ]),
                       for (int i = 0; i < model.examModels.length; i++)
                         if (model.isRowVisible(model.examModels[i].doctorName))
@@ -120,11 +148,14 @@ class ExaminationView extends StatelessWidget {
                               Center(
                                   child: Text(model.examModels[i].date,
                                       textScaleFactor: 1.5)),
+                              // Center(
+                              //     child: Text(model.examModels[i].symptoms,
+                              //         textScaleFactor: 1.5)),
+                              // Center(
+                              //     child: Text(model.examModels[i].description,
+                              //         textScaleFactor: 1.5)),
                               Center(
-                                  child: Text(model.examModels[i].symptoms,
-                                      textScaleFactor: 1.5)),
-                              Center(
-                                  child: Text(model.examModels[i].description,
+                                  child: Text(model.examModels[i].disease,
                                       textScaleFactor: 1.5)),
                               if (model.userIsDoctor)
                                 (model.user.userID ==
@@ -133,15 +164,37 @@ class ExaminationView extends StatelessWidget {
                                         onPressed: () =>
                                             model.editExam(model.examModels[i]),
                                         child: Center(
-                                            child: Text("Edit or Delete",
-                                                style: TextStyle(
-                                                  color: Colors.blue[900],
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                                textScaleFactor: 1.5)),
+                                          child: Icon(
+                                            Icons.edit,
+                                            size: 25,
+                                          ),
+                                        ),
                                       )
                                     : Text(''),
+                              if (model.userIsDoctor)
+                                (model.user.userID ==
+                                        model.examModels[i].doctorID)
+                                    ? TextButton(
+                                        onPressed: () => model
+                                            .deleteExam(model.examModels[i]),
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.close,
+                                            size: 25,
+                                          ),
+                                        ),
+                                      )
+                                    : Text(''),
+                              TextButton(
+                                onPressed: () =>
+                                    model.showMore(model.examModels[i]),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.more_horiz,
+                                    size: 25,
+                                  ),
+                                ),
+                              ),
                             ],
                           )
                     ],

@@ -10,9 +10,9 @@ List<HealthReportModel> healthReports = [
     pulseRate: '100/100',
     breathingRate: '100',
     diabetesRate: '100',
-    chronicDiseases: ['mafesh'],
+    chronicDiseases: ['mafesh', 'mango'],
     dangerDiseases: ['mafesh', 'koha'],
-    sensitivities: ['manga'],
+    sensitivities: ['manga', 'watermelon'],
     vaccinations: ['nothing'],
   ),
   HealthReportModel(

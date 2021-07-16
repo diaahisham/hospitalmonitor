@@ -273,4 +273,20 @@ class DialogeService {
 
     return result;
   }
+
+  Future<void> showDataDialogue(String title, Widget data) async {
+    showDialog(
+      context:
+          (serviceLocator<NavigationService>().navigatorKey.currentContext)!,
+      builder: (context) => AlertDialog(
+        title: Container(
+          width: 200,
+          height: 50,
+          color: Colors.blue,
+          child: Center(child: Text(title)),
+        ),
+        content: data,
+      ),
+    );
+  }
 }

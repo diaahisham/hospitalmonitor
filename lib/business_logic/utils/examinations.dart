@@ -10,6 +10,8 @@ List<ExaminationModel> examinations = [
     date: '1/1/2001',
     symptoms: 'nothing',
     description: 'nothing',
+    disease: "corona",
+    drugs: ["betadine 3 times day", "Aspirin 2 times per day"],
   ),
   ExaminationModel(
     examinationID: '20',
@@ -20,6 +22,8 @@ List<ExaminationModel> examinations = [
     date: '1/1/2001',
     symptoms: 'nothing',
     description: 'nothing',
+    disease: "corona",
+    drugs: ["betadine 3 times day", "Aspirin 2 times per day"],
   ),
   ExaminationModel(
     examinationID: '30',
@@ -30,6 +34,8 @@ List<ExaminationModel> examinations = [
     date: '1/1/2005',
     symptoms: 'bone break',
     description: '3yan',
+    disease: "corona",
+    drugs: ["betadine 3 times day", "Aspirin 2 times per day"],
   ),
   ExaminationModel(
     examinationID: '40',
@@ -40,6 +46,8 @@ List<ExaminationModel> examinations = [
     date: '1/1/2008',
     symptoms: 'stomach ache',
     description: 'may be she is pregnant!',
+    disease: "corona",
+    drugs: ["betadine 3 times day", "Aspirin 2 times per day"],
   ),
   ExaminationModel(
     examinationID: '50',
@@ -50,6 +58,8 @@ List<ExaminationModel> examinations = [
     date: '1/1/2002',
     symptoms: 'teeth pain',
     description: 'bad teeth',
+    disease: "corona",
+    drugs: ["betadine 3 times day", "Aspirin 2 times per day"],
   ),
   ExaminationModel(
     examinationID: '60',
@@ -60,6 +70,8 @@ List<ExaminationModel> examinations = [
     date: '1/1/2025',
     symptoms: 'nothing',
     description: 'nothing',
+    disease: "corona",
+    drugs: ["betadine 3 times day", "Aspirin 2 times per day"],
   ),
   ExaminationModel(
     examinationID: '70',
@@ -70,6 +82,8 @@ List<ExaminationModel> examinations = [
     date: '1/1/2001',
     symptoms: 'nothing',
     description: 'nothing',
+    disease: "corona",
+    drugs: ["betadine 3 times day", "Aspirin 2 times per day"],
   ),
   ExaminationModel(
     examinationID: '80',
@@ -80,6 +94,8 @@ List<ExaminationModel> examinations = [
     date: '1/1/2001',
     symptoms: 'nothing',
     description: 'nothing',
+    disease: "corona",
+    drugs: ["betadine 3 times day", "Aspirin 2 times per day"],
   ),
   ExaminationModel(
     examinationID: '900',
@@ -90,5 +106,7 @@ List<ExaminationModel> examinations = [
     date: '1/1/2012',
     symptoms: 'nothing',
     description: 'nothing',
+    disease: "corona",
+    drugs: ["betadine 3 times day", "Aspirin 2 times per day"],
   ),
 ];

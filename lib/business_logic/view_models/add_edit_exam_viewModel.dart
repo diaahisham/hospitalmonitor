@@ -17,15 +17,27 @@ class AddEditExamViewModel {
   List<ExaminationModel> get examModels =>
       serviceLocator<ExaminationControlService>().examModels;
 
-  set currentEdittingExamination(ExaminationModel newRadio) =>
-      serviceLocator<ExaminationControlService>().currentEdittingExam =
-          newRadio;
+  set currentEdittingExamination(ExaminationModel newExam) =>
+      serviceLocator<ExaminationControlService>().currentEdittingExam = newExam;
 
   ValueNotifier<String> patientName = ValueNotifier<String>('');
+  ValueNotifier<int> drugLength = ValueNotifier<int>(0);
 
   Future<void> submit() async {
     await serviceLocator<ExaminationControlService>().addEditExamination();
     _navigate();
+  }
+
+  String newDrug = "";
+
+  void addDrug(String drug) {
+    currentEdittingExamination.drugs.add(drug);
+    drugLength.value = currentEdittingExamination.drugs.length;
+  }
+
+  void removeDrug(int index) {
+    currentEdittingExamination.drugs.removeAt(index);
+    drugLength.value = currentEdittingExamination.drugs.length;
   }
 
   Future<void> deleteExam() async {
