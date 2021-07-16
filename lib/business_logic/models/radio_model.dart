@@ -48,4 +48,15 @@ class RadioModel {
       notes: json["Notes"] ?? '',
     );
   }
+  void copy(RadioModel origin) {
+    this.radioID = origin.radioID;
+    this.radiologistID = origin.radiologistID;
+    this.radioName = origin.radioName;
+    this.patientID = origin.patientID;
+    this.patientName = origin.patientName;
+    this.date = origin.date;
+    this.radiologistName = origin.radiologistName;
+    this.radioUrl = origin.radioUrl;
+    this.notes = origin.notes;
+  }
 }

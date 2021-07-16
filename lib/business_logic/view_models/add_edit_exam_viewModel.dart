@@ -11,19 +11,23 @@ import 'package:hospitalmonitor/services/service_locator.dart';
 
 class AddEditExamViewModel {
   DialogeService dialogeService = DialogeService();
-  ExaminationModel get currentEdittingExamination =>
-      serviceLocator<ExaminationControlService>().currentEdittingExam;
+  ExaminationModel currentEdittingExamination = ExaminationModel();
+  // serviceLocator<ExaminationControlService>().currentEdittingExam;
 
   List<ExaminationModel> get examModels =>
       serviceLocator<ExaminationControlService>().examModels;
 
-  set currentEdittingExamination(ExaminationModel newExam) =>
-      serviceLocator<ExaminationControlService>().currentEdittingExam = newExam;
-
   ValueNotifier<String> patientName = ValueNotifier<String>('');
   ValueNotifier<int> drugLength = ValueNotifier<int>(0);
 
+  AddEditExamViewModel() {
+    currentEdittingExamination
+        .copy(serviceLocator<ExaminationControlService>().currentEdittingExam);
+  }
+
   Future<void> submit() async {
+    serviceLocator<ExaminationControlService>().currentEdittingExam =
+        currentEdittingExamination;
     await serviceLocator<ExaminationControlService>().addEditExamination();
     _navigate();
   }

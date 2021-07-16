@@ -139,7 +139,7 @@ class AddEditExamView extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Text(
-                          'Vaccination: ',
+                          'Drugs: ',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

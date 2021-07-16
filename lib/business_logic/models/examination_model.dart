@@ -48,4 +48,17 @@ class ExaminationModel {
       description: json["Description"] ?? '',
     );
   }
+
+  void copy(ExaminationModel origin) {
+    this.examinationID = origin.examinationID;
+    this.doctorID = origin.doctorID;
+    this.doctorName = origin.doctorName;
+    this.patientID = origin.patientID;
+    this.patientName = origin.patientName;
+    this.date = origin.date;
+    this.symptoms = origin.symptoms;
+    this.description = origin.description;
+    this.disease = origin.disease;
+    this.drugs = origin.drugs.toList(growable: true);
+  }
 }

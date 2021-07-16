@@ -11,15 +11,22 @@ import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
 
 class AddEditRadioViewModel {
   DialogeService dialogeService = DialogeService();
-  RadioModel get currentEdittingRadio =>
-      serviceLocator<RadiosControlService>().currentEdittingRadio;
+  RadioModel currentEdittingRadio = RadioModel();
+  // serviceLocator<RadiosControlService>().currentEdittingRadio;
 
-  set currentEdittingRadio(RadioModel newRadio) =>
-      serviceLocator<RadiosControlService>().currentEdittingRadio = newRadio;
+  // set currentEdittingRadio(RadioModel newRadio) =>
+  //     serviceLocator<RadiosControlService>().currentEdittingRadio = newRadio;
 
   ValueNotifier<String> patientName = ValueNotifier<String>('');
 
+  AddEditRadioViewModel() {
+    currentEdittingRadio
+        .copy(serviceLocator<RadiosControlService>().currentEdittingRadio);
+  }
+
   Future<void> submit() async {
+    serviceLocator<RadiosControlService>().currentEdittingRadio =
+        currentEdittingRadio;
     await serviceLocator<RadiosControlService>().addEditRadio();
     _navigate();
   }
