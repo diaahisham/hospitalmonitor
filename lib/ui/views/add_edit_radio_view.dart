@@ -26,7 +26,8 @@ class AddEditRadioView extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        initialValue: initialValue,
+        //initialValue: initialValue,
+        controller: TextEditingController(text: initialValue),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return validatorText;

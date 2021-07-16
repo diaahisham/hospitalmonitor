@@ -27,7 +27,8 @@ class AddEditExamView extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        initialValue: initialValue,
+        //initialValue: initialValue,
+        controller: TextEditingController(text: initialValue),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return validatorText;
@@ -49,7 +50,7 @@ class AddEditExamView extends StatelessWidget {
     Widget _dataField({required Widget child}) {
       return Container(
         padding: EdgeInsets.all(1),
-        width: 200,
+        width: 250,
         height: 42,
         decoration: BoxDecoration(
           color: Colors.white,

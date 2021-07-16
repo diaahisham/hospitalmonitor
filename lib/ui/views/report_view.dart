@@ -140,7 +140,9 @@ class ReportView extends StatelessWidget {
                   (model.edittingMode.value)
                       ? _dataField(
                           child: TextFormField(
-                            initialValue: model.reportModel.bloodPressure,
+                            //initialValue: model.reportModel.bloodPressure,
+                            controller: TextEditingController(
+                                text: model.reportModel.bloodPressure),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter blood pressure';
@@ -174,7 +176,9 @@ class ReportView extends StatelessWidget {
                   (model.edittingMode.value)
                       ? _dataField(
                           child: TextFormField(
-                            initialValue: model.reportModel.bloodPressure,
+                            //initialValue: model.reportModel.bloodPressure,
+                            controller: TextEditingController(
+                                text: model.reportModel.bloodPressure),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter blood type';
@@ -208,7 +212,9 @@ class ReportView extends StatelessWidget {
                   (model.edittingMode.value)
                       ? _dataField(
                           child: TextFormField(
-                            initialValue: model.reportModel.bloodPressure,
+                            //initialValue: model.reportModel.bloodPressure,
+                            controller: TextEditingController(
+                                text: model.reportModel.bloodPressure),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter diabetes Rate';
@@ -249,7 +255,9 @@ class ReportView extends StatelessWidget {
                   (model.edittingMode.value)
                       ? _dataField(
                           child: TextFormField(
-                            initialValue: model.reportModel.bloodPressure,
+                            //initialValue: model.reportModel.bloodPressure,
+                            controller: TextEditingController(
+                                text: model.reportModel.bloodPressure),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter diabetes Rate';
@@ -282,7 +290,9 @@ class ReportView extends StatelessWidget {
                   (model.edittingMode.value)
                       ? _dataField(
                           child: TextFormField(
-                            initialValue: model.reportModel.bloodPressure,
+                            //initialValue: model.reportModel.bloodPressure,
+                            controller: TextEditingController(
+                                text: model.reportModel.bloodPressure),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter pulse rate';
@@ -354,8 +364,10 @@ class ReportView extends StatelessWidget {
                           children: [
                             _dataField(
                               child: TextFormField(
-                                initialValue:
-                                    model.reportModel.chronicDiseases[i],
+                                // initialValue:
+                                //     model.reportModel.chronicDiseases[i],
+                                controller: TextEditingController(
+                                    text: model.reportModel.chronicDiseases[i]),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter disease';
@@ -392,6 +404,7 @@ class ReportView extends StatelessWidget {
                     children: [
                       _dataField(
                         child: TextFormField(
+                          //controller: TextEditingController(),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter disease';
@@ -483,8 +496,10 @@ class ReportView extends StatelessWidget {
                           children: [
                             _dataField(
                               child: TextFormField(
-                                initialValue:
-                                    model.reportModel.dangerDiseases[i],
+                                // initialValue:
+                                //     model.reportModel.dangerDiseases[i],
+                                controller: TextEditingController(
+                                    text: model.reportModel.dangerDiseases[i]),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter disease';
@@ -521,6 +536,7 @@ class ReportView extends StatelessWidget {
                     children: [
                       _dataField(
                         child: TextFormField(
+                          //controller: TextEditingController(),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter disease';
@@ -610,8 +626,10 @@ class ReportView extends StatelessWidget {
                           children: [
                             _dataField(
                               child: TextFormField(
-                                initialValue:
-                                    model.reportModel.sensitivities[i],
+                                // initialValue:
+                                //     model.reportModel.sensitivities[i],
+                                controller: TextEditingController(
+                                    text: model.reportModel.sensitivities[i]),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter disease';
@@ -648,6 +666,7 @@ class ReportView extends StatelessWidget {
                     children: [
                       _dataField(
                         child: TextFormField(
+                          // controller: TextEditingController(),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter Sensetivity';
@@ -737,7 +756,9 @@ class ReportView extends StatelessWidget {
                           children: [
                             _dataField(
                               child: TextFormField(
-                                initialValue: model.reportModel.vaccinations[i],
+                                //initialValue: model.reportModel.vaccinations[i],
+                                controller: TextEditingController(
+                                    text: model.reportModel.vaccinations[i]),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter Vaccination';
@@ -774,6 +795,7 @@ class ReportView extends StatelessWidget {
                     children: [
                       _dataField(
                         child: TextFormField(
+                          // controller: TextEditingController(),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter Vaccination';

@@ -221,7 +221,8 @@ class DialogeService {
                 children: [
                   _dataField(
                     child: TextFormField(
-                      initialValue: '',
+                      //initialValue: '',
+                      controller: TextEditingController(text: ''),
                       keyboardType: TextInputType.name,
                       onChanged: (value) => searchValueChange(value),
                       decoration: InputDecoration(

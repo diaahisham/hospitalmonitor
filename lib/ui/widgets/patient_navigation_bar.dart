@@ -3,9 +3,7 @@ import 'package:hospitalmonitor/services/analyzes_control_service/analyzes_contr
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/examination_control_service/examination_control_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
-import 'package:hospitalmonitor/services/patient_control_service/patient_control_service.dart';
 import 'package:hospitalmonitor/services/radios_control_service/radios_control_service.dart';
-import 'package:hospitalmonitor/services/report_controll_service/report_controll_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;

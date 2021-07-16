@@ -33,7 +33,8 @@ class ProfileViewModel {
     this.currentUser = UserModel.fromJson(jsonDecode(
         serviceLocator<CurrentSessionService>().loggedUser.toString()));
     currentGenderType = genderTypes[1];
-    reportModel.copy(serviceLocator<ReportControlService>().reportModels[0]);
+    if (currentUser.type == UserType.patient)
+      reportModel.copy(serviceLocator<ReportControlService>().reportModels[0]);
   }
 
   void changeGender(int index) {
