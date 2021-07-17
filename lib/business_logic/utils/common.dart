@@ -23,3 +23,5 @@ const String sigmaData = '5243210982'; // dummy at index (1,9) are (2,2)
 // IVString used in encryption service for Data is 'nji98uhbvgy76tfc' splitted into Two parts
 const String zetaData = 'neji98uhbr'; //  dummy at index (1,9) are (e,r)
 const String thetaData = 'vgy76tsfdc'; // dummy at index (6,8) are (s,d)
+
+const String baseURL = '';

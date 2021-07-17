@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class ExaminationView extends StatelessWidget {
   Widget _dataField({required Widget child}) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(1),
       width: 200,
       height: 50,
       decoration: BoxDecoration(
@@ -52,12 +52,14 @@ class ExaminationView extends StatelessWidget {
                   children: [
                     _dataField(
                       child: TextFormField(
-                        initialValue: '',
+                        //initialValue: '',
+                        controller: TextEditingController(text: ''),
                         keyboardType: TextInputType.name,
                         onChanged: (value) => model.searchValueChange(value),
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Search',
+                          contentPadding: const EdgeInsets.all(0.0),
                         ),
                       ),
                     )
@@ -66,6 +68,15 @@ class ExaminationView extends StatelessWidget {
                 ValueListenableBuilder(
                   valueListenable: model.examsLength,
                   builder: (context, value, child) => Table(
+                    // columnWidths: {
+                    //   0: FlexColumnWidth(1.5),
+                    //   1: FlexColumnWidth(1),
+                    //   2: FlexColumnWidth(2),
+                    //   3: FlexColumnWidth(2),
+                    //   4: FlexColumnWidth(1),
+                    //   5: FlexColumnWidth(1),
+                    //   6: FlexColumnWidth(1),
+                    // },
                     border: TableBorder.all(
                       color: Colors.black,
                       width: 2.0,
@@ -87,21 +98,21 @@ class ExaminationView extends StatelessWidget {
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
+                            // Center(
+                            //     child: Text(
+                            //   "Symptoms",
+                            //   textScaleFactor: 1.5,
+                            //   style: TextStyle(color: Colors.white),
+                            // )),
+                            // Center(
+                            //     child: Text(
+                            //   "Description",
+                            //   textScaleFactor: 1.5,
+                            //   style: TextStyle(color: Colors.white),
+                            // )),
                             Center(
                                 child: Text(
-                              "Symptoms",
-                              textScaleFactor: 1.5,
-                              style: TextStyle(color: Colors.white),
-                            )),
-                            Center(
-                                child: Text(
-                              "Examination Result",
-                              textScaleFactor: 1.5,
-                              style: TextStyle(color: Colors.white),
-                            )),
-                            Center(
-                                child: Text(
-                              "Notes",
+                              "Disease",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
@@ -119,6 +130,12 @@ class ExaminationView extends StatelessWidget {
                                 textScaleFactor: 1.5,
                                 style: TextStyle(color: Colors.white),
                               )),
+                            Center(
+                                child: Text(
+                              "More info",
+                              textScaleFactor: 1.5,
+                              style: TextStyle(color: Colors.white),
+                            )),
                           ]),
                       for (int i = 0; i < model.examModels.length; i++)
                         if (model.isRowVisible(model.examModels[i].doctorName))
@@ -133,15 +150,14 @@ class ExaminationView extends StatelessWidget {
                               Center(
                                   child: Text(model.examModels[i].date,
                                       textScaleFactor: 1.5)),
+                              // Center(
+                              //     child: Text(model.examModels[i].symptoms,
+                              //         textScaleFactor: 1.5)),
+                              // Center(
+                              //     child: Text(model.examModels[i].description,
+                              //         textScaleFactor: 1.5)),
                               Center(
-                                  child: Text(model.examModels[i].symptoms,
-                                      textScaleFactor: 1.5)),
-                              Center(
-                                  child: Text(
-                                      model.examModels[i].examinationResult,
-                                      textScaleFactor: 1.5)),
-                              Center(
-                                  child: Text(model.examModels[i].notes,
+                                  child: Text(model.examModels[i].disease,
                                       textScaleFactor: 1.5)),
                               if (model.userIsDoctor)
                                 (model.user.userID ==
@@ -150,13 +166,11 @@ class ExaminationView extends StatelessWidget {
                                         onPressed: () =>
                                             model.editExam(model.examModels[i]),
                                         child: Center(
-                                            child: Text("Edit",
-                                                style: TextStyle(
-                                                  color: Colors.blue[900],
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                                textScaleFactor: 1.5)),
+                                          child: Icon(
+                                            Icons.edit,
+                                            size: 25,
+                                          ),
+                                        ),
                                       )
                                     : Text(''),
                               if (model.userIsDoctor)
@@ -166,15 +180,23 @@ class ExaminationView extends StatelessWidget {
                                         onPressed: () => model
                                             .deleteExam(model.examModels[i]),
                                         child: Center(
-                                            child: Text("Delete",
-                                                style: TextStyle(
-                                                  color: Colors.blue[900],
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                                textScaleFactor: 1.5)),
+                                          child: Icon(
+                                            Icons.close,
+                                            size: 25,
+                                          ),
+                                        ),
                                       )
                                     : Text(''),
+                              TextButton(
+                                onPressed: () =>
+                                    model.showMore(model.examModels[i]),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.more_horiz,
+                                    size: 25,
+                                  ),
+                                ),
+                              ),
                             ],
                           )
                     ],

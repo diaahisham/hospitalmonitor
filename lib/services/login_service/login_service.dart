@@ -1,17 +1,18 @@
+//import 'dart:convert';
+
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/business_logic/utils/analysts.dart';
 import 'package:hospitalmonitor/business_logic/utils/doctors.dart';
 import 'package:hospitalmonitor/business_logic/utils/patients.dart';
 import 'package:hospitalmonitor/business_logic/utils/radiologists.dart';
 
-//import 'package:http/http.dart' as http;
-
 class LoginService {
-  UserModel login(UserModel userRequest) {
-    return (_checkNameAndPassword(userRequest));
+  Future<UserModel> login(UserModel userRequest) async {
+    return await _checkNameAndPasswordMock(userRequest);
   }
 
-  UserModel _checkNameAndPassword(UserModel userRequest) {
+  // ignore: unused_element
+  Future<UserModel> _checkNameAndPasswordMock(UserModel userRequest) async {
     List<UserModel> tempSearch = List<UserModel>.empty(growable: true);
     switch (userRequest.type) {
       case UserType.doctor:
@@ -20,7 +21,7 @@ class LoginService {
       case UserType.patient:
         tempSearch.addAll(patients);
         break;
-      case UserType.analysit:
+      case UserType.analyst:
         tempSearch.addAll(analysts);
         break;
       case UserType.radiologist:
@@ -37,5 +38,39 @@ class LoginService {
       throw Exception('Wrong username or wrong password');
 
     return testModel;
+  }
+
+// ignore: unused_element
+  // Future<UserModel> _checkNameAndPasswordHttp(UserModel userRequest) async {
+  //   final String loginUri =
+  //       'https://dr-health.herokuapp.com/api/doctors/authenticate';
+
+  //   final response = await http.post(
+  //     loginUri,
+  //     headers: {'Content-Type': 'application/json'},
+  //     body:
+  //         json.encode(RequestModel(userRequest.userName, userRequest.password)),
+  //   );
+
+  //   Map<String, dynamic> body = json.decode(response.body);
+
+  //   if (response.statusCode != 200) throw (body['error']['message']);
+
+  //   if (body['statusCode'] != 0) throw (body['message']);
+
+  //   UserModel result = UserModel.fromJson(body['data']['user']);
+  // }
+}
+
+class RequestModel {
+  String username = '';
+  String password = '';
+  RequestModel(this.username, this.password);
+
+  Map<String, dynamic> toJson() {
+    return {
+      "username": this.username,
+      "password": this.password,
+    };
   }
 }

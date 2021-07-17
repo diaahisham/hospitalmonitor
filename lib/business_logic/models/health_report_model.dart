@@ -55,7 +55,7 @@ class HealthReportModel {
       breathingRate: json["BreathingRate"] ?? '',
       diabetesRate: json["DiabetesRate"] ?? '',
       chronicDiseases:
-          List<String>.from(json["DiabetesRate"] ?? [], growable: true),
+          List<String>.from(json["ChronicDiseases"] ?? [], growable: true),
       dangerDiseases:
           List<String>.from(json["DangerDiseases"] ?? [], growable: true),
       sensitivities:
@@ -63,5 +63,52 @@ class HealthReportModel {
       vaccinations:
           List<String>.from(json["Vaccinations"] ?? [], growable: true),
     );
+  }
+
+  void copy(HealthReportModel origin) {
+    this.reportID = origin.reportID;
+    this.patientID = origin.patientID;
+    this.patientName = origin.patientName;
+    this.bloodPressure = origin.bloodPressure;
+    this.bloodType = origin.bloodType;
+    this.pulseRate = origin.pulseRate;
+    this.breathingRate = origin.breathingRate;
+    this.diabetesRate = origin.diabetesRate;
+
+    this.chronicDiseases = origin.chronicDiseases.toList(growable: true);
+    this.dangerDiseases = origin.dangerDiseases.toList(growable: true);
+    this.sensitivities = origin.sensitivities.toList(growable: true);
+    this.vaccinations = origin.vaccinations.toList(growable: true);
+  }
+
+  @override
+  String toString() {
+    String reportIDString = '"ReportID":"${this.reportID}"';
+    String patientIDString = ',"PatientID":"${this.patientID}"';
+    String patientNameString = ',"PatientName":"${this.patientName}"';
+    String bloodPressureString = ',"BloodPressure":"${this.bloodPressure}"';
+    String bloodTypeString = ',"BloodType":"${this.bloodType}"';
+    String pulseRateString = ',"PulseRate":"${this.pulseRate}"';
+    String breathingRateString = ',"BreathingRate":"${this.breathingRate}"';
+    String diabetesRateString = ',"DiabetesRate":"${this.diabetesRate}"';
+    String chronicDiseasesString = ',"ChronicDiseases":${this.chronicDiseases}';
+    String dangerDiseasesString = ',"DangerDiseases":${this.dangerDiseases}';
+    String sensitivitiesString = ',"Sensitivities":${this.sensitivities}';
+    String vaccinationsString = ',"Vaccinations":${this.vaccinations}';
+
+    return '{' +
+        '$reportIDString' +
+        '$patientIDString' +
+        '$patientNameString' +
+        '$bloodPressureString' +
+        '$bloodTypeString' +
+        '$pulseRateString' +
+        '$breathingRateString' +
+        '$diabetesRateString' +
+        '$chronicDiseasesString' +
+        '$dangerDiseasesString' +
+        '$sensitivitiesString' +
+        '$vaccinationsString' +
+        '}';
   }
 }

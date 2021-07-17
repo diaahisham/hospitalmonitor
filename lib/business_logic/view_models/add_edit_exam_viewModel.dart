@@ -11,17 +11,42 @@ import 'package:hospitalmonitor/services/service_locator.dart';
 
 class AddEditExamViewModel {
   DialogeService dialogeService = DialogeService();
-  ExaminationModel get currentEdittingExamination =>
-      serviceLocator<ExaminationControlService>().currentEdittingExam;
+  ExaminationModel currentEdittingExamination = ExaminationModel();
+  // serviceLocator<ExaminationControlService>().currentEdittingExam;
 
-  set currentEdittingExamination(ExaminationModel newRadio) =>
-      serviceLocator<ExaminationControlService>().currentEdittingExam =
-          newRadio;
+  List<ExaminationModel> get examModels =>
+      serviceLocator<ExaminationControlService>().examModels;
 
   ValueNotifier<String> patientName = ValueNotifier<String>('');
+  ValueNotifier<int> drugLength = ValueNotifier<int>(0);
+
+  AddEditExamViewModel() {
+    currentEdittingExamination
+        .copy(serviceLocator<ExaminationControlService>().currentEdittingExam);
+  }
 
   Future<void> submit() async {
+    serviceLocator<ExaminationControlService>().currentEdittingExam =
+        currentEdittingExamination;
     await serviceLocator<ExaminationControlService>().addEditExamination();
+    _navigate();
+  }
+
+  String newDrug = "";
+
+  void addDrug(String drug) {
+    currentEdittingExamination.drugs.add(drug);
+    drugLength.value = currentEdittingExamination.drugs.length;
+  }
+
+  void removeDrug(int index) {
+    currentEdittingExamination.drugs.removeAt(index);
+    drugLength.value = currentEdittingExamination.drugs.length;
+  }
+
+  Future<void> deleteExam() async {
+    examModels.removeWhere((element) =>
+        element.examinationID == currentEdittingExamination.examinationID);
     _navigate();
   }
 

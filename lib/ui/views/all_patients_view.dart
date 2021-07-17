@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class AllPatientsView extends StatelessWidget {
   Widget _dataField({required Widget child}) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(1),
       width: 200,
       height: 50,
       decoration: BoxDecoration(
@@ -47,12 +47,14 @@ class AllPatientsView extends StatelessWidget {
                   children: [
                     _dataField(
                       child: TextFormField(
-                        initialValue: '',
+                        //initialValue: '',
+                        controller: TextEditingController(text: ''),
                         keyboardType: TextInputType.name,
                         onChanged: (value) => model.searchValueChange(value),
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Search',
+                          contentPadding: const EdgeInsets.all(0.0),
                         ),
                       ),
                     )
@@ -61,6 +63,12 @@ class AllPatientsView extends StatelessWidget {
                 ValueListenableBuilder(
                   valueListenable: model.searchValue,
                   builder: (context, value, child) => Table(
+                    columnWidths: {
+                      0: FlexColumnWidth(2),
+                      1: FlexColumnWidth(2),
+                      2: FlexColumnWidth(1),
+                      3: FlexColumnWidth(1),
+                    },
                     border: TableBorder.all(
                       color: Colors.black,
                       width: 2.0,

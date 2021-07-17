@@ -149,7 +149,7 @@ class DialogeService {
 
   Widget _dataField({required Widget child}) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(1),
       width: 200,
       height: 50,
       decoration: BoxDecoration(
@@ -221,12 +221,14 @@ class DialogeService {
                 children: [
                   _dataField(
                     child: TextFormField(
-                      initialValue: '',
+                      //initialValue: '',
+                      controller: TextEditingController(text: ''),
                       keyboardType: TextInputType.name,
                       onChanged: (value) => searchValueChange(value),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Search',
+                        contentPadding: const EdgeInsets.all(0.0),
                       ),
                     ),
                   )
@@ -272,5 +274,21 @@ class DialogeService {
     );
 
     return result;
+  }
+
+  Future<void> showDataDialogue(String title, Widget data) async {
+    showDialog(
+      context:
+          (serviceLocator<NavigationService>().navigatorKey.currentContext)!,
+      builder: (context) => AlertDialog(
+        title: Container(
+          width: 200,
+          height: 50,
+          color: Colors.blue,
+          child: Center(child: Text(title)),
+        ),
+        content: data,
+      ),
+    );
   }
 }

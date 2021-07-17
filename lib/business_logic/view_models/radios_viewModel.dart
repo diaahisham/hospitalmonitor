@@ -31,8 +31,7 @@ class RadiosviewModel {
   int rowNumber = -1;
 
   bool isRowVisible(RadioModel radio) {
-    String name =
-        (!userIsRadiologist) ? radio.radiologistName : radio.patientName;
+    String name = (!userIsRadiologist) ? radio.radioName : radio.patientName;
 
     if (searchValue == '') return true;
 
@@ -91,7 +90,6 @@ class RadiosviewModel {
     if (this.userIsRadiologist)
       radioModels.sort((a, b) => a.patientName.compareTo(b.patientName));
     else
-      radioModels
-          .sort((a, b) => a.radiologistName.compareTo(b.radiologistName));
+      radioModels.sort((a, b) => a.radioName.compareTo(b.radioName));
   }
 }

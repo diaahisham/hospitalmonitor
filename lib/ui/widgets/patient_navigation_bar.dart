@@ -3,9 +3,7 @@ import 'package:hospitalmonitor/services/analyzes_control_service/analyzes_contr
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/examination_control_service/examination_control_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
-import 'package:hospitalmonitor/services/patient_control_service/patient_control_service.dart';
 import 'package:hospitalmonitor/services/radios_control_service/radios_control_service.dart';
-import 'package:hospitalmonitor/services/report_controll_service/report_controll_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;
@@ -37,15 +35,15 @@ class PatientNavigationBar extends StatelessWidget {
         serviceLocator<NavigationService>()
             .navigateTo(routes.ExaminationViewRoute);
         break;
-      case 4:
-        await serviceLocator<ReportControlService>()
-            .fetchReportModelsByPatientId(
-                serviceLocator<CurrentSessionService>().loggedUser.userID);
-        serviceLocator<PatientControlService>().currentPatient =
-            serviceLocator<CurrentSessionService>().loggedUser;
-        serviceLocator<NavigationService>()
-            .navigateTo(routes.HealthReportRoute);
-        break;
+      // case 4:
+      //   await serviceLocator<ReportControlService>()
+      //       .fetchReportModelsByPatientId(
+      //           serviceLocator<CurrentSessionService>().loggedUser.userID);
+      //   serviceLocator<PatientControlService>().currentPatient =
+      //       serviceLocator<CurrentSessionService>().loggedUser;
+      //   serviceLocator<NavigationService>()
+      //       .navigateTo(routes.HealthReportRoute);
+      //   break;
       default:
     }
   }
@@ -70,10 +68,6 @@ class PatientNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.assessment),
           label: 'Examinations',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.assessment),
-          label: 'Health Report',
         ),
       ],
       currentIndex: selectedIndex,

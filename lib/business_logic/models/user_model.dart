@@ -1,4 +1,4 @@
-enum UserType { notDefined, doctor, patient, radiologist, analysit }
+enum UserType { notDefined, doctor, patient, radiologist, analyst }
 enum GenterType { female, male }
 enum MaritalStatus { single, married }
 
@@ -16,7 +16,6 @@ class UserModel {
   String nationalID;
   int age;
   GenterType genderType;
-  MaritalStatus maritalStatus;
 
   UserModel({
     this.userID = '',
@@ -31,7 +30,6 @@ class UserModel {
     this.nationalID = '',
     this.age = 0,
     this.genderType = GenterType.male,
-    this.maritalStatus = MaritalStatus.married,
   });
 
   Map<String, dynamic> toJson() {
@@ -48,7 +46,6 @@ class UserModel {
       '"NationalID"': this.nationalID,
       '"Age"': this.age,
       '"GenterType"': this.genderType.index,
-      '"MaritalStatus"': this.maritalStatus.index,
     };
   }
 
@@ -66,7 +63,6 @@ class UserModel {
       nationalID: json["NationalID"] ?? '',
       age: int.parse(json["Age"]),
       genderType: GenterType.values[json["GenterType"] ?? 1],
-      maritalStatus: MaritalStatus.values[json["MaritalStatus"] ?? 1],
     );
   }
   @override
@@ -95,8 +91,6 @@ class UserModel {
 
     String genderString = ',"GenterType":${this.genderType.index}';
 
-    String maritalString = ',"MaritalStatus":${this.maritalStatus.index}';
-
     return '{' +
         '$userIdString' +
         '$userNameString' +
@@ -110,7 +104,6 @@ class UserModel {
         '$ageString' +
         '$nationalIDString' +
         '$genderString' +
-        '$maritalString' +
         '}';
   }
 }

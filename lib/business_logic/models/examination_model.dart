@@ -6,19 +6,21 @@ class ExaminationModel {
   String patientName = '';
   String date = '';
   String symptoms = '';
-  String examinationResult = '';
-  String notes = '';
+  String disease = '';
+  String description = '';
+  List<String> drugs = List<String>.empty(growable: true);
 
   ExaminationModel({
     this.examinationID = '',
     this.doctorID = '',
     this.doctorName = '',
     this.patientID = '',
+    this.disease = '',
     this.patientName = '',
     this.date = '',
-    this.examinationResult = '',
-    this.notes = '',
+    this.description = '',
     this.symptoms = '',
+    this.drugs = const [],
   });
 
   Map<String, dynamic> toJson() {
@@ -30,8 +32,7 @@ class ExaminationModel {
       '"PatientName"': this.patientName,
       '"Date"': this.date,
       '"Symptoms"': this.symptoms,
-      '"ExaminationResult"': this.examinationResult,
-      '"Notes"': this.notes,
+      '"Description"': this.description,
     };
   }
 
@@ -44,8 +45,20 @@ class ExaminationModel {
       patientName: json["PatientName"] ?? '',
       date: json["Date"] ?? '',
       symptoms: json["Symptoms"] ?? '',
-      examinationResult: json["ExaminationResult"] ?? '',
-      notes: json["Notes"] ?? '',
+      description: json["Description"] ?? '',
     );
+  }
+
+  void copy(ExaminationModel origin) {
+    this.examinationID = origin.examinationID;
+    this.doctorID = origin.doctorID;
+    this.doctorName = origin.doctorName;
+    this.patientID = origin.patientID;
+    this.patientName = origin.patientName;
+    this.date = origin.date;
+    this.symptoms = origin.symptoms;
+    this.description = origin.description;
+    this.disease = origin.disease;
+    this.drugs = origin.drugs.toList(growable: true);
   }
 }

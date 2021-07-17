@@ -1,35 +1,35 @@
 class RadioModel {
   String radioID = '';
   String radiologistID = '';
-  String radiologistName = '';
+  String radioName = '';
   String patientID = '';
   String patientName = '';
   String date = '';
-  String labName = '';
+  String radiologistName = '';
   String radioUrl = '';
   String notes = '';
 
   RadioModel({
     this.radioID = '',
     this.radiologistID = '',
-    this.radiologistName = '',
+    this.radioName = '',
     this.patientID = '',
     this.patientName = '',
     this.date = '',
     this.radioUrl = '',
     this.notes = '',
-    this.labName = '',
+    this.radiologistName = '',
   });
 
   Map<String, dynamic> toJson() {
     return {
       '"RadioID"': this.radioID,
       '"RadiologistID"': this.radiologistID,
-      '"RadiologistName"': this.radiologistName,
+      '"RadiologistName"': this.radioName,
       '"PatientID"': this.patientID,
       '"PatientName"': this.patientName,
       '"Date"': this.date,
-      '"LabName"': this.labName,
+      '"LabName"': this.radiologistName,
       '"RadioURL"': this.radioUrl,
       '"Notes"': this.notes,
     };
@@ -39,13 +39,24 @@ class RadioModel {
     return RadioModel(
       radioID: json["RadioID"] ?? '',
       radiologistID: json["RadiologistID"] ?? '',
-      radiologistName: json["RadiologistName"] ?? '',
+      radioName: json["RadiologistName"] ?? '',
       patientID: json["PatientID"] ?? '',
       patientName: json["PatientName"] ?? '',
       date: json["Date"] ?? '',
-      labName: json["LabName"] ?? '',
+      radiologistName: json["LabName"] ?? '',
       radioUrl: json["RadioURL"] ?? '',
       notes: json["Notes"] ?? '',
     );
+  }
+  void copy(RadioModel origin) {
+    this.radioID = origin.radioID;
+    this.radiologistID = origin.radiologistID;
+    this.radioName = origin.radioName;
+    this.patientID = origin.patientID;
+    this.patientName = origin.patientName;
+    this.date = origin.date;
+    this.radiologistName = origin.radiologistName;
+    this.radioUrl = origin.radioUrl;
+    this.notes = origin.notes;
   }
 }

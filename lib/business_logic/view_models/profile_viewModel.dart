@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:hospitalmonitor/business_logic/models/health_report_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/edit_user_service/edit_user_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
+import 'package:hospitalmonitor/services/report_controll_service/report_controll_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
     as routes;
@@ -23,10 +27,14 @@ class ProfileViewModel {
   ];
   ValueNotifier<int> genderTypeIndex = ValueNotifier<int>(1);
   GenderTypesList currentGenderType = GenderTypesList(1, "Male");
+  HealthReportModel reportModel = HealthReportModel();
 
   ProfileViewModel() {
-    this.currentUser = serviceLocator<CurrentSessionService>().loggedUser;
+    this.currentUser = UserModel.fromJson(jsonDecode(
+        serviceLocator<CurrentSessionService>().loggedUser.toString()));
     currentGenderType = genderTypes[1];
+    if (currentUser.type == UserType.patient)
+      reportModel.copy(serviceLocator<ReportControlService>().reportModels[0]);
   }
 
   void changeGender(int index) {
@@ -35,7 +43,8 @@ class ProfileViewModel {
   }
 
   void cancelEditting() {
-    this.currentUser = serviceLocator<CurrentSessionService>().loggedUser;
+    this.currentUser = UserModel.fromJson(jsonDecode(
+        serviceLocator<CurrentSessionService>().loggedUser.toString()));
     edittingMode.value = false;
   }
 

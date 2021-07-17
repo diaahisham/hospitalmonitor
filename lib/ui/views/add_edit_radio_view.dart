@@ -26,7 +26,8 @@ class AddEditRadioView extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        initialValue: initialValue,
+        //initialValue: initialValue,
+        controller: TextEditingController(text: initialValue),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return validatorText;
@@ -90,11 +91,11 @@ class AddEditRadioView extends StatelessWidget {
                         ),
                       ),
                       _formWidget(
-                        initialValue: model.currentEdittingRadio.labName,
-                        validatorText: 'Please enter lab name',
+                        initialValue: model.currentEdittingRadio.radioName,
+                        validatorText: 'Please enter radio name',
                         labelText: 'Lab name: ',
                         onChanged: (value) =>
-                            model.currentEdittingRadio.labName = value,
+                            model.currentEdittingRadio.radioName = value,
                       ),
                       _formWidget(
                         initialValue: model.currentEdittingRadio.notes,

@@ -23,7 +23,7 @@ class AnalyzesViewModel {
 
   AnalyzesViewModel() {
     userIsAnalysit = (serviceLocator<CurrentSessionService>().loggedUser.type ==
-        UserType.analysit);
+        UserType.analyst);
     sortAnalyzes();
   }
 
@@ -32,7 +32,7 @@ class AnalyzesViewModel {
 
   bool isRowVisible(AnalysisModel analyses) {
     String name =
-        (!userIsAnalysit) ? analyses.analystName : analyses.patientName;
+        (!userIsAnalysit) ? analyses.analysisName : analyses.patientName;
 
     if (searchValue == '') return true;
 
@@ -94,6 +94,6 @@ class AnalyzesViewModel {
     if (this.userIsAnalysit)
       analysisModels.sort((a, b) => a.patientName.compareTo(b.patientName));
     else
-      analysisModels.sort((a, b) => a.analystName.compareTo(b.analystName));
+      analysisModels.sort((a, b) => a.analysisName.compareTo(b.analysisName));
   }
 }

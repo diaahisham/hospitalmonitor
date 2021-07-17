@@ -52,7 +52,8 @@ class AnalyzesView extends StatelessWidget {
                   children: [
                     _dataField(
                       child: TextFormField(
-                        initialValue: '',
+                        //initialValue: '',
+                        controller: TextEditingController(text: ''),
                         keyboardType: TextInputType.name,
                         onChanged: (value) => model.searchValueChange(value),
                         decoration: InputDecoration(
@@ -66,6 +67,15 @@ class AnalyzesView extends StatelessWidget {
                 ValueListenableBuilder(
                   valueListenable: model.analysesLength,
                   builder: (context, value, child) => Table(
+                    columnWidths: {
+                      0: FlexColumnWidth(1),
+                      1: FlexColumnWidth(1),
+                      2: FlexColumnWidth(1),
+                      3: FlexColumnWidth(2),
+                      4: FlexColumnWidth(2),
+                      5: FlexColumnWidth(1),
+                      6: FlexColumnWidth(1),
+                    },
                     border: TableBorder.all(
                       color: Colors.black,
                       width: 2.0,
@@ -75,13 +85,6 @@ class AnalyzesView extends StatelessWidget {
                       TableRow(
                           decoration: BoxDecoration(color: Colors.blueAccent),
                           children: [
-                            if (!model.userIsAnalysit)
-                              Center(
-                                  child: Text(
-                                "Analyst name",
-                                textScaleFactor: 1.5,
-                                style: TextStyle(color: Colors.white),
-                              )),
                             if (model.userIsAnalysit)
                               Center(
                                   child: Text(
@@ -91,16 +94,23 @@ class AnalyzesView extends StatelessWidget {
                               )),
                             Center(
                                 child: Text(
-                              "Date",
+                              "Analysis name",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
                             Center(
                                 child: Text(
-                              "Lab name",
+                              "Date",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
+                            if (!model.userIsAnalysit)
+                              Center(
+                                  child: Text(
+                                "Analyst name",
+                                textScaleFactor: 1.5,
+                                style: TextStyle(color: Colors.white),
+                              )),
                             Center(
                                 child: Text(
                               "Notes",
@@ -135,22 +145,23 @@ class AnalyzesView extends StatelessWidget {
                               color: model.rowColor(),
                             ),
                             children: [
-                              if (!model.userIsAnalysit)
-                                Center(
-                                    child: Text(
-                                        model.analysisModels[i].analystName,
-                                        textScaleFactor: 1.5)),
                               if (model.userIsAnalysit)
                                 Center(
                                     child: Text(
                                         model.analysisModels[i].patientName,
                                         textScaleFactor: 1.5)),
                               Center(
-                                  child: Text(model.analysisModels[i].date,
+                                  child: Text(
+                                      model.analysisModels[i].analysisName,
                                       textScaleFactor: 1.5)),
                               Center(
-                                  child: Text(model.analysisModels[i].labName,
+                                  child: Text(model.analysisModels[i].date,
                                       textScaleFactor: 1.5)),
+                              if (!model.userIsAnalysit)
+                                Center(
+                                    child: Text(
+                                        model.analysisModels[i].analystName,
+                                        textScaleFactor: 1.5)),
                               Center(
                                   child: Text(model.analysisModels[i].notes,
                                       textScaleFactor: 1.5)),
@@ -171,26 +182,22 @@ class AnalyzesView extends StatelessWidget {
                                   onPressed: () => model
                                       .editAnalysis(model.analysisModels[i]),
                                   child: Center(
-                                      child: Text("Edit",
-                                          style: TextStyle(
-                                            color: Colors.blue[900],
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
-                                          textScaleFactor: 1.5)),
+                                    child: Icon(
+                                      Icons.edit,
+                                      size: 25,
+                                    ),
+                                  ),
                                 ),
                               if (model.userIsAnalysit)
                                 TextButton(
                                   onPressed: () => model
                                       .deleteAnalysis(model.analysisModels[i]),
                                   child: Center(
-                                      child: Text("Delete",
-                                          style: TextStyle(
-                                            color: Colors.blue[900],
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
-                                          textScaleFactor: 1.5)),
+                                    child: Icon(
+                                      Icons.close,
+                                      size: 25,
+                                    ),
+                                  ),
                                 ),
                             ],
                           )

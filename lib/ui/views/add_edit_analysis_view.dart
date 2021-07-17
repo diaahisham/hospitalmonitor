@@ -27,7 +27,8 @@ class AddEditAnalysisView extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        initialValue: initialValue,
+        //initialValue: initialValue,
+        controller: TextEditingController(text: initialValue),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return validatorText;
@@ -92,11 +93,12 @@ class AddEditAnalysisView extends StatelessWidget {
                         ),
                       ),
                       _formWidget(
-                        initialValue: model.currentEdittingAnalysis.labName,
-                        validatorText: 'Please enter lab name',
-                        labelText: 'Lab name: ',
+                        initialValue:
+                            model.currentEdittingAnalysis.analysisName,
+                        validatorText: 'Please enter analysis name',
+                        labelText: 'analysis name: ',
                         onChanged: (value) =>
-                            model.currentEdittingAnalysis.labName = value,
+                            model.currentEdittingAnalysis.analysisName = value,
                       ),
                       _formWidget(
                         initialValue: model.currentEdittingAnalysis.notes,
