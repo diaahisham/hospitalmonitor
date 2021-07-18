@@ -16,6 +16,17 @@ class UserModel {
   String nationalID;
   int age;
   GenterType genderType;
+  //
+  // Patient vital modifiers
+  String bloodPressure = '';
+  String bloodType = '';
+  String pulseRate = '';
+  String breathingRate = '';
+  String diabetesRate = '';
+  List<String> chronicDiseases = List<String>.empty(growable: true);
+  List<String> dangerDiseases = List<String>.empty(growable: true);
+  List<String> sensitivities = List<String>.empty(growable: true);
+  List<String> vaccinations = List<String>.empty(growable: true);
 
   UserModel({
     this.userID = '',
@@ -34,62 +45,66 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "UserID": this.userID,
-      '"UserName"': this.userName,
-      '"Password"': this.password,
-      '"MobileNumber"': this.mobileNumber,
-      '"Email"': this.email,
-      '"Address"': this.address,
-      '"Type"': this.type.index,
-      '"Token"': this.token,
-      '"Photo"': this.photo,
-      '"NationalID"': this.nationalID,
-      '"Age"': this.age,
-      '"GenterType"': this.genderType.index,
+      '"data"': {
+        '"user"': {
+          '"id"': this.userID,
+          '"username"': this.userName,
+          '"password"': this.password,
+          '"phone"': this.mobileNumber,
+          '"email"': this.email,
+          '"address"': this.address,
+          '"role"': this.type.index - 1,
+          '"token"': this.token,
+          //'"photo"': this.photo,
+          '"nationalID"': this.nationalID,
+          '"age"': this.age,
+          '"GenterType"': this.genderType.index,
+        }
+      }
     };
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      userID: json["UserID"] ?? "",
-      userName: json["UserName"] ?? "",
-      password: json["Password"] ?? "",
-      mobileNumber: json["MobileNumber"] ?? "",
-      email: json["Email"] ?? "",
-      address: json["Address"] ?? "",
-      photo: json["Photo"] ?? "",
-      type: UserType.values[json["Type"] ?? 0],
-      token: json["Token"] ?? '',
-      nationalID: json["NationalID"] ?? '',
-      age: int.parse(json["Age"]),
-      genderType: GenterType.values[json["GenterType"] ?? 1],
+      userID: json["id"] ?? "",
+      userName: json["username"] ?? "",
+      password: json["password"] ?? "",
+      mobileNumber: json["phone"] ?? "",
+      email: json["email"] ?? "",
+      address: json["address"] ?? "",
+      photo: json["photo"] ?? "",
+      type: UserType.values[(json["role"] ?? 0) + 1],
+      token: json["token"] ?? '',
+      nationalID: json["nationalId"] ?? '',
+      age: json["age"] ?? 0,
+      genderType: GenterType.values[json["gender"] ?? 1],
     );
   }
   @override
   String toString() {
-    String userIdString = '"UserID":"${this.userID}"';
+    String userIdString = '"id":"${this.userID}"';
 
-    String userNameString = ',"UserName":"${this.userName}"';
+    String userNameString = ',"username":"${this.userName}"';
 
-    String passwordString = ',"Password":"${this.password}"';
+    String passwordString = ',"password":"${this.password}"';
 
-    String mobileString = ',"MobileNumber":"${this.mobileNumber}"';
+    String mobileString = ',"phone":"${this.mobileNumber}"';
 
-    String emailString = ',"Email":"${this.email}"';
+    String emailString = ',"email":"${this.email}"';
 
-    String addressString = ',"Address":"${this.address}"';
+    String addressString = ',"address":"${this.address}"';
 
-    String photoString = ',"Photo":"${this.photo}"';
+    String photoString = ',"photo":"${this.photo}"';
 
-    String tokenString = ',"Token":"${this.token}"';
+    String tokenString = ',"token":"${this.token}"';
 
-    String typeString = ',"Type":${this.type.index}';
+    String typeString = ',"role":${this.type.index - 1}';
 
-    String nationalIDString = ',"NationalID":"${this.nationalID}"';
+    String nationalIDString = ',"nationalId":"${this.nationalID}"';
 
-    String ageString = ',"Age":"${this.age}"';
+    String ageString = ',"age":${this.age}';
 
-    String genderString = ',"GenterType":${this.genderType.index}';
+    String genderString = ',"gender":${this.genderType.index}';
 
     return '{' +
         '$userIdString' +

@@ -1,14 +1,17 @@
-//import 'dart:convert';
-
+import 'dart:convert';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/business_logic/utils/analysts.dart';
+import 'package:hospitalmonitor/business_logic/utils/common.dart';
 import 'package:hospitalmonitor/business_logic/utils/doctors.dart';
 import 'package:hospitalmonitor/business_logic/utils/patients.dart';
 import 'package:hospitalmonitor/business_logic/utils/radiologists.dart';
+import 'package:http/http.dart' as http;
+import 'package:hospitalmonitor/business_logic/utils/profileImages.dart'
+    as profileImages;
 
 class LoginService {
   Future<UserModel> login(UserModel userRequest) async {
-    return await _checkNameAndPasswordMock(userRequest);
+    return await _checkNameAndPasswordHttp(userRequest);
   }
 
   // ignore: unused_element
@@ -40,26 +43,58 @@ class LoginService {
     return testModel;
   }
 
-// ignore: unused_element
-  // Future<UserModel> _checkNameAndPasswordHttp(UserModel userRequest) async {
-  //   final String loginUri =
-  //       'https://dr-health.herokuapp.com/api/doctors/authenticate';
+//ignore: unused_element
+  Future<UserModel> _checkNameAndPasswordHttp(UserModel userRequest) async {
+    String url = baseURL;
+    switch (userRequest.type) {
+      case UserType.doctor:
+        url += "/api/doctors/authenticate";
+        break;
+      case UserType.patient:
+        url += "/api/patients/authenticate";
+        break;
+      case UserType.analyst:
+        url += "/api/analysts/authenticate";
+        break;
+      case UserType.radiologist:
+        url += "/api/radiologists/authenticate";
+        break;
+      default:
+    }
 
-  //   final response = await http.post(
-  //     loginUri,
-  //     headers: {'Content-Type': 'application/json'},
-  //     body:
-  //         json.encode(RequestModel(userRequest.userName, userRequest.password)),
-  //   );
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body:
+          json.encode(RequestModel(userRequest.userName, userRequest.password)),
+    );
 
-  //   Map<String, dynamic> body = json.decode(response.body);
+    Map<String, dynamic> body = json.decode(response.body);
 
-  //   if (response.statusCode != 200) throw (body['error']['message']);
+    if (response.statusCode != 200) throw (body["error"]["message"]);
 
-  //   if (body['statusCode'] != 0) throw (body['message']);
+    if (body["statusCode"] != 0) throw (body["message"]);
 
-  //   UserModel result = UserModel.fromJson(body['data']['user']);
-  // }
+    UserModel result = UserModel.fromJson(body["data"]["user"]);
+    result.token = body["data"]["token"];
+    // add photo
+    switch (result.type) {
+      case UserType.doctor:
+        result.photo = profileImages.doctor;
+        break;
+      case UserType.patient:
+        result.photo = profileImages.patient;
+        break;
+      case UserType.analyst:
+        result.photo = profileImages.analyst;
+        break;
+      case UserType.radiologist:
+        result.photo = profileImages.radio;
+        break;
+      default:
+    }
+    return result;
+  }
 }
 
 class RequestModel {

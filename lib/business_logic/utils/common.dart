@@ -24,4 +24,4 @@ const String sigmaData = '5243210982'; // dummy at index (1,9) are (2,2)
 const String zetaData = 'neji98uhbr'; //  dummy at index (1,9) are (e,r)
 const String thetaData = 'vgy76tsfdc'; // dummy at index (6,8) are (s,d)
 
-const String baseURL = '';
+const String baseURL = 'https://dr-health.herokuapp.com';

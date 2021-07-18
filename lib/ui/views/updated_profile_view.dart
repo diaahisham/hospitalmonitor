@@ -364,7 +364,7 @@ class UpdatedProfileView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        leftSideItem('Change picture', 0, model),
+                        //leftSideItem('Change picture', 0, model),
                       ],
                     ),
                   ),
