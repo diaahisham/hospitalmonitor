@@ -7,6 +7,7 @@ class AnalysisModel {
   String date = '';
   String analystName = '';
   String analysisUrl = '';
+  String labName = '';
   String notes = '';
 
   AnalysisModel({
@@ -19,6 +20,7 @@ class AnalysisModel {
     this.analysisUrl = '',
     this.notes = '',
     this.analystName = '',
+    this.labName = '',
   });
 
   Map<String, dynamic> toJson() {
@@ -37,15 +39,17 @@ class AnalysisModel {
 
   factory AnalysisModel.fromJson(Map<String, dynamic> json) {
     return AnalysisModel(
-      analysisID: json["AnalysisID"] ?? '',
-      analystID: json["AnalystID"] ?? '',
-      analysisName: json["AnalystName"] ?? '',
-      patientID: json["PatientID"] ?? '',
-      patientName: json["PatientName"] ?? '',
-      date: json["Date"] ?? '',
-      analystName: json["LabName"] ?? '',
-      analysisUrl: json["AnalysisURL"] ?? '',
-      notes: json["Notes"] ?? '',
+      analysisID: json["id"] ?? '',
+      analystID: json["analystId"] ?? '',
+      analystName: json["analyst"]["username"] ?? '',
+      //
+      analysisName: json["analysisName"] ?? '',
+      patientID: json["patientId"] ?? '',
+      patientName: json["patient"]["name"] ?? '',
+      date: json["updatedAt"] ?? '',
+      analysisUrl: json["documentURl"] ?? '',
+      labName: json["analyst"]["analysisLab"]["name"] ?? '',
+      notes: json["note"] ?? '',
     );
   }
   void copy(AnalysisModel origin) {
@@ -58,5 +62,6 @@ class AnalysisModel {
     this.analystName = origin.analystName;
     this.analysisUrl = origin.analysisUrl;
     this.notes = origin.notes;
+    this.labName = origin.labName;
   }
 }
