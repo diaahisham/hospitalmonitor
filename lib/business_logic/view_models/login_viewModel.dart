@@ -10,6 +10,7 @@ import 'package:hospitalmonitor/services/report_controll_service/report_controll
 import 'package:hospitalmonitor/services/service_locator.dart';
 
 class LoginViewModel {
+  ValueNotifier<bool> loadingData = ValueNotifier<bool>(false);
   final formKey = GlobalKey<FormState>();
   UserModel user = UserModel();
   ValueNotifier<String> wrongCredentialsText = ValueNotifier<String>('');
@@ -23,15 +24,16 @@ class LoginViewModel {
 
   void submitLogin() async {
     try {
+      loadingData.value = true;
       UserModel loggedUser =
           await serviceLocator<LoginService>().login(this.user);
       serviceLocator<CurrentSessionService>().loggedUser = loggedUser;
       if (loggedUser.type == UserType.patient)
-        await serviceLocator<ReportControlService>()
-            .fetchReportModelsByPatientId(loggedUser.userID);
+        serviceLocator<ReportControlService>().setupLoggedPatientReport();
       serviceLocator<NavigationService>().popAndNavigateTo(routes.ProfileRoute);
-    } on Exception catch (e) {
-      wrongCredentialsText.value = e.toString().substring(11);
+    } catch (e) {
+      wrongCredentialsText.value = e.toString();
+      loadingData.value = false;
     }
   }
 }

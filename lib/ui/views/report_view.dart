@@ -140,19 +140,19 @@ class ReportView extends StatelessWidget {
                   (model.edittingMode.value)
                       ? _dataField(
                           child: TextFormField(
-                            //initialValue: model.reportModel.bloodPressure,
                             controller: TextEditingController(
-                                text: model.reportModel.bloodPressure),
+                                text:
+                                    model.reportModel.bloodPressure.toString()),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter blood pressure';
                               }
                               return null;
                             },
-                            keyboardType: TextInputType.name,
+                            keyboardType: TextInputType.number,
                             autofocus: true,
-                            onChanged: (value) =>
-                                model.reportModel.bloodPressure = value,
+                            onChanged: (value) => model
+                                .reportModel.bloodPressure = int.parse(value),
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding: const EdgeInsets.all(0.0),
@@ -162,7 +162,7 @@ class ReportView extends StatelessWidget {
                       : Padding(
                           padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
-                            model.reportModel.bloodPressure,
+                            model.reportModel.bloodPressure.toString(),
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -171,14 +171,57 @@ class ReportView extends StatelessWidget {
                           ),
                         ),
                   //
-                  //blood Type
+
+                  //diabetes Rate
+                  _labelWidget('Diabetes rate: '),
+                  (model.edittingMode.value)
+                      ? _dataField(
+                          child: TextFormField(
+                            controller: TextEditingController(
+                                text:
+                                    model.reportModel.diabetesRate.toString()),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter diabetes Rate';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.number,
+                            autofocus: true,
+                            onChanged: (value) => model
+                                .reportModel.diabetesRate = int.parse(value),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              contentPadding: const EdgeInsets.all(0.0),
+                            ),
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            model.reportModel.diabetesRate.toString(),
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                  //
+                ],
+              ),
+              Container(width: 50),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
                   _labelWidget('Blood type: '),
                   (model.edittingMode.value)
                       ? _dataField(
                           child: TextFormField(
-                            //initialValue: model.reportModel.bloodPressure,
                             controller: TextEditingController(
-                                text: model.reportModel.bloodPressure),
+                              text: model.reportModel.bloodType,
+                            ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter blood type';
@@ -207,67 +250,24 @@ class ReportView extends StatelessWidget {
                           ),
                         ),
                   //
-                  //diabetes Rate
-                  _labelWidget('Diabetes rate: '),
-                  (model.edittingMode.value)
-                      ? _dataField(
-                          child: TextFormField(
-                            //initialValue: model.reportModel.bloodPressure,
-                            controller: TextEditingController(
-                                text: model.reportModel.bloodPressure),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter diabetes Rate';
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.name,
-                            autofocus: true,
-                            onChanged: (value) =>
-                                model.reportModel.diabetesRate = value,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(0.0),
-                            ),
-                          ),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Text(
-                            model.reportModel.diabetesRate,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                  //
-                ],
-              ),
-              Container(width: 50),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
                   // breathing Rate
                   _labelWidget('Breathing rate: '),
                   (model.edittingMode.value)
                       ? _dataField(
                           child: TextFormField(
-                            //initialValue: model.reportModel.bloodPressure,
                             controller: TextEditingController(
-                                text: model.reportModel.bloodPressure),
+                                text:
+                                    model.reportModel.breathingRate.toString()),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter diabetes Rate';
+                                return 'Please enter breathing Rate';
                               }
                               return null;
                             },
-                            keyboardType: TextInputType.name,
+                            keyboardType: TextInputType.number,
                             autofocus: true,
-                            onChanged: (value) =>
-                                model.reportModel.breathingRate = value,
+                            onChanged: (value) => model
+                                .reportModel.breathingRate = int.parse(value),
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding: const EdgeInsets.all(0.0),
@@ -277,7 +277,7 @@ class ReportView extends StatelessWidget {
                       : Padding(
                           padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
-                            model.reportModel.breathingRate,
+                            model.reportModel.breathingRate.toString(),
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -285,41 +285,7 @@ class ReportView extends StatelessWidget {
                             ),
                           ),
                         ),
-                  //
-                  _labelWidget('Breathing rate: '),
-                  (model.edittingMode.value)
-                      ? _dataField(
-                          child: TextFormField(
-                            //initialValue: model.reportModel.bloodPressure,
-                            controller: TextEditingController(
-                                text: model.reportModel.bloodPressure),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter pulse rate';
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.name,
-                            autofocus: true,
-                            onChanged: (value) =>
-                                model.reportModel.pulseRate = value,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(0.0),
-                            ),
-                          ),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Text(
-                            model.reportModel.pulseRate,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
+
                   //
                 ],
               )

@@ -18,11 +18,10 @@ class UserModel {
   GenterType genderType;
   //
   // Patient vital modifiers
-  String bloodPressure = '';
+  int bloodPressure = 0;
   String bloodType = '';
-  String pulseRate = '';
-  String breathingRate = '';
-  String diabetesRate = '';
+  int breathingRate = 0;
+  int diabetesRate = 0;
   List<String> chronicDiseases = List<String>.empty(growable: true);
   List<String> dangerDiseases = List<String>.empty(growable: true);
   List<String> sensitivities = List<String>.empty(growable: true);
@@ -41,6 +40,15 @@ class UserModel {
     this.nationalID = '',
     this.age = 0,
     this.genderType = GenterType.male,
+    // patient vital modifier
+    this.bloodPressure = 0,
+    this.bloodType = '',
+    this.breathingRate = 0,
+    this.diabetesRate = 0,
+    this.chronicDiseases = const [],
+    this.dangerDiseases = const [],
+    this.sensitivities = const [],
+    this.vaccinations = const [],
   });
 
   Map<String, dynamic> toJson() {
@@ -58,7 +66,7 @@ class UserModel {
           //'"photo"': this.photo,
           '"nationalID"': this.nationalID,
           '"age"': this.age,
-          '"GenterType"': this.genderType.index,
+          '"GenderType"': this.genderType.index,
         }
       }
     };
@@ -78,6 +86,21 @@ class UserModel {
       nationalID: json["nationalId"] ?? '',
       age: json["age"] ?? 0,
       genderType: GenterType.values[json["gender"] ?? 1],
+      //
+      // patient vital modifiers
+      bloodPressure: json["vitalModifiers"]?["bloodPressure"] ?? 0,
+      bloodType: json["vitalModifiers"]?["bloodType"]?.toString() ?? '',
+
+      breathingRate: json["vitalModifiers"]?["breathingRate"] ?? 0,
+      diabetesRate: json["vitalModifiers"]?["diabetesRate"] ?? 0,
+      chronicDiseases:
+          List<String>.from(json["chronicDiseases"] ?? [], growable: true),
+      dangerDiseases:
+          List<String>.from(json["dangerousDiseases"] ?? [], growable: true),
+      sensitivities:
+          List<String>.from(json["sensitivities"] ?? [], growable: true),
+      vaccinations:
+          List<String>.from(json["vaccination"] ?? [], growable: true),
     );
   }
   @override

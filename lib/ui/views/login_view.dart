@@ -146,6 +146,23 @@ class LoginView extends StatelessWidget {
                     ),
                   ),
                 ),
+                ValueListenableBuilder(
+                  valueListenable: model.loadingData,
+                  builder: (context, value, child) => (model.loadingData.value)
+                      ? Container(
+                          width: screenWidth,
+                          height: screenHeight,
+                          color: Colors.white70,
+                          child: Center(
+                            child: Text(
+                              "Loading...",
+                              style:
+                                  TextStyle(color: Colors.blue, fontSize: 35),
+                            ),
+                          ),
+                        )
+                      : Text(""),
+                ),
               ],
             ),
           ),

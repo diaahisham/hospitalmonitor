@@ -13,7 +13,7 @@ class UpdatedProfileView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10),
       child: Text(
-        label + ': ',
+        label,
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -152,7 +152,7 @@ class UpdatedProfileView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
-                      model.reportModel.bloodPressure,
+                      model.reportModel.bloodPressure.toString(),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -175,20 +175,6 @@ class UpdatedProfileView extends StatelessWidget {
                     ),
                   ),
                   //
-                  //diabetes Rate
-                  _labelWidget('Diabetes rate: '),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      model.reportModel.diabetesRate,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                  //
                 ],
               ),
               Container(width: 50),
@@ -196,12 +182,12 @@ class UpdatedProfileView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // breathing Rate
-                  _labelWidget('Breathing rate: '),
+                  //diabetes Rate
+                  _labelWidget('Diabetes rate: '),
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
-                      model.reportModel.breathingRate,
+                      model.reportModel.diabetesRate.toString(),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -210,11 +196,12 @@ class UpdatedProfileView extends StatelessWidget {
                     ),
                   ),
                   //
+                  // breathing Rate
                   _labelWidget('Breathing rate: '),
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
-                      model.reportModel.pulseRate,
+                      model.reportModel.breathingRate.toString(),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -222,6 +209,7 @@ class UpdatedProfileView extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   //
                 ],
               )
