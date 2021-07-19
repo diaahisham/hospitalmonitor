@@ -8,6 +8,7 @@ class RadioModel {
   String radiologistName = '';
   String radioUrl = '';
   String notes = '';
+  String radioLab = '';
 
   RadioModel({
     this.radioID = '',
@@ -19,6 +20,7 @@ class RadioModel {
     this.radioUrl = '',
     this.notes = '',
     this.radiologistName = '',
+    this.radioLab = '',
   });
 
   Map<String, dynamic> toJson() {
@@ -37,15 +39,17 @@ class RadioModel {
 
   factory RadioModel.fromJson(Map<String, dynamic> json) {
     return RadioModel(
-      radioID: json["RadioID"] ?? '',
+      radioID: json["id"] ?? '',
       radiologistID: json["RadiologistID"] ?? '',
-      radioName: json["RadiologistName"] ?? '',
+      radiologistName: json["radiologist"]["username"] ?? '',
+      //
+      radioName: json["radiologyName"] ?? '',
       patientID: json["PatientID"] ?? '',
-      patientName: json["PatientName"] ?? '',
-      date: json["Date"] ?? '',
-      radiologistName: json["LabName"] ?? '',
-      radioUrl: json["RadioURL"] ?? '',
-      notes: json["Notes"] ?? '',
+      patientName: json["patient"]["username"] ?? '',
+      date: json["updatedAt"] ?? '',
+      radioUrl: json["radiologyURl"] ?? '',
+      notes: json["note"] ?? '',
+      radioLab: json["radiologist"]["radiologyLab"]["name"] ?? '',
     );
   }
   void copy(RadioModel origin) {
@@ -58,5 +62,6 @@ class RadioModel {
     this.radiologistName = origin.radiologistName;
     this.radioUrl = origin.radioUrl;
     this.notes = origin.notes;
+    this.radioLab = origin.radioLab;
   }
 }

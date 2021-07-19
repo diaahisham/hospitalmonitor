@@ -90,7 +90,7 @@ class AnalyzesView extends StatelessWidget {
                             )),
                             Center(
                                 child: Text(
-                              "lab name",
+                              "Lab name",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),

@@ -35,15 +35,7 @@ class PatientNavigationBar extends StatelessWidget {
         serviceLocator<NavigationService>()
             .navigateTo(routes.ExaminationViewRoute);
         break;
-      // case 4:
-      //   await serviceLocator<ReportControlService>()
-      //       .fetchReportModelsByPatientId(
-      //           serviceLocator<CurrentSessionService>().loggedUser.userID);
-      //   serviceLocator<PatientControlService>().currentPatient =
-      //       serviceLocator<CurrentSessionService>().loggedUser;
-      //   serviceLocator<NavigationService>()
-      //       .navigateTo(routes.HealthReportRoute);
-      //   break;
+
       default:
     }
   }

@@ -68,15 +68,6 @@ class RadiosView extends StatelessWidget {
                 ValueListenableBuilder(
                   valueListenable: model.radiosLength,
                   builder: (context, value, child) => Table(
-                    columnWidths: {
-                      0: FlexColumnWidth(1),
-                      1: FlexColumnWidth(1),
-                      2: FlexColumnWidth(1),
-                      3: FlexColumnWidth(2),
-                      4: FlexColumnWidth(2),
-                      5: FlexColumnWidth(1),
-                      6: FlexColumnWidth(1),
-                    },
                     border: TableBorder.all(
                       color: Colors.black,
                       width: 2.0,
@@ -112,6 +103,12 @@ class RadiosView extends StatelessWidget {
                                 textScaleFactor: 1.5,
                                 style: TextStyle(color: Colors.white),
                               )),
+                            Center(
+                                child: Text(
+                              "Lab name",
+                              textScaleFactor: 1.5,
+                              style: TextStyle(color: Colors.white),
+                            )),
                             Center(
                                 child: Text(
                               "Notes",
@@ -155,13 +152,18 @@ class RadiosView extends StatelessWidget {
                                   child: Text(model.radioModels[i].radioName,
                                       textScaleFactor: 1.5)),
                               Center(
-                                  child: Text(model.radioModels[i].date,
+                                  child: Text(
+                                      model.radioModels[i].date
+                                          .substring(0, 10),
                                       textScaleFactor: 1.5)),
                               if (!model.userIsRadiologist)
                                 Center(
                                     child: Text(
                                         model.radioModels[i].radiologistName,
                                         textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(model.radioModels[i].radioLab,
+                                      textScaleFactor: 1.5)),
                               Center(
                                   child: Text(model.radioModels[i].notes,
                                       textScaleFactor: 1.5)),

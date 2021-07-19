@@ -24,8 +24,6 @@ class AnalyzesControlService {
   }
 
   Future<void> fetchAnalysesModelsByPatientId(String patientID) async {
-    analysisModels.clear();
-
     UserModel loggedUser = serviceLocator<CurrentSessionService>().loggedUser;
     switch (loggedUser.type) {
       case UserType.doctor:
