@@ -77,6 +77,7 @@ class LoginService {
 
     UserModel result = UserModel.fromJson(body["data"]["user"]);
     result.token = body["data"]["token"];
+    result.password = userRequest.password;
     // add photo
     switch (result.type) {
       case UserType.doctor:

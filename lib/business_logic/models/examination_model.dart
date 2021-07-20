@@ -38,14 +38,16 @@ class ExaminationModel {
 
   factory ExaminationModel.fromJson(Map<String, dynamic> json) {
     return ExaminationModel(
-      examinationID: json["ExaminationID"] ?? '',
-      doctorID: json["DoctorID"] ?? '',
-      doctorName: json["DoctorName"] ?? '',
-      patientID: json["PatientID"] ?? '',
-      patientName: json["PatientName"] ?? '',
-      date: json["Date"] ?? '',
-      symptoms: json["Symptoms"] ?? '',
-      description: json["Description"] ?? '',
+      examinationID: json["id"] ?? '',
+      doctorID: json["doctorId"] ?? '',
+      doctorName: json["doctor"]["username"] ?? '',
+      patientID: json["patientId"] ?? '',
+      patientName: json["patient"]["username"] ?? '',
+      date: json["updatedAt"] ?? '',
+      symptoms: json["symproms"] ?? '',
+      description: json["description"] ?? '',
+      disease: json["disease"] ?? "",
+      drugs: List<String>.from(json["drugs"] ?? [], growable: true),
     );
   }
 

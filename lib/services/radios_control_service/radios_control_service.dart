@@ -2,7 +2,7 @@ import 'dart:math';
 import 'dart:convert';
 import 'package:hospitalmonitor/business_logic/models/radio_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
-import 'package:hospitalmonitor/business_logic/utils/common.dart';
+import 'package:hospitalmonitor/business_logic/utils/common.dart' as common;
 import 'package:hospitalmonitor/business_logic/utils/radios.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
@@ -14,12 +14,34 @@ class RadiosControlService {
   RadioModel currentEdittingRadio = RadioModel();
 
   Future<void> fetchRadioModelsByRadiologistId() async {
-    String radiologistID =
-        serviceLocator<CurrentSessionService>().loggedUser.userID;
+    UserModel loggedUser = serviceLocator<CurrentSessionService>().loggedUser;
+    List<RadioModel> result = List<RadioModel>.empty(growable: true);
+    String url = common.baseURL +
+        "/api/radiologists/radiologies" +
+        "?filter[include][0][relation]=radiologist" +
+        "&filter[include][0][scope][include][0]=radiologyLab" +
+        "&filter[include][1][relation]=patient";
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': '${loggedUser.token}'
+      },
+    );
+
+    if (response.statusCode != 200) {
+      Map<String, dynamic> errBody = json.decode(response.body);
+      throw (errBody["error"]["message"]);
+    }
+
+    List<dynamic> body = json.decode(response.body);
+
+    body.forEach((element) {
+      result.add(RadioModel.fromJson(element));
+    });
+
     radioModels.clear();
-    List<RadioModel> result = radios
-        .where((element) => element.radiologistID == radiologistID)
-        .toList();
     radioModels.addAll(result);
   }
 
@@ -39,7 +61,7 @@ class RadiosControlService {
   Future<void> _patientFetchRadios(UserModel loggedPatient) async {
     List<RadioModel> result = List<RadioModel>.empty(growable: true);
 
-    String url = baseURL +
+    String url = common.baseURL +
         "/api/patients/radiologies" +
         "?filter[include][0][relation]=radiologist" +
         "&filter[include][0][scope][include][0]=radiologyLab" +

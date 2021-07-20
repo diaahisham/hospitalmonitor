@@ -9,36 +9,54 @@ import 'package:hospitalmonitor/business_logic/utils/radiologists.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:image_picker_web/image_picker_web.dart';
+import 'package:hospitalmonitor/business_logic/utils/common.dart' as common;
+import 'package:http/http.dart' as http;
 
 class EditUserService {
   Future<void> editUser(UserModel user) async {
+    String url = common.baseURL;
     switch (user.type) {
       case UserType.doctor:
-        _tempEditUser(doctors, user);
+        url += "/api/doctors/update";
         break;
 
       case UserType.patient:
-        _tempEditUser(patients, user);
+        url += "/api/patients/update";
         break;
 
       case UserType.radiologist:
-        _tempEditUser(radiologists, user);
+        url += "/api/radiologists/update";
         break;
 
       case UserType.analyst:
-        _tempEditUser(analysts, user);
+        url += "/api/analysts/update";
         break;
 
       default:
         break;
     }
+    print(json.encode(user));
+    final response = await http.patch(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': '${user.token}'
+      },
+      body: json.encode(user),
+    );
+    Map<String, dynamic> body = json.decode(response.body);
+
+    if (response.statusCode != 200) throw (body["error"]["message"]);
+
+    //if (body["statusCode"] != 0) throw (body["message"]);
+
     serviceLocator<CurrentSessionService>().loggedUser = user;
   }
 
-  void _tempEditUser(List<UserModel> users, UserModel user) {
-    users.removeWhere((element) => element.userID == user.userID);
-    users.add(user);
-  }
+  // void _tempEditUser(List<UserModel> users, UserModel user) {
+  //   users.removeWhere((element) => element.userID == user.userID);
+  //   users.add(user);
+  // }
 
   Future<void> changePicture() async {
     var fromPicker = await ImagePickerWeb.getImage(outputType: ImageType.bytes);

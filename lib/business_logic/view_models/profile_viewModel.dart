@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hospitalmonitor/business_logic/models/health_report_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
+import 'package:hospitalmonitor/services/dialoge_service/dialoge_service.dart';
 import 'package:hospitalmonitor/services/edit_user_service/edit_user_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
 import 'package:hospitalmonitor/services/report_controll_service/report_controll_service.dart';
@@ -49,13 +50,19 @@ class ProfileViewModel {
   }
 
   Future<void> submitEditting() async {
-    if (edittingMode.value) {
-      EditUserService editUserService = EditUserService();
-      currentUser.genderType = GenterType.values[genderTypeIndex.value];
-      await editUserService.editUser(currentUser);
-      edittingMode.value = false;
-    } else {
-      edittingMode.value = true;
+    DialogeService dialogeService = DialogeService();
+    try {
+      if (edittingMode.value) {
+        EditUserService editUserService = EditUserService();
+        currentUser.genderType = GenterType.values[genderTypeIndex.value];
+        await editUserService.editUser(currentUser);
+        edittingMode.value = false;
+        dialogeService.showInfoDialoge("Updated succesfully");
+      } else {
+        edittingMode.value = true;
+      }
+    } catch (e) {
+      dialogeService.showErrorDialoge("Error in updating: $e");
     }
   }
 

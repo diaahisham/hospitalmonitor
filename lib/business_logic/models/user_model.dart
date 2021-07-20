@@ -53,22 +53,18 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     return {
-      '"data"': {
-        '"user"': {
-          '"id"': this.userID,
-          '"username"': this.userName,
-          '"password"': this.password,
-          '"phone"': this.mobileNumber,
-          '"email"': this.email,
-          '"address"': this.address,
-          '"role"': this.type.index - 1,
-          '"token"': this.token,
-          //'"photo"': this.photo,
-          '"nationalID"': this.nationalID,
-          '"age"': this.age,
-          '"GenderType"': this.genderType.index,
-        }
-      }
+      "id": this.userID,
+      "username": this.userName,
+      "password": this.password,
+      "phone": this.mobileNumber,
+      "email": this.email,
+      "address": this.address,
+      "role": this.type.index - 1,
+      //"token": this.token,
+      //'"photo"': this.photo,
+      //"nationalID": this.nationalID,
+      "age": this.age,
+      "gender": this.genderType.index,
     };
   }
 
