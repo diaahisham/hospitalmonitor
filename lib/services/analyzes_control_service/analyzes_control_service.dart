@@ -89,7 +89,36 @@ class AnalyzesControlService {
   }
 
   Future<void> _doctorFetchAnalyis(
-      String patientID, UserModel loggedDoctor) async {}
+      String patientID, UserModel loggedDoctor) async {
+    List<AnalysisModel> result = List<AnalysisModel>.empty(growable: true);
+    String url = common.baseURL +
+        "/api/doctors/patients/$patientID/analyses" +
+        "?filter[include][0][relation]=analyst" +
+        "&filter[include][0][scope][include][0]=analysisLab" +
+        "&filter[include][1][relation]=patient";
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': '${loggedDoctor.token}'
+      },
+    );
+
+    if (response.statusCode != 200) {
+      Map<String, dynamic> errBody = json.decode(response.body);
+      throw (errBody["error"]["message"]);
+    }
+
+    List<dynamic> body = json.decode(response.body);
+
+    body.forEach((element) {
+      result.add(AnalysisModel.fromJson(element));
+    });
+
+    analysisModels.clear();
+    analysisModels.addAll(result);
+  }
 
   Future<void> addEditAnalysis() async {
     currentEdittingAnaysis.date = DateTime.now().toString().substring(0, 10);

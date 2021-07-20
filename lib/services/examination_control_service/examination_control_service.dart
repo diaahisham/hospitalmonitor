@@ -67,7 +67,35 @@ class ExaminationControlService {
   }
 
   Future<void> _doctorFetchExams(
-      String patientID, UserModel loggedDoctor) async {}
+      String patientID, UserModel loggedDoctor) async {
+    List<ExaminationModel> result =
+        List<ExaminationModel>.empty(growable: true);
+    String url = common.baseURL +
+        "/api/doctors/patients/$patientID/examinations" +
+        "?filter[include][0][relation]=doctor" +
+        "&filter[include][1][relation]=patient";
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': '${loggedDoctor.token}'
+      },
+    );
+    if (response.statusCode != 200) {
+      Map<String, dynamic> errBody = json.decode(response.body);
+      throw (errBody["error"]["message"]);
+    }
+
+    List<dynamic> body = json.decode(response.body);
+
+    body.forEach((element) {
+      result.add(ExaminationModel.fromJson(element));
+    });
+
+    examModels.clear();
+    examModels.addAll(result);
+  }
 
   Future<void> addEditExamination() async {
     currentEdittingExam.date = DateTime.now().toString().substring(0, 10);

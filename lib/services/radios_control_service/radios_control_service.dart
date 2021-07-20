@@ -91,7 +91,37 @@ class RadiosControlService {
   }
 
   Future<void> _doctorFetchRadios(
-      String patientID, UserModel loggedDoctor) async {}
+      String patientID, UserModel loggedDoctor) async {
+    List<RadioModel> result = List<RadioModel>.empty(growable: true);
+
+    String url = common.baseURL +
+        "/api/doctors/patients/$patientID/radiologies" +
+        "?filter[include][0][relation]=radiologist" +
+        "&filter[include][0][scope][include][0]=radiologyLab" +
+        "&filter[include][1][relation]=patient";
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': '${loggedDoctor.token}'
+      },
+    );
+
+    if (response.statusCode != 200) {
+      Map<String, dynamic> errBody = json.decode(response.body);
+      throw (errBody["error"]["message"]);
+    }
+
+    List<dynamic> body = json.decode(response.body);
+
+    body.forEach((element) {
+      result.add(RadioModel.fromJson(element));
+    });
+
+    radioModels.clear();
+    radioModels.addAll(result);
+  }
 
   Future<void> addEditRadio() async {
     currentEdittingRadio.date = DateTime.now().toString().substring(0, 10);
