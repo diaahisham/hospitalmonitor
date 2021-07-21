@@ -154,13 +154,17 @@ class ReportViewModel {
   ValueNotifier<bool> edittingMode = ValueNotifier<bool>(false);
 
   Future<void> submitEditting() async {
-    if (edittingMode.value) {
-      serviceLocator<ReportControlService>().currentEdittingReport =
-          reportModel;
-      await serviceLocator<ReportControlService>().addEditReport();
-      edittingMode.value = false;
-    } else {
-      edittingMode.value = true;
+    try {
+      if (edittingMode.value) {
+        serviceLocator<ReportControlService>().currentEdittingReport =
+            reportModel;
+        await serviceLocator<ReportControlService>().editReport();
+        edittingMode.value = false;
+      } else {
+        edittingMode.value = true;
+      }
+    } catch (e) {
+      dialogeService.showErrorDialoge("Error in updating: $e");
     }
   }
 

@@ -26,9 +26,13 @@ class AddEditExamViewModel {
   }
 
   Future<void> submit() async {
-    serviceLocator<ExaminationControlService>().currentEdittingExam =
-        currentEdittingExamination;
-    await serviceLocator<ExaminationControlService>().addEditExamination();
+    try {
+      serviceLocator<ExaminationControlService>().currentEdittingExam =
+          currentEdittingExamination;
+      await serviceLocator<ExaminationControlService>().addEditExamination();
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
+    }
     _navigate();
   }
 

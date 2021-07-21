@@ -98,19 +98,38 @@ class ExaminationControlService {
   }
 
   Future<void> addEditExamination() async {
-    currentEdittingExam.date = DateTime.now().toString().substring(0, 10);
-    currentEdittingExam.doctorID =
-        serviceLocator<CurrentSessionService>().loggedUser.userID;
-    currentEdittingExam.doctorName =
-        serviceLocator<CurrentSessionService>().loggedUser.userName;
-    if (currentEdittingExam.examinationID == '') {
-      currentEdittingExam.examinationID = Random().toString();
-    } else {
-      examinations.removeWhere((element) =>
-          element.examinationID == currentEdittingExam.examinationID);
+    UserModel currentPatient =
+        serviceLocator<PatientControlService>().currentPatient;
+    UserModel loggedDoctor = serviceLocator<CurrentSessionService>().loggedUser;
+    String url = common.baseURL +
+        "/api/doctors/examinations" +
+        ((currentEdittingExam.examinationID != '')
+            ? "/${currentEdittingExam.examinationID}"
+            : "");
+
+    final response = (currentEdittingExam.examinationID != '')
+        ? await http.patch(
+            Uri.parse(url),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': '${loggedDoctor.token}'
+            },
+            body: jsonEncode(currentEdittingExam),
+          )
+        : await http.post(
+            Uri.parse(url),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': '${loggedDoctor.token}'
+            },
+            body: jsonEncode(currentEdittingExam),
+          );
+
+    if (response.statusCode != 200 && response.statusCode != 204) {
+      Map<String, dynamic> errBody = json.decode(response.body);
+      throw (errBody["error"]["message"]);
     }
-    examinations.add(currentEdittingExam);
-    await fetchExamModelsByPatientId(
-        serviceLocator<PatientControlService>().currentPatient.userID);
+
+    await fetchExamModelsByPatientId(currentPatient.userID);
   }
 }

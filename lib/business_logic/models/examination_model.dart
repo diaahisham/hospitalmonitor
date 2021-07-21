@@ -25,14 +25,11 @@ class ExaminationModel {
 
   Map<String, dynamic> toJson() {
     return {
-      '"ExaminationID"': this.examinationID,
-      '"DoctorID"': this.doctorID,
-      '"DoctorName"': this.doctorName,
-      '"PatientID"': this.patientID,
-      '"PatientName"': this.patientName,
-      '"Date"': this.date,
-      '"Symptoms"': this.symptoms,
-      '"Description"': this.description,
+      "drugs": this.drugs,
+      "patientId": this.patientID,
+      "disease": this.disease,
+      "symproms": this.symptoms,
+      "description": this.description,
     };
   }
 

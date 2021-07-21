@@ -1,10 +1,11 @@
-import 'dart:math';
+import 'dart:convert';
 
 import 'package:hospitalmonitor/business_logic/models/health_report_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
-import 'package:hospitalmonitor/business_logic/utils/reports.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
+import 'package:hospitalmonitor/business_logic/utils/common.dart' as common;
+import 'package:http/http.dart' as http;
 
 class ReportControlService {
   List<HealthReportModel> reportModels =
@@ -51,14 +52,26 @@ class ReportControlService {
     reportModels.add(result);
   }
 
-  Future<void> addEditReport() async {
-    // if (currentEdittingReport.reportID == '') {
-    //   currentEdittingReport.reportID = Random().toString();
-    // } else {
-    //   healthReports.removeWhere(
-    //       (element) => element.reportID == currentEdittingReport.reportID);
-    // }
-    // healthReports.add(currentEdittingReport);
-    // await fetchReportModelsByPatientId(currentEdittingReport.patientID);
+  Future<void> editReport() async {
+    UserModel loggedUser = serviceLocator<CurrentSessionService>().loggedUser;
+    String url = common.baseURL +
+        "/api/doctors/patients/" +
+        currentEdittingReport.patientID;
+
+    final response = await http.patch(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': '${loggedUser.token}'
+      },
+      body: jsonEncode(currentEdittingReport),
+    );
+
+    if (response.statusCode != 200 && response.statusCode != 204) {
+      Map<String, dynamic> errBody = json.decode(response.body);
+      throw (errBody["error"]["message"]);
+    }
+    reportModels.clear();
+    reportModels.add(currentEdittingReport);
   }
 }

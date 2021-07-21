@@ -29,18 +29,16 @@ class HealthReportModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "ReportID": this.reportID,
-      "PatientID": this.patientID,
-      "PatientName": this.patientName,
-      "BloodPressure": this.bloodPressure,
-      "BloodType": this.bloodType,
-      //"PulseRate": this.pulseRate,
-      "BreathingRate": this.breathingRate,
-      "DiabetesRate": this.diabetesRate,
-      "ChronicDiseases": this.chronicDiseases,
-      "DangerDiseases": this.dangerDiseases,
-      "Sensitivities": this.sensitivities,
-      "Vaccinations": this.vaccinations
+      "vitalModifiers": {
+        "bloodPressure": this.bloodPressure,
+        "bloodType": this.bloodType,
+        "breathingRate": this.breathingRate,
+        "diabetesRate": this.diabetesRate,
+      },
+      "chronicDiseases": this.chronicDiseases,
+      "dangerousDiseases": this.dangerDiseases,
+      "sensitivities": this.sensitivities,
+      "vaccination": this.vaccinations
     };
   }
 
