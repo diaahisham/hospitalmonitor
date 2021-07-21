@@ -151,8 +151,9 @@ class ReportView extends StatelessWidget {
                             },
                             keyboardType: TextInputType.number,
                             autofocus: true,
-                            onChanged: (value) => model
-                                .reportModel.bloodPressure = int.parse(value),
+                            onChanged: (value) =>
+                                model.reportModel.bloodPressure =
+                                    int.parse((value != '') ? value : '0'),
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding: const EdgeInsets.all(0.0),
@@ -188,8 +189,9 @@ class ReportView extends StatelessWidget {
                             },
                             keyboardType: TextInputType.number,
                             autofocus: true,
-                            onChanged: (value) => model
-                                .reportModel.diabetesRate = int.parse(value),
+                            onChanged: (value) =>
+                                model.reportModel.diabetesRate =
+                                    int.parse((value != '') ? value : '0'),
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding: const EdgeInsets.all(0.0),
@@ -266,8 +268,9 @@ class ReportView extends StatelessWidget {
                             },
                             keyboardType: TextInputType.number,
                             autofocus: true,
-                            onChanged: (value) => model
-                                .reportModel.breathingRate = int.parse(value),
+                            onChanged: (value) =>
+                                model.reportModel.breathingRate =
+                                    int.parse((value != '') ? value : '0'),
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding: const EdgeInsets.all(0.0),
@@ -330,8 +333,6 @@ class ReportView extends StatelessWidget {
                           children: [
                             _dataField(
                               child: TextFormField(
-                                // initialValue:
-                                //     model.reportModel.chronicDiseases[i],
                                 controller: TextEditingController(
                                     text: model.reportModel.chronicDiseases[i]),
                                 validator: (value) {
@@ -462,8 +463,6 @@ class ReportView extends StatelessWidget {
                           children: [
                             _dataField(
                               child: TextFormField(
-                                // initialValue:
-                                //     model.reportModel.dangerDiseases[i],
                                 controller: TextEditingController(
                                     text: model.reportModel.dangerDiseases[i]),
                                 validator: (value) {
@@ -592,8 +591,6 @@ class ReportView extends StatelessWidget {
                           children: [
                             _dataField(
                               child: TextFormField(
-                                // initialValue:
-                                //     model.reportModel.sensitivities[i],
                                 controller: TextEditingController(
                                     text: model.reportModel.sensitivities[i]),
                                 validator: (value) {
@@ -722,7 +719,6 @@ class ReportView extends StatelessWidget {
                           children: [
                             _dataField(
                               child: TextFormField(
-                                //initialValue: model.reportModel.vaccinations[i],
                                 controller: TextEditingController(
                                     text: model.reportModel.vaccinations[i]),
                                 validator: (value) {

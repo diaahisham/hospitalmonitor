@@ -66,7 +66,10 @@ class ExaminationViewModel {
     UserModel currentpatient =
         serviceLocator<PatientControlService>().currentPatient;
     serviceLocator<ExaminationControlService>().currentEdittingExam =
-        ExaminationModel(patientID: currentpatient.userID);
+        ExaminationModel(
+      patientID: currentpatient.userID,
+      patientName: currentpatient.userName,
+    );
     serviceLocator<NavigationService>().navigateTo(routes.AddEditExamRoute);
     sortExams();
   }

@@ -9,6 +9,7 @@ class RadioModel {
   String radioUrl = '';
   String notes = '';
   String radioLab = '';
+  bool isDeleted = false;
 
   RadioModel({
     this.radioID = '',
@@ -21,19 +22,16 @@ class RadioModel {
     this.notes = '',
     this.radiologistName = '',
     this.radioLab = '',
+    this.isDeleted = false,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      '"RadioID"': this.radioID,
-      '"RadiologistID"': this.radiologistID,
-      '"RadiologistName"': this.radioName,
-      '"PatientID"': this.patientID,
-      '"PatientName"': this.patientName,
-      '"Date"': this.date,
-      '"LabName"': this.radiologistName,
-      '"RadioURL"': this.radioUrl,
-      '"Notes"': this.notes,
+      "radiologyName": this.radioName,
+      "patientId": this.patientID,
+      "radiologyURl": this.radioUrl,
+      "note": this.notes,
+      "isDeleted": this.isDeleted,
     };
   }
 

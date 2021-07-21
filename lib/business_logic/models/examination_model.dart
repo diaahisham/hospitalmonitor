@@ -9,6 +9,7 @@ class ExaminationModel {
   String disease = '';
   String description = '';
   List<String> drugs = List<String>.empty(growable: true);
+  bool isDeleted = false;
 
   ExaminationModel({
     this.examinationID = '',
@@ -21,6 +22,7 @@ class ExaminationModel {
     this.description = '',
     this.symptoms = '',
     this.drugs = const [],
+    this.isDeleted = false,
   });
 
   Map<String, dynamic> toJson() {
@@ -30,6 +32,7 @@ class ExaminationModel {
       "disease": this.disease,
       "symproms": this.symptoms,
       "description": this.description,
+      "isDeleted": this.isDeleted,
     };
   }
 

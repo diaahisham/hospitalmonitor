@@ -390,8 +390,6 @@ class UpdatedProfileView extends StatelessWidget {
 
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.userName,
                                           controller: TextEditingController(
                                               text: model.currentUser.userName),
                                           validator: (value) {
@@ -463,8 +461,6 @@ class UpdatedProfileView extends StatelessWidget {
 
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.password,
                                           controller: TextEditingController(
                                               text: model.currentUser.password),
                                           validator: (value) {
@@ -491,8 +487,6 @@ class UpdatedProfileView extends StatelessWidget {
 
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.age.toString(),
                                           controller: TextEditingController(
                                               text: model.currentUser.age
                                                   .toString()),
@@ -520,8 +514,6 @@ class UpdatedProfileView extends StatelessWidget {
                                       _labelWidget('National ID'),
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.nationalID,
                                           controller: TextEditingController(
                                               text:
                                                   model.currentUser.nationalID),
@@ -546,8 +538,6 @@ class UpdatedProfileView extends StatelessWidget {
                                       _labelWidget('MobileNumber'),
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.mobileNumber,
                                           controller: TextEditingController(
                                               text: model
                                                   .currentUser.mobileNumber),
@@ -571,7 +561,6 @@ class UpdatedProfileView extends StatelessWidget {
                                       _labelWidget('Email'),
                                       _dataField(
                                         child: TextFormField(
-                                          //initialValue: model.currentUser.email,
                                           controller: TextEditingController(
                                               text: model.currentUser.email),
                                           validator: (value) {
@@ -594,8 +583,6 @@ class UpdatedProfileView extends StatelessWidget {
                                       _labelWidget('Address'),
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.address,
                                           controller: TextEditingController(
                                               text: model.currentUser.address),
                                           validator: (value) {

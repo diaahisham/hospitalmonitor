@@ -1,9 +1,7 @@
-import 'dart:math';
 import 'dart:convert';
 import 'package:hospitalmonitor/business_logic/models/radio_model.dart';
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
 import 'package:hospitalmonitor/business_logic/utils/common.dart' as common;
-import 'package:hospitalmonitor/business_logic/utils/radios.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:http/http.dart' as http;
@@ -97,7 +95,7 @@ class RadiosControlService {
     String url = common.baseURL +
         "/api/doctors/patients/$patientID/radiology" +
         "?filter[include][0][relation]=radiologist" +
-        //"&filter[include][0][scope][include][0]=radiologyLab" +
+        "&filter[include][0][scope][include][0]=radiologyLab" +
         "&filter[include][1][relation]=patient";
 
     final response = await http.get(
@@ -124,18 +122,38 @@ class RadiosControlService {
   }
 
   Future<void> addEditRadio() async {
-    currentEdittingRadio.date = DateTime.now().toString().substring(0, 10);
-    currentEdittingRadio.radiologistID =
-        serviceLocator<CurrentSessionService>().loggedUser.userID;
-    currentEdittingRadio.radiologistName =
-        serviceLocator<CurrentSessionService>().loggedUser.userName;
-    if (currentEdittingRadio.radioID == '') {
-      currentEdittingRadio.radioID = Random().toString();
-    } else {
-      radios.removeWhere(
-          (element) => element.radioID == currentEdittingRadio.radioID);
+    UserModel loggedRadiologist =
+        serviceLocator<CurrentSessionService>().loggedUser;
+    currentEdittingRadio.radiologistID = loggedRadiologist.userID;
+
+    String url = common.baseURL +
+        "/api/radiologists/radiologies" +
+        ((currentEdittingRadio.radioID != '')
+            ? "/${currentEdittingRadio.radioID}"
+            : "");
+
+    final response = (currentEdittingRadio.radioID != '')
+        ? await http.patch(
+            Uri.parse(url),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': '${loggedRadiologist.token}'
+            },
+            body: jsonEncode(currentEdittingRadio),
+          )
+        : await http.post(
+            Uri.parse(url),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': '${loggedRadiologist.token}'
+            },
+            body: jsonEncode(currentEdittingRadio),
+          );
+    if (response.statusCode != 200 && response.statusCode != 204) {
+      Map<String, dynamic> errBody = json.decode(response.body);
+      throw (errBody["error"]["message"]);
     }
-    radios.add(currentEdittingRadio);
+
     await fetchRadioModelsByRadiologistId();
   }
 }

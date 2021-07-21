@@ -44,8 +44,6 @@ class EditUserService {
 
     if (response.statusCode != 200) throw (body["error"]["message"]);
 
-    //if (body["statusCode"] != 0) throw (body["message"]);
-
     serviceLocator<CurrentSessionService>().loggedUser = user;
   }
 

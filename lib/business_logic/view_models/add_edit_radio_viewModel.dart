@@ -25,10 +25,14 @@ class AddEditRadioViewModel {
   }
 
   Future<void> submit() async {
-    serviceLocator<RadiosControlService>().currentEdittingRadio =
-        currentEdittingRadio;
-    await serviceLocator<RadiosControlService>().addEditRadio();
-    _navigate();
+    try {
+      serviceLocator<RadiosControlService>().currentEdittingRadio =
+          currentEdittingRadio;
+      await serviceLocator<RadiosControlService>().addEditRadio();
+      _navigate();
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
+    }
   }
 
   void cancel() {

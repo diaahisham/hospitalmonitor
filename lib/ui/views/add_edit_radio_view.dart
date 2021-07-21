@@ -26,7 +26,6 @@ class AddEditRadioView extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        //initialValue: initialValue,
         controller: TextEditingController(text: initialValue),
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -107,7 +106,7 @@ class AddEditRadioView extends StatelessWidget {
                       _formWidget(
                         initialValue: model.currentEdittingRadio.radioUrl,
                         validatorText: 'Please enter url',
-                        labelText: 'Radio url: ',
+                        labelText: 'Analysis url: ',
                         onChanged: (value) =>
                             model.currentEdittingRadio.radioUrl = value,
                       ),

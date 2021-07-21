@@ -12,11 +12,6 @@ import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
 class AddEditAnalysisViewModel {
   DialogeService dialogeService = DialogeService();
   AnalysisModel currentEdittingAnalysis = AnalysisModel();
-  //  serviceLocator<AnalyzesControlService>().currentEdittingAnaysis;
-
-  // set currentEdittingAnalysis(AnalysisModel newRadio) =>
-  //     serviceLocator<AnalyzesControlService>().currentEdittingAnaysis =
-  //         newRadio;
 
   ValueNotifier<String> patientName = ValueNotifier<String>('');
 
@@ -26,10 +21,14 @@ class AddEditAnalysisViewModel {
   }
 
   Future<void> submit() async {
-    serviceLocator<AnalyzesControlService>().currentEdittingAnaysis =
-        currentEdittingAnalysis;
-    await serviceLocator<AnalyzesControlService>().addEditAnalysis();
-    _navigate();
+    try {
+      serviceLocator<AnalyzesControlService>().currentEdittingAnaysis =
+          currentEdittingAnalysis;
+      await serviceLocator<AnalyzesControlService>().addEditAnalysis();
+      _navigate();
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
+    }
   }
 
   void cancel() {

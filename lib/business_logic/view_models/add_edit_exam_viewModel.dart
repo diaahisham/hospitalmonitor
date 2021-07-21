@@ -12,7 +12,6 @@ import 'package:hospitalmonitor/services/service_locator.dart';
 class AddEditExamViewModel {
   DialogeService dialogeService = DialogeService();
   ExaminationModel currentEdittingExamination = ExaminationModel();
-  // serviceLocator<ExaminationControlService>().currentEdittingExam;
 
   List<ExaminationModel> get examModels =>
       serviceLocator<ExaminationControlService>().examModels;
@@ -30,10 +29,10 @@ class AddEditExamViewModel {
       serviceLocator<ExaminationControlService>().currentEdittingExam =
           currentEdittingExamination;
       await serviceLocator<ExaminationControlService>().addEditExamination();
+      _navigate();
     } catch (e) {
       dialogeService.showErrorDialoge("$e");
     }
-    _navigate();
   }
 
   String newDrug = "";

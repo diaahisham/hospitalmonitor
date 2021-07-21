@@ -55,14 +55,11 @@ class UserModel {
     return {
       "id": this.userID,
       "username": this.userName,
-      //"password": this.password, // TODO: remove the comment when the backend finishes the error
+      "password": this.password,
       "phone": this.mobileNumber,
       "email": this.email,
       "address": this.address,
       "role": this.type.index - 1,
-      //"token": this.token,
-      //'"photo"': this.photo,
-      //"nationalID": this.nationalID,
       "age": this.age,
       "gender": this.genderType.index,
     };
