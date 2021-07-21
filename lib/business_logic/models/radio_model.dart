@@ -49,7 +49,7 @@ class RadioModel {
       date: json["updatedAt"] ?? '',
       radioUrl: json["radiologyURl"] ?? '',
       notes: json["note"] ?? '',
-      radioLab: json["radiologist"]["radiologyLab"]["name"] ?? '',
+      radioLab: json["radiologist"]?["radiologyLab"]?["name"] ?? '',
     );
   }
   void copy(RadioModel origin) {

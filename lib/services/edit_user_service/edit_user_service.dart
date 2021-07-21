@@ -2,10 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:hospitalmonitor/business_logic/models/user_model.dart';
-import 'package:hospitalmonitor/business_logic/utils/analysts.dart';
-import 'package:hospitalmonitor/business_logic/utils/doctors.dart';
-import 'package:hospitalmonitor/business_logic/utils/patients.dart';
-import 'package:hospitalmonitor/business_logic/utils/radiologists.dart';
 import 'package:hospitalmonitor/services/current_session_service/current_session_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:image_picker_web/image_picker_web.dart';

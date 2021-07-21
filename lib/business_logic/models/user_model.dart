@@ -1,4 +1,4 @@
-enum UserType { notDefined, doctor, patient, radiologist, analyst }
+enum UserType { notDefined, doctor, patient, analyst, radiologist }
 enum GenterType { female, male }
 enum MaritalStatus { single, married }
 
@@ -55,7 +55,7 @@ class UserModel {
     return {
       "id": this.userID,
       "username": this.userName,
-      "password": this.password,
+      //"password": this.password, // TODO: remove the comment when the backend finishes the error
       "phone": this.mobileNumber,
       "email": this.email,
       "address": this.address,

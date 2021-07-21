@@ -92,9 +92,9 @@ class AnalyzesControlService {
       String patientID, UserModel loggedDoctor) async {
     List<AnalysisModel> result = List<AnalysisModel>.empty(growable: true);
     String url = common.baseURL +
-        "/api/doctors/patients/$patientID/analyses" +
+        "/api/doctors/patients/$patientID/analysis" +
         "?filter[include][0][relation]=analyst" +
-        "&filter[include][0][scope][include][0]=analysisLab" +
+        //"&filter[include][0][scope][include][0]=analysisLab" +
         "&filter[include][1][relation]=patient";
 
     final response = await http.get(

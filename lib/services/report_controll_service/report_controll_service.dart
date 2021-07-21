@@ -33,22 +33,32 @@ class ReportControlService {
     reportModels.add(patientReport);
   }
 
-  Future<void> fetchReportModelsByPatientId(String patientID) async {
+  Future<void> fetchReportModelForPatient(UserModel patient) async {
     reportModels.clear();
-    List<HealthReportModel> result = healthReports
-        .where((element) => element.patientID == patientID)
-        .toList();
-    reportModels.addAll(result);
+    HealthReportModel result = HealthReportModel(
+      patientID: patient.userID,
+      patientName: patient.userName,
+      bloodPressure: patient.bloodPressure,
+      bloodType: patient.bloodType,
+      breathingRate: patient.breathingRate,
+      diabetesRate: patient.diabetesRate,
+      chronicDiseases:
+          List<String>.from(patient.chronicDiseases, growable: true),
+      dangerDiseases: List<String>.from(patient.dangerDiseases, growable: true),
+      sensitivities: List<String>.from(patient.sensitivities, growable: true),
+      vaccinations: List<String>.from(patient.vaccinations, growable: true),
+    );
+    reportModels.add(result);
   }
 
   Future<void> addEditReport() async {
-    if (currentEdittingReport.reportID == '') {
-      currentEdittingReport.reportID = Random().toString();
-    } else {
-      healthReports.removeWhere(
-          (element) => element.reportID == currentEdittingReport.reportID);
-    }
-    healthReports.add(currentEdittingReport);
-    await fetchReportModelsByPatientId(currentEdittingReport.patientID);
+    // if (currentEdittingReport.reportID == '') {
+    //   currentEdittingReport.reportID = Random().toString();
+    // } else {
+    //   healthReports.removeWhere(
+    //       (element) => element.reportID == currentEdittingReport.reportID);
+    // }
+    // healthReports.add(currentEdittingReport);
+    // await fetchReportModelsByPatientId(currentEdittingReport.patientID);
   }
 }

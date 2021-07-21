@@ -95,9 +95,9 @@ class RadiosControlService {
     List<RadioModel> result = List<RadioModel>.empty(growable: true);
 
     String url = common.baseURL +
-        "/api/doctors/patients/$patientID/radiologies" +
+        "/api/doctors/patients/$patientID/radiology" +
         "?filter[include][0][relation]=radiologist" +
-        "&filter[include][0][scope][include][0]=radiologyLab" +
+        //"&filter[include][0][scope][include][0]=radiologyLab" +
         "&filter[include][1][relation]=patient";
 
     final response = await http.get(

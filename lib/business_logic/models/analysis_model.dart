@@ -9,6 +9,7 @@ class AnalysisModel {
   String analysisUrl = '';
   String labName = '';
   String notes = '';
+  bool isDeleted = false;
 
   AnalysisModel({
     this.analysisID = '',
@@ -21,19 +22,16 @@ class AnalysisModel {
     this.notes = '',
     this.analystName = '',
     this.labName = '',
+    this.isDeleted = false,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      '"AnalysisID"': this.analysisID,
-      '"AnalystID"': this.analystID,
-      '"AnalystName"': this.analysisName,
-      '"PatientID"': this.patientID,
-      '"PatientName"': this.patientName,
-      '"Date"': this.date,
-      '"LabName"': this.analystName,
-      '"AnalysisURL"': this.analysisUrl,
-      '"Notes"': this.notes,
+      "analysisName": this.analysisName,
+      "patientId": this.patientID,
+      "documentURl": this.analysisUrl,
+      "note": this.notes,
+      "isDeleted": this.isDeleted,
     };
   }
 
@@ -48,7 +46,7 @@ class AnalysisModel {
       patientName: json["patient"]["name"] ?? '',
       date: json["updatedAt"] ?? '',
       analysisUrl: json["documentURl"] ?? '',
-      labName: json["analyst"]["analysisLab"]["name"] ?? '',
+      labName: json["analyst"]?["analysisLab"]?["name"] ?? '',
       notes: json["note"] ?? '',
     );
   }
