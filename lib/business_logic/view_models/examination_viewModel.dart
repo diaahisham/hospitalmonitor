@@ -56,10 +56,15 @@ class ExaminationViewModel {
   }
 
   Future<void> deleteExam(ExaminationModel examModel) async {
-    examModels.removeWhere(
-        (element) => element.examinationID == examModel.examinationID);
-    examsLength.value = examModels.length;
-    sortExams();
+    try {
+      examModel.isDeleted = true;
+      serviceLocator<ExaminationControlService>().currentEdittingExam =
+          examModel;
+      await serviceLocator<ExaminationControlService>().addEditExamination();
+      examsLength.value = examModels.length;
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
+    }
   }
 
   void addExam() {

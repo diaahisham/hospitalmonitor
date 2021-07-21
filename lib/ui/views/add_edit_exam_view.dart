@@ -254,37 +254,6 @@ class AddEditExamView extends StatelessWidget {
                     ],
                   ),
                 ),
-                // DeleteButton
-                if (model.currentEdittingExamination.doctorID != '')
-                  TextButton(
-                    onPressed: () => model.deleteExam(),
-                    child: Container(
-                      height: 50,
-                      width: 300,
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Color(0xffEA5B0C),
-                        borderRadius: BorderRadius.circular(50),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(0.0, 1.0), //(x,y)
-                            blurRadius: 6.0,
-                            spreadRadius: 0.0,
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Delete",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
 
                 // Submit Button
                 TextButton(

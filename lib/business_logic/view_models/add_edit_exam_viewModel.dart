@@ -47,12 +47,6 @@ class AddEditExamViewModel {
     drugLength.value = currentEdittingExamination.drugs.length;
   }
 
-  Future<void> deleteExam() async {
-    examModels.removeWhere((element) =>
-        element.examinationID == currentEdittingExamination.examinationID);
-    _navigate();
-  }
-
   void cancel() {
     _navigate();
   }
