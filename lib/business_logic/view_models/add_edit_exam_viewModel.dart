@@ -52,11 +52,15 @@ class AddEditExamViewModel {
   }
 
   Future<void> choosePatient() async {
-    UserModel choosedPatient = await dialogeService.choosePatientDialoge();
-    if (choosedPatient.userID != '') {
-      currentEdittingExamination.patientID = choosedPatient.userID;
-      currentEdittingExamination.patientName = choosedPatient.userName;
-      patientName.value = choosedPatient.userName;
+    try {
+      UserModel choosedPatient = await dialogeService.choosePatientDialoge();
+      if (choosedPatient.userID != '') {
+        currentEdittingExamination.patientID = choosedPatient.userID;
+        currentEdittingExamination.patientName = choosedPatient.userName;
+        patientName.value = choosedPatient.userName;
+      }
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
     }
   }
 

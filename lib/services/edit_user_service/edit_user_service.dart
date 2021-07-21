@@ -47,11 +47,6 @@ class EditUserService {
     serviceLocator<CurrentSessionService>().loggedUser = user;
   }
 
-  // void _tempEditUser(List<UserModel> users, UserModel user) {
-  //   users.removeWhere((element) => element.userID == user.userID);
-  //   users.add(user);
-  // }
-
   Future<void> changePicture() async {
     var fromPicker = await ImagePickerWeb.getImage(outputType: ImageType.bytes);
     var buffer = fromPicker.buffer;

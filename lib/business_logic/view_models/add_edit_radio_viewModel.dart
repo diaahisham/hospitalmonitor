@@ -40,11 +40,15 @@ class AddEditRadioViewModel {
   }
 
   Future<void> choosePatient() async {
-    UserModel choosedPatient = await dialogeService.choosePatientDialoge();
-    if (choosedPatient.userID != '') {
-      currentEdittingRadio.patientID = choosedPatient.userID;
-      currentEdittingRadio.patientName = choosedPatient.userName;
-      patientName.value = choosedPatient.userName;
+    try {
+      UserModel choosedPatient = await dialogeService.choosePatientDialoge();
+      if (choosedPatient.userID != '') {
+        currentEdittingRadio.patientID = choosedPatient.userID;
+        currentEdittingRadio.patientName = choosedPatient.userName;
+        patientName.value = choosedPatient.userName;
+      }
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
     }
   }
 
