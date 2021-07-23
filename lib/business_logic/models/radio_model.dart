@@ -32,6 +32,8 @@ class RadioModel {
       };
     else
       return {
+        "reportURl":
+            "https://cdn.services.tra.gov.ae/1547ac06-74ae-4ddd-b8f4-45e98fb0aeb0682b604b-8d9e-4040-94b3-2ad5b42bd0cb04.pdf",
         "radiologyName": this.radioName,
         "patientId": this.patientID,
         "radiologyURl": this.radioUrl,
@@ -46,8 +48,8 @@ class RadioModel {
       radiologistName: json["radiologist"]["username"] ?? '',
       //
       radioName: json["radiologyName"] ?? '',
-      patientID: json["PatientID"] ?? '',
-      patientName: json["patient"]["username"] ?? '',
+      patientID: json["patientId"] ?? '',
+      patientName: json["patient"]?["username"] ?? '',
       date: json["updatedAt"] ?? '',
       radioUrl: json["radiologyURl"] ?? '',
       notes: json["note"] ?? '',
