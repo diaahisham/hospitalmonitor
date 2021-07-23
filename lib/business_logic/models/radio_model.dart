@@ -26,13 +26,17 @@ class RadioModel {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      "radiologyName": this.radioName,
-      "patientId": this.patientID,
-      "radiologyURl": this.radioUrl,
-      "note": this.notes,
-      "isDeleted": this.isDeleted,
-    };
+    if (this.isDeleted)
+      return {
+        "isDeleted": this.isDeleted,
+      };
+    else
+      return {
+        "radiologyName": this.radioName,
+        "patientId": this.patientID,
+        "radiologyURl": this.radioUrl,
+        "note": this.notes,
+      };
   }
 
   factory RadioModel.fromJson(Map<String, dynamic> json) {

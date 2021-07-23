@@ -26,14 +26,18 @@ class ExaminationModel {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      "drugs": this.drugs,
-      "patientId": this.patientID,
-      "disease": this.disease,
-      "symproms": this.symptoms,
-      "description": this.description,
-      "isDeleted": this.isDeleted,
-    };
+    if (this.isDeleted)
+      return {
+        "isDeleted": this.isDeleted,
+      };
+    else
+      return {
+        "drugs": this.drugs,
+        "patientId": this.patientID,
+        "disease": this.disease,
+        "symproms": this.symptoms,
+        "description": this.description,
+      };
   }
 
   factory ExaminationModel.fromJson(Map<String, dynamic> json) {

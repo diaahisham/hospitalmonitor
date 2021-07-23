@@ -18,7 +18,6 @@ class HealthReportModel {
     this.patientName = '',
     this.bloodPressure = 0,
     this.bloodType = '',
-    //this.pulseRate = '',
     this.breathingRate = 0,
     this.diabetesRate = 0,
     this.chronicDiseases = const [],

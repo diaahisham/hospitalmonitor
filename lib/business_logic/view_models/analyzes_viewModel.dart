@@ -25,6 +25,7 @@ class AnalyzesViewModel {
     userIsAnalysit = (serviceLocator<CurrentSessionService>().loggedUser.type ==
         UserType.analyst);
     sortAnalyzes();
+    analysesLength.value = analysisModels.length;
   }
 
   String searchValue = '';

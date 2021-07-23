@@ -26,13 +26,17 @@ class AnalysisModel {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      "analysisName": this.analysisName,
-      "patientId": this.patientID,
-      "documentURl": this.analysisUrl,
-      "note": this.notes,
-      "isDeleted": this.isDeleted,
-    };
+    if (this.isDeleted)
+      return {
+        "isDeleted": this.isDeleted,
+      };
+    else
+      return {
+        "analysisName": this.analysisName,
+        "patientId": this.patientID,
+        "documentURl": this.analysisUrl,
+        "note": this.notes,
+      };
   }
 
   factory AnalysisModel.fromJson(Map<String, dynamic> json) {

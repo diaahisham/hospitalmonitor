@@ -25,6 +25,8 @@ class RadiosviewModel {
     userIsRadiologist =
         (serviceLocator<CurrentSessionService>().loggedUser.type ==
             UserType.radiologist);
+    sortRadios();
+    radiosLength.value = radioModels.length;
   }
 
   String searchValue = '';

@@ -26,6 +26,8 @@ class UserModel {
   List<String> dangerDiseases = List<String>.empty(growable: true);
   List<String> sensitivities = List<String>.empty(growable: true);
   List<String> vaccinations = List<String>.empty(growable: true);
+  //
+  String oldUserName = '';
 
   UserModel({
     this.userID = '',
@@ -40,7 +42,6 @@ class UserModel {
     this.nationalID = '',
     this.age = 0,
     this.genderType = GenterType.male,
-    // patient vital modifier
     this.bloodPressure = 0,
     this.bloodType = '',
     this.breathingRate = 0,
@@ -49,20 +50,32 @@ class UserModel {
     this.dangerDiseases = const [],
     this.sensitivities = const [],
     this.vaccinations = const [],
-  });
+  }) {
+    this.oldUserName = this.userName;
+  }
 
   Map<String, dynamic> toJson() {
-    return {
-      "id": this.userID,
-      "username": this.userName,
-      "password": this.password,
-      "phone": this.mobileNumber,
-      "email": this.email,
-      "address": this.address,
-      "role": this.type.index - 1,
-      "age": this.age,
-      "gender": this.genderType.index,
-    };
+    if (this.oldUserName != this.userName)
+      return {
+        "username": this.userName,
+        "password": this.password,
+        "phone": this.mobileNumber,
+        "email": this.email,
+        "address": this.address,
+        "role": this.type.index - 1,
+        "age": this.age,
+        "gender": this.genderType.index,
+      };
+    else
+      return {
+        "password": this.password,
+        "phone": this.mobileNumber,
+        "email": this.email,
+        "address": this.address,
+        "role": this.type.index - 1,
+        "age": this.age,
+        "gender": this.genderType.index,
+      };
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {

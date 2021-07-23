@@ -27,6 +27,7 @@ class ExaminationViewModel {
   ExaminationViewModel() {
     userIsDoctor = (serviceLocator<CurrentSessionService>().loggedUser.type ==
         UserType.doctor);
+    examsLength.value = examModels.length;
   }
 
   String searchValue = '';
