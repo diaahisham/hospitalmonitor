@@ -191,7 +191,7 @@ class AddEditExamView extends StatelessWidget {
                                       icon: Icon(Icons.close),
                                       onPressed: () => model.removeDrug(i),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             Row(
@@ -200,6 +200,8 @@ class AddEditExamView extends StatelessWidget {
                               children: [
                                 _dataField(
                                   child: TextFormField(
+                                    controller: TextEditingController(
+                                        text: model.newDrug),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter Drug';

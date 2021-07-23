@@ -14,7 +14,6 @@ class FileUploadService {
       ..files.add(file);
 
     var response = await request.send();
-    //print(response.statusCode);
 
     result = await response.stream.bytesToString();
     return result;

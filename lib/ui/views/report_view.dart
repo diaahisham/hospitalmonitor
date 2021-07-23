@@ -371,7 +371,8 @@ class ReportView extends StatelessWidget {
                     children: [
                       _dataField(
                         child: TextFormField(
-                          //controller: TextEditingController(),
+                          controller: TextEditingController(
+                              text: model.newChronicDisease),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter disease';
@@ -501,7 +502,8 @@ class ReportView extends StatelessWidget {
                     children: [
                       _dataField(
                         child: TextFormField(
-                          //controller: TextEditingController(),
+                          controller: TextEditingController(
+                              text: model.newDangerDisease),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter disease';
@@ -629,7 +631,8 @@ class ReportView extends StatelessWidget {
                     children: [
                       _dataField(
                         child: TextFormField(
-                          // controller: TextEditingController(),
+                          controller:
+                              TextEditingController(text: model.newSensetivity),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter Sensetivity';
@@ -757,7 +760,8 @@ class ReportView extends StatelessWidget {
                     children: [
                       _dataField(
                         child: TextFormField(
-                          // controller: TextEditingController(),
+                          controller:
+                              TextEditingController(text: model.newVaccination),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter Vaccination';

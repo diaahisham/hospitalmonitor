@@ -88,18 +88,6 @@ class ExaminationView extends StatelessWidget {
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
-                            // Center(
-                            //     child: Text(
-                            //   "Symptoms",
-                            //   textScaleFactor: 1.5,
-                            //   style: TextStyle(color: Colors.white),
-                            // )),
-                            // Center(
-                            //     child: Text(
-                            //   "Description",
-                            //   textScaleFactor: 1.5,
-                            //   style: TextStyle(color: Colors.white),
-                            // )),
                             Center(
                                 child: Text(
                               "Disease",
@@ -141,12 +129,6 @@ class ExaminationView extends StatelessWidget {
                                   child: Text(
                                       model.examModels[i].date.substring(0, 10),
                                       textScaleFactor: 1.5)),
-                              // Center(
-                              //     child: Text(model.examModels[i].symptoms,
-                              //         textScaleFactor: 1.5)),
-                              // Center(
-                              //     child: Text(model.examModels[i].description,
-                              //         textScaleFactor: 1.5)),
                               Center(
                                   child: Text(model.examModels[i].disease,
                                       textScaleFactor: 1.5)),

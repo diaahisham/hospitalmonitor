@@ -31,7 +31,6 @@ class EditUserService {
       default:
         break;
     }
-    print(json.encode(user));
     final response = await http.patch(
       Uri.parse(url),
       headers: {

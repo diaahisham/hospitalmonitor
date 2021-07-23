@@ -51,6 +51,7 @@ class LoginView extends StatelessWidget {
                             ],
                           ),
                           child: TextFormField(
+                            controller: TextEditingController(text: ""),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter user name';
@@ -83,6 +84,7 @@ class LoginView extends StatelessWidget {
                             ],
                           ),
                           child: TextFormField(
+                            controller: TextEditingController(text: ""),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter password';

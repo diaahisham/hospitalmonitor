@@ -83,9 +83,9 @@ class ReportViewModel {
     senstivitiesLength.value = reportModel.sensitivities.length;
   }
 
-  void addvaccination(String disease) {
-    if (disease != '') {
-      reportModel.vaccinations.add(disease);
+  void addvaccination(String vaccination) {
+    if (vaccination != '') {
+      reportModel.vaccinations.add(vaccination);
       vaccinationsLength.value = reportModel.vaccinations.length;
     }
   }
