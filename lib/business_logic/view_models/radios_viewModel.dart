@@ -25,6 +25,8 @@ class RadiosviewModel {
     userIsRadiologist =
         (serviceLocator<CurrentSessionService>().loggedUser.type ==
             UserType.radiologist);
+    sortRadios();
+    radiosLength.value = radioModels.length;
   }
 
   String searchValue = '';
@@ -56,9 +58,14 @@ class RadiosviewModel {
   }
 
   Future<void> deleteRadio(RadioModel radioModel) async {
-    radioModels.removeWhere((element) => element.radioID == radioModel.radioID);
-    radiosLength.value = radioModels.length;
-    sortRadios();
+    try {
+      radioModel.isDeleted = true;
+      serviceLocator<RadiosControlService>().currentEdittingRadio = radioModel;
+      await serviceLocator<RadiosControlService>().addEditRadio();
+      radiosLength.value = radioModels.length;
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
+    }
   }
 
   void addRadio() {

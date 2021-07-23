@@ -25,6 +25,7 @@ class AnalyzesViewModel {
     userIsAnalysit = (serviceLocator<CurrentSessionService>().loggedUser.type ==
         UserType.analyst);
     sortAnalyzes();
+    analysesLength.value = analysisModels.length;
   }
 
   String searchValue = '';
@@ -56,11 +57,16 @@ class AnalyzesViewModel {
       return Colors.white;
   }
 
-  Future<void> deleteAnalysis(AnalysisModel radioModel) async {
-    analysisModels
-        .removeWhere((element) => element.analysisID == radioModel.analysisID);
-    analysesLength.value = analysisModels.length;
-    sortAnalyzes();
+  Future<void> deleteAnalysis(AnalysisModel analysisModel) async {
+    try {
+      analysisModel.isDeleted = true;
+      serviceLocator<AnalyzesControlService>().currentEdittingAnaysis =
+          analysisModel;
+      await serviceLocator<AnalyzesControlService>().addEditAnalysis();
+      analysesLength.value = analysisModels.length;
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
+    }
   }
 
   void addAnalysis() {

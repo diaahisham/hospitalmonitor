@@ -169,7 +169,7 @@ class DialogeService {
   }
 
   Future<UserModel> choosePatientDialoge() async {
-    serviceLocator<PatientControlService>().fetchAllPatients();
+    await serviceLocator<PatientControlService>().fetchAllPatients();
     List<UserModel> allPatients =
         serviceLocator<PatientControlService>().allPatients;
     UserModel result = UserModel();
@@ -221,7 +221,6 @@ class DialogeService {
                 children: [
                   _dataField(
                     child: TextFormField(
-                      //initialValue: '',
                       controller: TextEditingController(text: ''),
                       keyboardType: TextInputType.name,
                       onChanged: (value) => searchValueChange(value),

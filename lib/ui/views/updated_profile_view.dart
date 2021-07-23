@@ -13,7 +13,7 @@ class UpdatedProfileView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10),
       child: Text(
-        label + ': ',
+        label,
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -37,6 +37,7 @@ class UpdatedProfileView extends StatelessWidget {
 
   Widget _dataField({required Widget child}) {
     return Container(
+      margin: EdgeInsets.all(5),
       padding: EdgeInsets.all(1),
       width: 250,
       height: 42,
@@ -152,7 +153,7 @@ class UpdatedProfileView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
-                      model.reportModel.bloodPressure,
+                      model.reportModel.bloodPressure.toString(),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -175,20 +176,6 @@ class UpdatedProfileView extends StatelessWidget {
                     ),
                   ),
                   //
-                  //diabetes Rate
-                  _labelWidget('Diabetes rate: '),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      model.reportModel.diabetesRate,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                  //
                 ],
               ),
               Container(width: 50),
@@ -196,12 +183,12 @@ class UpdatedProfileView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // breathing Rate
-                  _labelWidget('Breathing rate: '),
+                  //diabetes Rate
+                  _labelWidget('Diabetes rate: '),
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
-                      model.reportModel.breathingRate,
+                      model.reportModel.diabetesRate.toString(),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -210,11 +197,12 @@ class UpdatedProfileView extends StatelessWidget {
                     ),
                   ),
                   //
+                  // breathing Rate
                   _labelWidget('Breathing rate: '),
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
-                      model.reportModel.pulseRate,
+                      model.reportModel.breathingRate.toString(),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -222,6 +210,7 @@ class UpdatedProfileView extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   //
                 ],
               )
@@ -331,6 +320,337 @@ class UpdatedProfileView extends StatelessWidget {
     );
   }
 
+  Widget nonPatientDayDates(ProfileViewModel model) {
+    return ValueListenableBuilder(
+      valueListenable: model.edittingDayDates,
+      builder: (context, value, child) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(
+              'Working hours: ',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xffEA5B0C),
+              ),
+            ),
+          ),
+          (!model.edittingDayDates.value)
+              ? Table(
+                  border: TableBorder.all(
+                    color: Colors.black,
+                    width: 2.0,
+                    style: BorderStyle.solid,
+                  ),
+                  children: [
+                    TableRow(
+                        decoration: BoxDecoration(color: Colors.blueAccent),
+                        children: [
+                          Center(
+                            child: Text(
+                              "Day",
+                              textScaleFactor: 1.5,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          Center(
+                            child: Text(
+                              "From",
+                              textScaleFactor: 1.5,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          Center(
+                            child: Text(
+                              "To",
+                              textScaleFactor: 1.5,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ]),
+                    for (int i = 0; i < model.currentUser.dayDates.length; i++)
+                      TableRow(
+                        decoration: BoxDecoration(
+                          color: model.rowColor(i),
+                        ),
+                        children: [
+                          Center(
+                              child: Text(model.currentUser.dayDates[i].dayName,
+                                  textScaleFactor: 1.5)),
+                          Center(
+                              child: Text(
+                                  model.currentUser.dayDates[i].fromHour,
+                                  textScaleFactor: 1.5)),
+                          Center(
+                              child: Text(model.currentUser.dayDates[i].toHour,
+                                  textScaleFactor: 1.5)),
+                        ],
+                      ),
+                  ],
+                )
+              : ValueListenableBuilder(
+                  valueListenable: model.dayDatesListLength,
+                  builder: (context, value, child) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      for (int i = 0;
+                          i < model.currentUser.dayDates.length;
+                          i++)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            // Day
+                            _dataField(
+                              child: TextFormField(
+                                controller: TextEditingController(
+                                    text:
+                                        model.currentUser.dayDates[i].dayName),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter Day';
+                                  }
+                                  return null;
+                                },
+                                keyboardType: TextInputType.name,
+                                autofocus: true,
+                                onChanged: (value) => model
+                                    .currentUser.dayDates[i].dayName = value,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.all(0.0),
+                                ),
+                              ),
+                            ),
+                            // From
+                            _dataField(
+                              child: TextFormField(
+                                controller: TextEditingController(
+                                    text:
+                                        model.currentUser.dayDates[i].fromHour),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter Hour';
+                                  }
+                                  return null;
+                                },
+                                keyboardType: TextInputType.name,
+                                autofocus: true,
+                                onChanged: (value) => model
+                                    .currentUser.dayDates[i].fromHour = value,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.all(0.0),
+                                ),
+                              ),
+                            ),
+                            // To
+                            _dataField(
+                              child: TextFormField(
+                                controller: TextEditingController(
+                                    text: model.currentUser.dayDates[i].toHour),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter Hour';
+                                  }
+                                  return null;
+                                },
+                                keyboardType: TextInputType.name,
+                                autofocus: true,
+                                onChanged: (value) => model
+                                    .currentUser.dayDates[i].toHour = value,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.all(0.0),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: IconButton(
+                                icon: Icon(Icons.close),
+                                onPressed: () => model.removeDayDate(i),
+                              ),
+                            ),
+                          ],
+                        ),
+                      // Add new Day date
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // Day
+                          _dataField(
+                            child: TextFormField(
+                              controller: TextEditingController(
+                                  text: model.newDayDates.dayName),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter Day';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.name,
+                              autofocus: true,
+                              onChanged: (value) =>
+                                  model.newDayDates.dayName = value,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: const EdgeInsets.all(0.0),
+                              ),
+                            ),
+                          ),
+                          // From
+                          _dataField(
+                            child: TextFormField(
+                              controller: TextEditingController(
+                                  text: model.newDayDates.fromHour),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter Hour';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.name,
+                              autofocus: true,
+                              onChanged: (value) =>
+                                  model.newDayDates.fromHour = value,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: const EdgeInsets.all(0.0),
+                              ),
+                            ),
+                          ),
+                          // To
+                          _dataField(
+                            child: TextFormField(
+                              controller: TextEditingController(
+                                  text: model.newDayDates.toHour),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter Hour';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.name,
+                              autofocus: true,
+                              onChanged: (value) =>
+                                  model.newDayDates.toHour = value,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: const EdgeInsets.all(0.0),
+                              ),
+                            ),
+                          ),
+                          // add Button
+                          TextButton(
+                            style: ButtonStyle(),
+                            clipBehavior: Clip.none,
+                            onPressed: () => model.addDayDate(),
+                            child: Container(
+                              height: 40,
+                              width: 75,
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Color(0xffEA5B0C),
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(0.0, 1.0), //(x,y)
+                                    blurRadius: 6.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Add',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+          Row(
+            children: [
+              // submit Button
+              TextButton(
+                onPressed: () => model.submitEditDayDates(),
+                child: Container(
+                  height: 50,
+                  width: 200,
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Color(0xffEA5B0C),
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(0.0, 1.0), //(x,y)
+                        blurRadius: 6.0,
+                        spreadRadius: 0.0,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      (model.edittingMode.value) ? "Done" : "Edit",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // cancel Button
+              if (model.edittingDayDates.value)
+                TextButton(
+                  onPressed: () => model.cancelEditting(),
+                  child: Container(
+                    height: 50,
+                    width: 200,
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Color(0xffEA5B0C),
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0.0, 1.0), //(x,y)
+                          blurRadius: 6.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Cancel",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
 //
   @override
   Widget build(BuildContext context) {
@@ -364,7 +684,7 @@ class UpdatedProfileView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        leftSideItem('Change picture', 0, model),
+                        //leftSideItem('Change picture', 0, model),
                       ],
                     ),
                   ),
@@ -402,8 +722,6 @@ class UpdatedProfileView extends StatelessWidget {
 
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.userName,
                                           controller: TextEditingController(
                                               text: model.currentUser.userName),
                                           validator: (value) {
@@ -475,8 +793,6 @@ class UpdatedProfileView extends StatelessWidget {
 
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.password,
                                           controller: TextEditingController(
                                               text: model.currentUser.password),
                                           validator: (value) {
@@ -503,8 +819,6 @@ class UpdatedProfileView extends StatelessWidget {
 
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.age.toString(),
                                           controller: TextEditingController(
                                               text: model.currentUser.age
                                                   .toString()),
@@ -527,39 +841,9 @@ class UpdatedProfileView extends StatelessWidget {
                                         ),
                                       ),
                                       //
-
-                                      // National ID
-                                      _labelWidget('National ID'),
-                                      _dataField(
-                                        child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.nationalID,
-                                          controller: TextEditingController(
-                                              text:
-                                                  model.currentUser.nationalID),
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Please enter national id';
-                                            }
-                                            return null;
-                                          },
-                                          keyboardType: TextInputType.number,
-                                          onChanged: (value) => model
-                                              .currentUser.nationalID = value,
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            contentPadding:
-                                                const EdgeInsets.all(0.0),
-                                          ),
-                                        ),
-                                      ),
-                                      //
                                       _labelWidget('MobileNumber'),
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.mobileNumber,
                                           controller: TextEditingController(
                                               text: model
                                                   .currentUser.mobileNumber),
@@ -583,7 +867,6 @@ class UpdatedProfileView extends StatelessWidget {
                                       _labelWidget('Email'),
                                       _dataField(
                                         child: TextFormField(
-                                          //initialValue: model.currentUser.email,
                                           controller: TextEditingController(
                                               text: model.currentUser.email),
                                           validator: (value) {
@@ -606,8 +889,6 @@ class UpdatedProfileView extends StatelessWidget {
                                       _labelWidget('Address'),
                                       _dataField(
                                         child: TextFormField(
-                                          // initialValue:
-                                          //     model.currentUser.address,
                                           controller: TextEditingController(
                                               text: model.currentUser.address),
                                           validator: (value) {
@@ -629,6 +910,7 @@ class UpdatedProfileView extends StatelessWidget {
                                       ),
                                       Row(
                                         children: [
+                                          // submit Button
                                           TextButton(
                                             onPressed: () =>
                                                 model.submitEditting(),
@@ -663,39 +945,39 @@ class UpdatedProfileView extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          if (model.edittingMode.value)
-                                            TextButton(
-                                              onPressed: () =>
-                                                  model.cancelEditting(),
-                                              child: Container(
-                                                height: 50,
-                                                width: 200,
-                                                margin: EdgeInsets.all(10),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xffEA5B0C),
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.grey,
-                                                      offset: Offset(
-                                                          0.0, 1.0), //(x,y)
-                                                      blurRadius: 6.0,
-                                                      spreadRadius: 0.0,
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Cancel",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18,
-                                                    ),
+                                          // cancel Button
+                                          TextButton(
+                                            onPressed: () =>
+                                                model.cancelEditting(),
+                                            child: Container(
+                                              height: 50,
+                                              width: 200,
+                                              margin: EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffEA5B0C),
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey,
+                                                    offset: Offset(
+                                                        0.0, 1.0), //(x,y)
+                                                    blurRadius: 6.0,
+                                                    spreadRadius: 0.0,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "Cancel",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
                                                   ),
                                                 ),
                                               ),
                                             ),
+                                          ),
                                         ],
                                       ),
                                     ],
@@ -717,7 +999,7 @@ class UpdatedProfileView extends StatelessWidget {
                                         vaccinationsDiseases(model),
                                       ],
                                     )
-                                  : Text(""),
+                                  : nonPatientDayDates(model),
                         ],
                       ),
                     ),

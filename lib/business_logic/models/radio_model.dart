@@ -8,6 +8,8 @@ class RadioModel {
   String radiologistName = '';
   String radioUrl = '';
   String notes = '';
+  String radioLab = '';
+  bool isDeleted = false;
 
   RadioModel({
     this.radioID = '',
@@ -19,33 +21,39 @@ class RadioModel {
     this.radioUrl = '',
     this.notes = '',
     this.radiologistName = '',
+    this.radioLab = '',
+    this.isDeleted = false,
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      '"RadioID"': this.radioID,
-      '"RadiologistID"': this.radiologistID,
-      '"RadiologistName"': this.radioName,
-      '"PatientID"': this.patientID,
-      '"PatientName"': this.patientName,
-      '"Date"': this.date,
-      '"LabName"': this.radiologistName,
-      '"RadioURL"': this.radioUrl,
-      '"Notes"': this.notes,
-    };
+    if (this.isDeleted)
+      return {
+        "isDeleted": this.isDeleted,
+      };
+    else
+      return {
+        "reportURl":
+            "https://cdn.services.tra.gov.ae/1547ac06-74ae-4ddd-b8f4-45e98fb0aeb0682b604b-8d9e-4040-94b3-2ad5b42bd0cb04.pdf",
+        "radiologyName": this.radioName,
+        "patientId": this.patientID,
+        "radiologyURl": this.radioUrl,
+        "note": this.notes,
+      };
   }
 
   factory RadioModel.fromJson(Map<String, dynamic> json) {
     return RadioModel(
-      radioID: json["RadioID"] ?? '',
+      radioID: json["id"] ?? '',
       radiologistID: json["RadiologistID"] ?? '',
-      radioName: json["RadiologistName"] ?? '',
-      patientID: json["PatientID"] ?? '',
-      patientName: json["PatientName"] ?? '',
-      date: json["Date"] ?? '',
-      radiologistName: json["LabName"] ?? '',
-      radioUrl: json["RadioURL"] ?? '',
-      notes: json["Notes"] ?? '',
+      radiologistName: json["radiologist"]["username"] ?? '',
+      //
+      radioName: json["radiologyName"] ?? '',
+      patientID: json["patientId"] ?? '',
+      patientName: json["patient"]?["username"] ?? '',
+      date: json["updatedAt"] ?? '',
+      radioUrl: json["radiologyURl"] ?? '',
+      notes: json["note"] ?? '',
+      radioLab: json["radiologist"]?["radiologyLab"]?["name"] ?? '',
     );
   }
   void copy(RadioModel origin) {
@@ -58,5 +66,6 @@ class RadioModel {
     this.radiologistName = origin.radiologistName;
     this.radioUrl = origin.radioUrl;
     this.notes = origin.notes;
+    this.radioLab = origin.radioLab;
   }
 }

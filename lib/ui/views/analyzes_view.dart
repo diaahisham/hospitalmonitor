@@ -52,7 +52,6 @@ class AnalyzesView extends StatelessWidget {
                   children: [
                     _dataField(
                       child: TextFormField(
-                        //initialValue: '',
                         controller: TextEditingController(text: ''),
                         keyboardType: TextInputType.name,
                         onChanged: (value) => model.searchValueChange(value),
@@ -67,15 +66,6 @@ class AnalyzesView extends StatelessWidget {
                 ValueListenableBuilder(
                   valueListenable: model.analysesLength,
                   builder: (context, value, child) => Table(
-                    columnWidths: {
-                      0: FlexColumnWidth(1),
-                      1: FlexColumnWidth(1),
-                      2: FlexColumnWidth(1),
-                      3: FlexColumnWidth(2),
-                      4: FlexColumnWidth(2),
-                      5: FlexColumnWidth(1),
-                      6: FlexColumnWidth(1),
-                    },
                     border: TableBorder.all(
                       color: Colors.black,
                       width: 2.0,
@@ -95,6 +85,12 @@ class AnalyzesView extends StatelessWidget {
                             Center(
                                 child: Text(
                               "Analysis name",
+                              textScaleFactor: 1.5,
+                              style: TextStyle(color: Colors.white),
+                            )),
+                            Center(
+                                child: Text(
+                              "Lab name",
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
@@ -155,7 +151,12 @@ class AnalyzesView extends StatelessWidget {
                                       model.analysisModels[i].analysisName,
                                       textScaleFactor: 1.5)),
                               Center(
-                                  child: Text(model.analysisModels[i].date,
+                                  child: Text(model.analysisModels[i].labName,
+                                      textScaleFactor: 1.5)),
+                              Center(
+                                  child: Text(
+                                      model.analysisModels[i].date
+                                          .substring(0, 10),
                                       textScaleFactor: 1.5)),
                               if (!model.userIsAnalysit)
                                 Center(

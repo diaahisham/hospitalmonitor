@@ -9,6 +9,7 @@ class ExaminationModel {
   String disease = '';
   String description = '';
   List<String> drugs = List<String>.empty(growable: true);
+  bool isDeleted = false;
 
   ExaminationModel({
     this.examinationID = '',
@@ -21,31 +22,36 @@ class ExaminationModel {
     this.description = '',
     this.symptoms = '',
     this.drugs = const [],
+    this.isDeleted = false,
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      '"ExaminationID"': this.examinationID,
-      '"DoctorID"': this.doctorID,
-      '"DoctorName"': this.doctorName,
-      '"PatientID"': this.patientID,
-      '"PatientName"': this.patientName,
-      '"Date"': this.date,
-      '"Symptoms"': this.symptoms,
-      '"Description"': this.description,
-    };
+    if (this.isDeleted)
+      return {
+        "isDeleted": this.isDeleted,
+      };
+    else
+      return {
+        "drugs": this.drugs,
+        "patientId": this.patientID,
+        "disease": this.disease,
+        "symproms": this.symptoms,
+        "description": this.description,
+      };
   }
 
   factory ExaminationModel.fromJson(Map<String, dynamic> json) {
     return ExaminationModel(
-      examinationID: json["ExaminationID"] ?? '',
-      doctorID: json["DoctorID"] ?? '',
-      doctorName: json["DoctorName"] ?? '',
-      patientID: json["PatientID"] ?? '',
-      patientName: json["PatientName"] ?? '',
-      date: json["Date"] ?? '',
-      symptoms: json["Symptoms"] ?? '',
-      description: json["Description"] ?? '',
+      examinationID: json["id"] ?? '',
+      doctorID: json["doctorId"] ?? '',
+      doctorName: json["doctor"]["username"] ?? '',
+      patientID: json["patientId"] ?? '',
+      patientName: json["patient"]["username"] ?? '',
+      date: json["updatedAt"] ?? '',
+      symptoms: json["symproms"] ?? '',
+      description: json["description"] ?? '',
+      disease: json["disease"] ?? "",
+      drugs: List<String>.from(json["drugs"] ?? [], growable: true),
     );
   }
 

@@ -6,6 +6,7 @@ import 'package:hospitalmonitor/services/current_session_service/current_session
 import 'package:hospitalmonitor/services/dialoge_service/dialoge_service.dart';
 import 'package:hospitalmonitor/services/examination_control_service/examination_control_service.dart';
 import 'package:hospitalmonitor/services/navigation/navigation_service.dart';
+import 'package:hospitalmonitor/services/patient_control_service/patient_control_service.dart';
 import 'package:hospitalmonitor/services/service_locator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:hospitalmonitor/business_logic/utils/route_paths.dart'
@@ -26,6 +27,7 @@ class ExaminationViewModel {
   ExaminationViewModel() {
     userIsDoctor = (serviceLocator<CurrentSessionService>().loggedUser.type ==
         UserType.doctor);
+    examsLength.value = examModels.length;
   }
 
   String searchValue = '';
@@ -55,15 +57,25 @@ class ExaminationViewModel {
   }
 
   Future<void> deleteExam(ExaminationModel examModel) async {
-    examModels.removeWhere(
-        (element) => element.examinationID == examModel.examinationID);
-    examsLength.value = examModels.length;
-    sortExams();
+    try {
+      examModel.isDeleted = true;
+      serviceLocator<ExaminationControlService>().currentEdittingExam =
+          examModel;
+      await serviceLocator<ExaminationControlService>().addEditExamination();
+      examsLength.value = examModels.length;
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
+    }
   }
 
   void addExam() {
+    UserModel currentpatient =
+        serviceLocator<PatientControlService>().currentPatient;
     serviceLocator<ExaminationControlService>().currentEdittingExam =
-        ExaminationModel();
+        ExaminationModel(
+      patientID: currentpatient.userID,
+      patientName: currentpatient.userName,
+    );
     serviceLocator<NavigationService>().navigateTo(routes.AddEditExamRoute);
     sortExams();
   }

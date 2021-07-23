@@ -12,7 +12,6 @@ import 'package:hospitalmonitor/services/service_locator.dart';
 class AddEditExamViewModel {
   DialogeService dialogeService = DialogeService();
   ExaminationModel currentEdittingExamination = ExaminationModel();
-  // serviceLocator<ExaminationControlService>().currentEdittingExam;
 
   List<ExaminationModel> get examModels =>
       serviceLocator<ExaminationControlService>().examModels;
@@ -26,10 +25,14 @@ class AddEditExamViewModel {
   }
 
   Future<void> submit() async {
-    serviceLocator<ExaminationControlService>().currentEdittingExam =
-        currentEdittingExamination;
-    await serviceLocator<ExaminationControlService>().addEditExamination();
-    _navigate();
+    try {
+      serviceLocator<ExaminationControlService>().currentEdittingExam =
+          currentEdittingExamination;
+      await serviceLocator<ExaminationControlService>().addEditExamination();
+      _navigate();
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
+    }
   }
 
   String newDrug = "";
@@ -44,22 +47,20 @@ class AddEditExamViewModel {
     drugLength.value = currentEdittingExamination.drugs.length;
   }
 
-  Future<void> deleteExam() async {
-    examModels.removeWhere((element) =>
-        element.examinationID == currentEdittingExamination.examinationID);
-    _navigate();
-  }
-
   void cancel() {
     _navigate();
   }
 
   Future<void> choosePatient() async {
-    UserModel choosedPatient = await dialogeService.choosePatientDialoge();
-    if (choosedPatient.userID != '') {
-      currentEdittingExamination.patientID = choosedPatient.userID;
-      currentEdittingExamination.patientName = choosedPatient.userName;
-      patientName.value = choosedPatient.userName;
+    try {
+      UserModel choosedPatient = await dialogeService.choosePatientDialoge();
+      if (choosedPatient.userID != '') {
+        currentEdittingExamination.patientID = choosedPatient.userID;
+        currentEdittingExamination.patientName = choosedPatient.userName;
+        patientName.value = choosedPatient.userName;
+      }
+    } catch (e) {
+      dialogeService.showErrorDialoge("$e");
     }
   }
 

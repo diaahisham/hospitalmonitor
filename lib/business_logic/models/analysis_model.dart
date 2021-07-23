@@ -7,7 +7,9 @@ class AnalysisModel {
   String date = '';
   String analystName = '';
   String analysisUrl = '';
+  String labName = '';
   String notes = '';
+  bool isDeleted = false;
 
   AnalysisModel({
     this.analysisID = '',
@@ -19,33 +21,37 @@ class AnalysisModel {
     this.analysisUrl = '',
     this.notes = '',
     this.analystName = '',
+    this.labName = '',
+    this.isDeleted = false,
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      '"AnalysisID"': this.analysisID,
-      '"AnalystID"': this.analystID,
-      '"AnalystName"': this.analysisName,
-      '"PatientID"': this.patientID,
-      '"PatientName"': this.patientName,
-      '"Date"': this.date,
-      '"LabName"': this.analystName,
-      '"AnalysisURL"': this.analysisUrl,
-      '"Notes"': this.notes,
-    };
+    if (this.isDeleted)
+      return {
+        "isDeleted": this.isDeleted,
+      };
+    else
+      return {
+        "analysisName": this.analysisName,
+        "patientId": this.patientID,
+        "documentURl": this.analysisUrl,
+        "note": this.notes,
+      };
   }
 
   factory AnalysisModel.fromJson(Map<String, dynamic> json) {
     return AnalysisModel(
-      analysisID: json["AnalysisID"] ?? '',
-      analystID: json["AnalystID"] ?? '',
-      analysisName: json["AnalystName"] ?? '',
-      patientID: json["PatientID"] ?? '',
-      patientName: json["PatientName"] ?? '',
-      date: json["Date"] ?? '',
-      analystName: json["LabName"] ?? '',
-      analysisUrl: json["AnalysisURL"] ?? '',
-      notes: json["Notes"] ?? '',
+      analysisID: json["id"] ?? '',
+      analystID: json["analystId"] ?? '',
+      analystName: json["analyst"]["username"] ?? '',
+      //
+      analysisName: json["analysisName"] ?? '',
+      patientID: json["patientId"] ?? '',
+      patientName: json["patient"]["name"] ?? '',
+      date: json["updatedAt"] ?? '',
+      analysisUrl: json["documentURl"] ?? '',
+      labName: json["analyst"]?["analysisLab"]?["name"] ?? '',
+      notes: json["note"] ?? '',
     );
   }
   void copy(AnalysisModel origin) {
@@ -58,5 +64,6 @@ class AnalysisModel {
     this.analystName = origin.analystName;
     this.analysisUrl = origin.analysisUrl;
     this.notes = origin.notes;
+    this.labName = origin.labName;
   }
 }

@@ -52,7 +52,6 @@ class ExaminationView extends StatelessWidget {
                   children: [
                     _dataField(
                       child: TextFormField(
-                        //initialValue: '',
                         controller: TextEditingController(text: ''),
                         keyboardType: TextInputType.name,
                         onChanged: (value) => model.searchValueChange(value),
@@ -68,15 +67,6 @@ class ExaminationView extends StatelessWidget {
                 ValueListenableBuilder(
                   valueListenable: model.examsLength,
                   builder: (context, value, child) => Table(
-                    // columnWidths: {
-                    //   0: FlexColumnWidth(1.5),
-                    //   1: FlexColumnWidth(1),
-                    //   2: FlexColumnWidth(2),
-                    //   3: FlexColumnWidth(2),
-                    //   4: FlexColumnWidth(1),
-                    //   5: FlexColumnWidth(1),
-                    //   6: FlexColumnWidth(1),
-                    // },
                     border: TableBorder.all(
                       color: Colors.black,
                       width: 2.0,
@@ -98,18 +88,6 @@ class ExaminationView extends StatelessWidget {
                               textScaleFactor: 1.5,
                               style: TextStyle(color: Colors.white),
                             )),
-                            // Center(
-                            //     child: Text(
-                            //   "Symptoms",
-                            //   textScaleFactor: 1.5,
-                            //   style: TextStyle(color: Colors.white),
-                            // )),
-                            // Center(
-                            //     child: Text(
-                            //   "Description",
-                            //   textScaleFactor: 1.5,
-                            //   style: TextStyle(color: Colors.white),
-                            // )),
                             Center(
                                 child: Text(
                               "Disease",
@@ -148,14 +126,9 @@ class ExaminationView extends StatelessWidget {
                                   child: Text(model.examModels[i].doctorName,
                                       textScaleFactor: 1.5)),
                               Center(
-                                  child: Text(model.examModels[i].date,
+                                  child: Text(
+                                      model.examModels[i].date.substring(0, 10),
                                       textScaleFactor: 1.5)),
-                              // Center(
-                              //     child: Text(model.examModels[i].symptoms,
-                              //         textScaleFactor: 1.5)),
-                              // Center(
-                              //     child: Text(model.examModels[i].description,
-                              //         textScaleFactor: 1.5)),
                               Center(
                                   child: Text(model.examModels[i].disease,
                                       textScaleFactor: 1.5)),

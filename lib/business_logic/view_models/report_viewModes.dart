@@ -83,9 +83,9 @@ class ReportViewModel {
     senstivitiesLength.value = reportModel.sensitivities.length;
   }
 
-  void addvaccination(String disease) {
-    if (disease != '') {
-      reportModel.vaccinations.add(disease);
+  void addvaccination(String vaccination) {
+    if (vaccination != '') {
+      reportModel.vaccinations.add(vaccination);
       vaccinationsLength.value = reportModel.vaccinations.length;
     }
   }
@@ -154,13 +154,17 @@ class ReportViewModel {
   ValueNotifier<bool> edittingMode = ValueNotifier<bool>(false);
 
   Future<void> submitEditting() async {
-    if (edittingMode.value) {
-      serviceLocator<ReportControlService>().currentEdittingReport =
-          reportModel;
-      await serviceLocator<ReportControlService>().addEditReport();
-      edittingMode.value = false;
-    } else {
-      edittingMode.value = true;
+    try {
+      if (edittingMode.value) {
+        serviceLocator<ReportControlService>().currentEdittingReport =
+            reportModel;
+        await serviceLocator<ReportControlService>().editReport();
+        edittingMode.value = false;
+      } else {
+        edittingMode.value = true;
+      }
+    } catch (e) {
+      dialogeService.showErrorDialoge("Error in updating: $e");
     }
   }
 

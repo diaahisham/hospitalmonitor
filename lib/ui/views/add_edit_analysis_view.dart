@@ -27,7 +27,6 @@ class AddEditAnalysisView extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        //initialValue: initialValue,
         controller: TextEditingController(text: initialValue),
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -47,135 +46,199 @@ class AddEditAnalysisView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Provider<AddEditAnalysisViewModel>(
       create: (context) => AddEditAnalysisViewModel(),
       child: Consumer<AddEditAnalysisViewModel>(
         builder: (context, model, child) => Scaffold(
           appBar: UserAppbar('Analysis Form'),
           backgroundColor: Colors.blue[100],
-          body: Center(
-            child: ListView(
+          body: Container(
+            width: screenWidth,
+            height: screenHeight,
+            child: Stack(
               children: [
-                Form(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                Center(
+                  child: ListView(
                     children: [
-                      // patient
-                      ValueListenableBuilder(
-                        valueListenable: model.patientName,
-                        builder: (context, value, child) => TextButton(
-                          onPressed: () => model.choosePatient(),
-                          child: Container(
-                            height: 50,
-                            margin: EdgeInsets.all(10),
-                            width: 300,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(0.0, 1.0), //(x,y)
-                                  blurRadius: 6.0,
-                                  spreadRadius: 0.0,
+                      Form(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            // patient
+                            ValueListenableBuilder(
+                              valueListenable: model.patientName,
+                              builder: (context, value, child) => TextButton(
+                                onPressed: () => model.choosePatient(),
+                                child: Container(
+                                  height: 50,
+                                  margin: EdgeInsets.all(10),
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey,
+                                        offset: Offset(0.0, 1.0), //(x,y)
+                                        blurRadius: 6.0,
+                                        spreadRadius: 0.0,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Text((model.currentEdittingAnalysis
+                                                .patientName ==
+                                            '')
+                                        ? 'Choose patient'
+                                        : model.currentEdittingAnalysis
+                                            .patientName),
+                                  ),
                                 ),
-                              ],
+                              ),
                             ),
-                            child: Center(
-                              child: Text((model.currentEdittingAnalysis
-                                          .patientName ==
-                                      '')
-                                  ? 'Choose patient'
-                                  : model.currentEdittingAnalysis.patientName),
+                            _formWidget(
+                              initialValue:
+                                  model.currentEdittingAnalysis.analysisName,
+                              validatorText: 'Please enter analysis name',
+                              labelText: 'analysis name: ',
+                              onChanged: (value) => model
+                                  .currentEdittingAnalysis.analysisName = value,
+                            ),
+                            _formWidget(
+                              initialValue: model.currentEdittingAnalysis.notes,
+                              validatorText: 'Please enter notes',
+                              labelText: 'Notes: ',
+                              onChanged: (value) =>
+                                  model.currentEdittingAnalysis.notes = value,
+                            ),
+                            ValueListenableBuilder(
+                              valueListenable: model.analysisUrlName,
+                              builder: (context, value, child) => _formWidget(
+                                initialValue:
+                                    model.currentEdittingAnalysis.analysisUrl,
+                                validatorText: 'Please enter url',
+                                labelText: 'Radio url: ',
+                                onChanged: (value) => model
+                                    .currentEdittingAnalysis
+                                    .analysisUrl = value,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Upload file Button
+                      TextButton(
+                        onPressed: () => model.pickFile(),
+                        child: Container(
+                          height: 50,
+                          width: 300,
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Color(0xffEA5B0C),
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0.0, 1.0), //(x,y)
+                                blurRadius: 6.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Upload file",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      _formWidget(
-                        initialValue:
-                            model.currentEdittingAnalysis.analysisName,
-                        validatorText: 'Please enter analysis name',
-                        labelText: 'analysis name: ',
-                        onChanged: (value) =>
-                            model.currentEdittingAnalysis.analysisName = value,
+
+                      // Submit Button
+                      TextButton(
+                        onPressed: () => model.submit(),
+                        child: Container(
+                          height: 50,
+                          width: 300,
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Color(0xffEA5B0C),
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0.0, 1.0), //(x,y)
+                                blurRadius: 6.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Submit",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      _formWidget(
-                        initialValue: model.currentEdittingAnalysis.notes,
-                        validatorText: 'Please enter notes',
-                        labelText: 'Notes: ',
-                        onChanged: (value) =>
-                            model.currentEdittingAnalysis.notes = value,
-                      ),
-                      _formWidget(
-                        initialValue: model.currentEdittingAnalysis.analysisUrl,
-                        validatorText: 'Please enter url',
-                        labelText: 'Radio url: ',
-                        onChanged: (value) =>
-                            model.currentEdittingAnalysis.analysisUrl = value,
+                      //cancel button
+                      TextButton(
+                        onPressed: () => model.cancel(),
+                        child: Container(
+                          height: 50,
+                          width: 300,
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Color(0xffEA5B0C),
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0.0, 1.0), //(x,y)
+                                blurRadius: 6.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                // Submit Button
-                TextButton(
-                  onPressed: () => model.submit(),
-                  child: Container(
-                    height: 50,
-                    width: 300,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xffEA5B0C),
-                      borderRadius: BorderRadius.circular(50),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 6.0,
-                          spreadRadius: 0.0,
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                //cancel button
-                TextButton(
-                  onPressed: () => model.cancel(),
-                  child: Container(
-                    height: 50,
-                    width: 300,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xffEA5B0C),
-                      borderRadius: BorderRadius.circular(50),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 6.0,
-                          spreadRadius: 0.0,
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Cancel",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
+                ValueListenableBuilder(
+                  valueListenable: model.loading,
+                  builder: (context, value, child) => (model.loading.value)
+                      ? Container(
+                          width: screenWidth,
+                          height: screenHeight,
+                          color: Colors.white70,
+                          child: Center(
+                            child: Text(
+                              "Loading...",
+                              style:
+                                  TextStyle(color: Colors.blue, fontSize: 35),
+                            ),
+                          ),
+                        )
+                      : Text(""),
                 ),
               ],
             ),
